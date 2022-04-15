@@ -1,2 +1,2 @@
-# Grupo13-LYC-2c-2022-
+# Grupo13-LYC-2c-2022
 LYC-2c-2022-Grupo13
