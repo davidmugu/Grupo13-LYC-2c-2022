@@ -1,0 +1,48 @@
+DECVAR
+var3 ;var9 : REAL
+var4;var6;var7 : INT
+a;b;c;e;f;d;z : INT
+ENDDEC
+
+-/OPERACIONES ARITMETICAS/-
+write "Ingrese Variable b:";
+read b;
+a:10;
+z: a+3*2-8/(2+2)+b;
+write z;
+
+f : (8 DIV 2) * 4;
+write f;
+
+d : (5 MOD 2) * 4;
+write d;
+
+var9 : 0.99 + 2.58 * 49.;
+write var9;
+
+write "fin operaciones";
+
+if(a == 8 OR b > 5)
+{   
+    write "Ciclo while";
+    while(a > 0 AND b > 0)
+    {
+        a : a - 2;
+        b : b - 2;
+        write a;
+    }
+    write "fin Ciclo while";
+}
+
+-/DESICIONES CICLOS TEMAS ESPECIALES ANIDAMIENTOS/-
+write "If negado";
+write "Ingrese Variable e:";
+read e;
+if(NOT e > 5)
+{
+    write "e es mayor a 5";
+}
+else
+{
+    write "e no es mayor a 5";
+}

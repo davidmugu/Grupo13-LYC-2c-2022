@@ -146,7 +146,36 @@ OP_MAY_IGU          {OP_MAYOR}{OP_ASIG}
 
 %%
 
+int main(int argc,char *argv[])
+{ 
+  crearPila(&pilaExpresion);
+  crearPila(&pilaOperadoresCond);
+  crearPila(&pilaTermino);
+  crearPila(&pilaFactor);
+  crearPila(&pilaPrograma);
+  crearPila(&pilaCondicion);
 
+  cuentaRegs=0;
+  if ((yyin = fopen(argv[1], "rt")) == NULL)
+  {
+	  printf("\nNo se puede abrir el archivo: %s\n", argv[1]);
+    return 1;
+  }
+  if((tab = fopen("ts.txt", "wt")) == NULL)
+      {
+        printf("\nNo se puedo crear el archivo tabla_de_simbolos.bin\n");
+      return 1;
+      }
+  yyparse();
+  vaciarPila(&pilaExpresion);
+  vaciarPila(&pilaOperadoresCond);
+  vaciarPila(&pilaTermino);
+  vaciarPila(&pilaFactor);
+  vaciarPila(&pilaPrograma);
+  vaciarPila(&pilaCondicion);
+  fclose(yyin);
+  return 0;
+}
 void displayError(char* msg)
 {
     printf("%s - linea del archivo analizado: %d\n", msg, yylineno); 
