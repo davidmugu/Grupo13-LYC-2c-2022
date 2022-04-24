@@ -1,61 +1,80 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define SUCCESS 1
-#define NO_MEMORY 0
+#define OK 0
+#define ERROR -1
+#define PILA_LLENA 1
+#define PILA_VACIA 2
 
-typedef struct sNodeS
+typedef struct sNodo
 {
-    struct sNodeS* ant;
-    char info[200];
-    int number;
-}tNodeS;
+    struct sNodo* sig;
+    char datos[200];
+}nodo;
 
-typedef tNodeS* tStack;
+typedef nodo* Pila;
 
+void crearPila(Pila* p);
+int apilar(Pila* p,char* d);
+int desapilar(Pila* p,char* d);
+int pilaLlena(Pila* p);
+int pilaVacia(Pila* p);
+int topePila(Pila* p, char* d);
+void vaciarPila(Pila* p);
 
-void createStack(tStack*p);
-int pushStack(tStack*p,char*d);
-int popStack(tStack* p,char* d);
-int emptyStack(tStack* p);
-
-void createStack(tStack* p)
-{
-    *p=NULL;
+void crearPila(Pila* p) {
+    *p = NULL;
 }
 
-int pushStack(tStack* p,char* d)
-{
+int apilar(Pila* p,char* d) {
+    nodo* nuevoNodo=(nodo*)malloc(sizeof(nodo));
+    if(!nuevoNodo)
+        return PILA_LLENA;
 
-    tNodeS* newNode=(tNodeS*)malloc(sizeof(tNodeS));
+    strcpy(nuevoNodo->datos,d);
+    nuevoNodo->sig = *p;
+    *p = nuevoNodo;
 
-    if(!newNode)
-        return NO_MEMORY;
-
-    strcpy(newNode->info,d);
-
-    newNode->ant=*p;
-    *p=newNode;
-
-    return SUCCESS;
+    return OK;
 }
 
-
-int popStack(tStack* p,char* d)
-{
-    tNodeS* oldNode;
+int desapilar(Pila* p,char* d) {
+    nodo* nodoAEliminar;
     if(!*p)
-        return NO_MEMORY;
-    oldNode=(tNodeS*)malloc(sizeof(tNodeS));
-    oldNode=*p;
-    strcpy(d,oldNode->info);
-    *p=oldNode->ant;
-    free(oldNode);
-    return SUCCESS;
+        return PILA_VACIA;
+
+    nodoAEliminar = (nodo*)malloc(sizeof(nodo));
+    nodoAEliminar = *p;
+    strcpy(d,nodoAEliminar->datos);
+    *p = nodoAEliminar->sig;
+    free(nodoAEliminar);
+    return OK;
 }
 
+int pilaLlena(Pila* p) {
+    void* nodo = malloc(sizeof(nodo));
+    free(nodo);
 
-int emptyStack(tStack* p)
-{
-    return !*p;
+    return nodo == NULL;
+}
+
+int pilaVacia(Pila* p) {
+    return *p == NULL;
+}
+
+int topePila(Pila* p ,char* d) {
+    if(!*p)
+        return PILA_VACIA;
+    strcpy(d,*p->datos);
+    return OK;
+}
+
+void vaciarPila(Pila* p) {
+    nodo* nodo;
+    while(*p)
+    {
+        nodo = *p;
+        *p = nodo->sig;
+        free(nodo);
+    }
 }

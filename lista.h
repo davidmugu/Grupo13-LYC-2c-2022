@@ -2,124 +2,112 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SUCCESS 1
-#define DUPLICATE 2
-#define NO_MEMORY 0
+#define OK 0
+#define ERROR -1
+#define DUPLICADO 1
 
-typedef struct sNode
+typedef struct sNodo
 {
-    char name[50];
-    char dataType[50];
-    char value[50];
-    int  length;
-    struct sNode* next;
-}tNode;
+    char nombre[50];
+    char tipoDato[50];
+    char valor[50];
+    int  longitud;
+    struct sNodo* sig;
+}nodo;
 
-typedef tNode* tList;
+typedef nodo* Lista;
 
-void createList(tList *p);
-int insertOrder(tList *p, char* name, char* dataType, char* value, int length);
-int insertVariable(tList *p, char* name, char* dataType); 
-int insertString(tList *p, char* name);
-int insertNumber(tList *p, char* lex);
-void deleteTable(tList *p);
-char* deleteCharacter(char* lex);
+void crearLista(Lista *l);
+int insertarEnOrden(Lista *l, char* nombre, char* tipoDato, char* valor, int longitud);
+int insertarEntero(Lista *l, char* lex);
+int insertarReal(Lista *l, char* lex) 
+int insertarString(Lista *l, char* nombre);
+int insertarVariable(Lista *l, char* nombre, char* tipoDato); 
+void eliminarTabla(Lista *l);
+char* eliminarCaracter(char* lex);
 
-void createList(tList *p)
-{
-    *p = NULL;
+void crearLista(Lista *l) {
+    *l = NULL;
 }
 
-int insertOrder(tList *p, char* name, char* dataType, char* value, int length)
-{
-    int result = -1;
-    tNode* nue = (tNode*)malloc(sizeof(tNode));
+int insertarEnOrden(Lista *l, char* nombre, char* tipoDato, char* valor, int longitud) {
+    int res = -1;
+    nodo* nuevoNodo = (nodo*)malloc(sizeof(nodo));
     
-    if(!nue)
-        return NO_MEMORY;
+    if(!nuevoNodo)
+        return ERROR;
 
-    while(*p && ((result = (strcmp((*p)->name, name))) < 0))
-        p = &(*p)->next;
+    while(*l && ((res = (strcmp((*l)->nombre, nombre))) < 0))
+        l = &(*l)->sig;
 
-    if(result == 0)
-        return DUPLICATE;
-    strcpy(nue->name, name);
-    strcpy(nue->dataType, dataType);
-    strcpy(nue->value, value);
+    if(res == 0)
+        return DUPLICADO;
+    strcpy(nuevoNodo->nombre, nombre);
+    strcpy(nuevoNodo->tipoDato, tipoDato);
+    strcpy(nuevoNodo->valor, valor);
     
-    nue->length = length;
+    nuevoNodo->longitud = longitud;
+    nuevoNodo->sig = *l;
+    *l = nuevoNodo;
 
-    nue->next = *p;
-
-    *p = nue;
-
-    return SUCCESS;
+    return OK;
 }
 
-int insertNumber(tList *p, char* lex) 
-{
-    int result = -1;
-    char name[100];
+int insertarEntero(Lista *l, char* lex) {
+    int res = -1;
+    char nombre[100];
 
-    strcpy(name, "_");
-    strcat(name, lex); 
+    strcpy(nombre, "_");
+    strcat(nombre, lex); 
 
-    result = insertOrder(p, name, "CONST_INTEGER", lex, 0);
+    res = insertarEnOrden(l, nombre, "CONST_INT", lex, 0);
 
-    if(result == DUPLICATE){
+    if(res == DUPLICADO){
         printf("La constante numerica %s ya se ingreso en la tabla de simbolos\n",lex);
-        return DUPLICATE;
+        return DUPLICADO;
     }
-
-    return SUCCESS;
+    return OK;
 }
 
-int insertFloat(tList *p, char* lex) 
-{
-    int result = -1;
-    char name[100];
+int insertarReal(Lista *l, char* lex) {
+    int res = -1;
+    char nombre[100];
 
-    strcpy(name, "_");
-    strcat(name, lex); 
+    strcpy(nombre, "_");
+    strcat(nombre, lex); 
 
-    result = insertOrder(p, name, "CONST_FLOAT", lex, 0);
+    res = insertarEnOrden(l, nombre, "CONST_REAL", lex, 0);
 
-    if(result == DUPLICATE){
-        printf("La constante numerica %s ya se ingreso en la tabla de simbolos\n",lex);
-        return DUPLICATE;
+    if(res == DUPLICADO){
+        printf("La constante real %s ya se ingreso en la tabla de simbolos\n",lex);
+        return DUPLICADO;
     }
-
-    return SUCCESS;
+    return OK;
 }
 
-int insertString(tList *p, char* lex)
-{
-    int result = -1;
-    char name[100];
+int insertarString(Lista *l, char* lex) {
+    int res = -1;
+    char nombre[100];
 
-    char* newName = deleteCharacter(lex);
+    char* nuevoNombre = eliminarCaracter(lex);
 
-    strcpy(name, "_");
-    strcat(name, newName);
+    strcpy(nombre, "_");
+    strcat(nombre, nuevoNombre);
 
-    result = insertOrder(p, name, "CONST_STRING", newName, strlen(newName));
+    res = insertarEnOrden(l, nombre, "CONST_STRING", nuevoNombre, strlen(nuevoNombre));
 
-    if(result == DUPLICATE){
+    if(res == DUPLICADO){
         printf("La constante string %s ya se ingreso en la tabla de simbolos\n",lex);
-        return DUPLICATE;
+        return DUPLICADO;
     }
-
-    return SUCCESS;
+    return OK;
 }
 
-char* deleteCharacter(char* lex)
-{
+char* eliminarCaracter(char* lex) {
     char* cad = lex;
     char* cadIni = cad;
-    while(*lex)
-    {
-        if(*lex != '"')
-        {
+    while(*lex) {
+        if(*lex != '"') {
             (*cad) = (*lex);
             cad++;
         }
@@ -129,26 +117,23 @@ char* deleteCharacter(char* lex)
     return cadIni;
 }
 
-int insertVariable(tList *p, char* lex, char* dataType)
-{
-    int result = -1;
+int insertarVariable(Lista *l, char* lex, char* tipoDato) {
+    int res = -1;
 
-    result = insertOrder(p, lex, dataType, " ", 0);
-    if(result == DUPLICATE){
+    res = insertarEnOrden(p, lex, tipoDato, " ", 0);
+    if(res == DUPLICADO){
         printf("La variable %s ya se ingreso en la tabla de simbolos\n",lex);
-        return DUPLICATE;
+        return DUPLICADO;
     }
-
-    return SUCCESS;
+    return OK;
 }
 
-void deleteTable(tList *p)
-{
-    FILE *pTable = fopen("ts.txt", "wt");
+void eliminarTabla(Lista *l) {
+    FILE *Tabla = fopen("ts.txt", "wt");
     
-    if(!pTable) {
+    if(!Tabla) {
         printf("No se pudo abrir el archivo ts.txt \n");
-        return;
+        return ERROR;
     }
 
     printf("\n                           TABLA DE SIMBOLOS                              \n");
@@ -157,19 +142,19 @@ void deleteTable(tList *p)
     printf("|%-25s|%-16s|%-30s|%-10s|\n", "NOMBRE", "TIPO DE DATO", "VALOR", "LONGITUD");
     printf("+------------------------------------------------------------------------------------+\n");
 
-    fprintf(pTable,"\n                           TABLA DE SIMBOLOS                           \n");
-    fprintf(pTable, "+------------------------------------------------------------------------------------+\n");
-    fprintf(pTable, "|%-25s|%-16s|%-30s|%-10s|\n", "NOMBRE", "TIPO DE DATO", "VALOR", "LONGITUD");
-    fprintf(pTable, "+------------------------------------------------------------------------------------+\n");
+    fprintf(Tabla,"\n                           TABLA DE SIMBOLOS                           \n");
+    fprintf(Tabla, "+------------------------------------------------------------------------------------+\n");
+    fprintf(Tabla, "|%-25s|%-16s|%-30s|%-10s|\n", "NOMBRE", "TIPO DE DATO", "VALOR", "LONGITUD");
+    fprintf(Tabla, "+------------------------------------------------------------------------------------+\n");
 
-    while(*p)
+    while(*l)
     {
-        printf("|%-25s|%-16s|%-30s|%-10d|\n", (*p)->name, (*p)->dataType, (*p)->value, (*p)->length);
-        fprintf(pTable, "|%-25s|%-16s|%-30s|%-10d|\n", (*p)->name, (*p)->dataType, (*p)->value, (*p)->length);
-        p = &(*p)->next;
+        printf("|%-25s|%-16s|%-30s|%-10d|\n", (*l)->nombre, (*l)->tipoDato, (*l)->valor, (*l)->longitud);
+        fprintf(Tabla, "|%-25s|%-16s|%-30s|%-10d|\n", (*l)->nombre, (*l)->tipoDato, (*l)->valor, (*l)->longitud);
+        l = &(*l)->sig;
     }
 
     printf("+------------------------------------------------------------------------------------+\n");
-    fprintf(pTable, "+------------------------------------------------------------------------------------+\n");
-    fclose(pTable);
+    fprintf(Tabla, "+------------------------------------------------------------------------------------+\n");
+    fclose(Tabla);
 }
