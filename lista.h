@@ -20,7 +20,7 @@ typedef nodo* Lista;
 void crearLista(Lista *l);
 int insertarEnOrden(Lista *l, char* nombre, char* tipoDato, char* valor, int longitud);
 int insertarEntero(Lista *l, char* lex);
-int insertarReal(Lista *l, char* lex) 
+int insertarReal(Lista *l, char* lex);
 int insertarString(Lista *l, char* nombre);
 int insertarVariable(Lista *l, char* nombre, char* tipoDato); 
 void eliminarTabla(Lista *l);
@@ -96,7 +96,7 @@ int insertarString(Lista *l, char* lex) {
 
     res = insertarEnOrden(l, nombre, "CONST_STRING", nuevoNombre, strlen(nuevoNombre));
 
-    if(res == DUPLICADO){
+    if(res == DUPLICADO) {
         printf("La constante string %s ya se ingreso en la tabla de simbolos\n",lex);
         return DUPLICADO;
     }

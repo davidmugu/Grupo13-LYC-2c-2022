@@ -71,8 +71,7 @@ int topePila(Pila* p ,char* d) {
 
 void vaciarPila(Pila* p) {
     nodo* nodo;
-    while(*p)
-    {
+    while(*p) {
         nodo = *p;
         *p = nodo->sig;
         free(nodo);
