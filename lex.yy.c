@@ -520,9 +520,9 @@ goto find_rule; \
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 1 "Lexico.l"
 #define INITIAL 0
-#line 2 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 2 "Lexico.l"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -688,7 +688,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 72 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 72 "Lexico.l"
 
 
 #line 695 "lex.yy.c"
@@ -784,282 +784,276 @@ do_action:	/* This label is used only to access EOF actions. */
 	{ /* beginning of action switch */
 case 1:
 YY_RULE_SETUP
-#line 74 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 74 "Lexico.l"
 {;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 75 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 75 "Lexico.l"
 {;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 76 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 76 "Lexico.l"
 {;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 77 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_OR %s\n",yytext);}
+#line 77 "Lexico.l"
+{return OP_OR;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 78 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_AND %s\n",yytext);}
+#line 78 "Lexico.l"
+{return OP_AND;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 79 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_NOT %s\n",yytext);}
+#line 79 "Lexico.l"
+{return OP_NOT;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 80 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 80 "Lexico.l"
 {;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 81 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"\n",yytext);}
+#line 81 "Lexico.l"
+{;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 82 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"TIPO_DATO %s\n",yytext);}
+#line 82 "Lexico.l"
+{return TIPO_DATO;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 83 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"PAL_RESERVADA %s\n",yytext);}
+#line 83 "Lexico.l"
+{return PAL_RESERVADA;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 84 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 84 "Lexico.l"
 {
                             //  yylval.strVal = strdup(yytext);
-                                fprintf(ptTxt,"VARIABLE %s\n",yytext);
+                                {return VARIABLE;}
                             }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 88 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"COMA %s\n",yytext);}
+#line 88 "Lexico.l"
+{return COMA;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 89 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"PUNTO_COMA %s\n",yytext);}
+#line 89 "Lexico.l"
+{return PUNTO_COMA;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 90 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 90 "Lexico.l"
 {
                                 float value = atof(strdup(yytext));
                                 if ( value > MAX_FLOAT_32 ) {
-                                    fprintf(ptTxt,"Numero real supera los 32 bits: %s\n",yytext);
                                     displayError("Numero real supera los 32 bits");
                                 } else {
                                 //  yylval.strVal = strdup(yytext);
-                                    fprintf(ptTxt,"CONST_REAL %s\n",yytext);
+                                    {return CONST_REAL;}
                                 }
                             }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 100 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 99 "Lexico.l"
 {
                                 int value = atoi(strdup(yytext));
                                 if( value > MAX_INT_16 ) {
-                                    fprintf(ptTxt,"Entero supera los 16 bits: %s\n",yytext);
                                     displayError("Entero supera los 16 bits");
                                 } else {
                                 //    yylval.strVal = strdup(yytext);
-                                    fprintf(ptTxt,"CONST_INT %s\n",yytext);
+                                    {return CONST_INT;}
                                 }
                             }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 110 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 108 "Lexico.l"
 {
                                 if(strlen(yytext) > MAX_CHARACTERS) {
-                                    fprintf(ptTxt,"Constante String supera el maximo de caracteres permitido: %s\n",yytext);
                                     displayError("Constante String supera el maximo de caracteres permitido");
                                 } else {
                                 //    yylval.strVal = strdup(yytext);
-                                    fprintf(ptTxt,"CONST_STRING %s\n",yytext);
+                                    {return CONST_STRING;}
                                 }
                             }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 119 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"INT %s\n",yytext);}
+#line 116 "Lexico.l"
+{return INT;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 120 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"REAL %s\n",yytext);}
+#line 117 "Lexico.l"
+{return REAL;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 121 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"STRING %s\n",yytext);}
+#line 118 "Lexico.l"
+{return STRING;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 122 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"WHILE %s\n",yytext);}
+#line 119 "Lexico.l"
+{return WHILE;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 123 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"ENDWHILE %s\n",yytext);}
+#line 120 "Lexico.l"
+{return ENDWHILE;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 124 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"IF %s\n",yytext);}
+#line 121 "Lexico.l"
+{return IF;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 125 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"ELSE %s\n",yytext);}
+#line 122 "Lexico.l"
+{return ELSE;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 126 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"ENDIF %s\n",yytext);}
+#line 123 "Lexico.l"
+{return ENDIF;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 127 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"WRITE %s\n",yytext);}
+#line 124 "Lexico.l"
+{return WRITE;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 128 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"READ %s\n",yytext);}
+#line 125 "Lexico.l"
+{return READ;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 129 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"BETWEEN %s\n",yytext);}
+#line 126 "Lexico.l"
+{return BETWEEN;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 130 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"TAKE %s\n",yytext);}
+#line 127 "Lexico.l"
+{return TAKE;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 131 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"DECVAR %s\n",yytext);}
+#line 128 "Lexico.l"
+{return DECVAR;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 132 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"ENDDEC %s\n",yytext);}
+#line 129 "Lexico.l"
+{return ENDDEC;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 133 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"CORCHETE_A %s\n",yytext);}
+#line 130 "Lexico.l"
+{return CORCHETE_A;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 134 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"CORCHETE_C %s\n",yytext);}
+#line 131 "Lexico.l"
+{return CORCHETE_C;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 135 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"PARENTESIS_A %s\n",yytext);}
+#line 132 "Lexico.l"
+{return PARENTESIS_A;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 136 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"PARENTESIS_C %s\n",yytext);}
+#line 133 "Lexico.l"
+{return PARENTESIS_C;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 137 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"LLAVE_A %s\n",yytext);}
+#line 134 "Lexico.l"
+{return LLAVE_A;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 138 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"LLAVE_C %s\n",yytext);}
+#line 135 "Lexico.l"
+{return LLAVE_C;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 139 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_ASIG %s\n",yytext);}
+#line 136 "Lexico.l"
+{return OP_ASIG;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 140 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_IGUAL %s\n",yytext);}
+#line 137 "Lexico.l"
+{return OP_IGUAL;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 141 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_SUMA %s\n",yytext);}
+#line 138 "Lexico.l"
+{return OP_SUMA;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 142 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_RESTA %s\n",yytext);}
+#line 139 "Lexico.l"
+{return OP_RESTA;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 143 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_MENOR %s\n",yytext);}
+#line 140 "Lexico.l"
+{return OP_MENOR;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 144 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_MAYOR %s\n",yytext);}
+#line 141 "Lexico.l"
+{return OP_MAYOR;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 145 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_COMP %s\n",yytext);}
+#line 142 "Lexico.l"
+{return OP_COMP;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 146 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_MULT %s\n",yytext);}
+#line 143 "Lexico.l"
+{return OP_MULT;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 147 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_DIV %s\n",yytext);}
+#line 144 "Lexico.l"
+{return OP_DIV;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 148 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_MEN_IGU %s\n",yytext);}
+#line 145 "Lexico.l"
+{return OP_MEN_IGU;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 149 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{fprintf(ptTxt,"OP_MAY_IGU %s\n",yytext);}
+#line 146 "Lexico.l"
+{return OP_MAY_IGU;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 150 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
-{
-                                fprintf(ptTxt,"Error en Lexico - Token no valido %s\n",yytext);
-                                displayError("Error en Lexico - Token no valido");
-                            }        
+#line 147 "Lexico.l"
+{displayError("Error en Lexico - Token no valido");}        
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 155 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 149 "Lexico.l"
 ECHO;
 	YY_BREAK
-#line 1063 "lex.yy.c"
+#line 1057 "lex.yy.c"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -1943,28 +1937,13 @@ int main()
 	return 0;
 	}
 #endif
-#line 155 "C:\\Users\\santi\\Desktop\\Compilador\\Lexico.l"
+#line 149 "Lexico.l"
 
-
-int main(int argc,char *argv[]) {
-    if ((yyin = fopen(argv[1], "rt")) == NULL) {
-        printf("\nNo se puede abrir el archivo: %s\n", argv[1]);
-    } else {
-        ptTxt = fopen("Salida.txt", "wt");
-        yylex();
-    }
-    fclose(yyin);
-    fclose(ptTxt);
-}
 
 void displayError(char* msg) {
     printf("%s - linea del archivo analizado: %d\n", msg, yylineno); 
-    system("Pause");
-    exit(1);
 }
 
 int yyerror(void) {
 	printf("Error en analizador sintactico en la linea del archivo analizado: %d\n", yylineno);
-	system("Pause");
-	exit(1);
 }

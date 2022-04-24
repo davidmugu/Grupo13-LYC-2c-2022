@@ -21,7 +21,6 @@ extern int yylineno;
     char* strVal;
 }
 
-%token DIM
 %token WHILE
 %token ENDWHILE
 %token IF
@@ -29,10 +28,13 @@ extern int yylineno;
 %token ENDIF
 %token INT         
 %token REAL       
-%token STRING      
-%token GET        
-%token DISPLAY    
-%token AS  
+%token STRING
+%token	WRITE
+%token	READ
+%token	BETWEEN
+%token	TAKE
+%token	DECVAR
+%token	ENDDEC
 %token CORCHETE_A 
 %token CORCHETE_C   
 %token COMA      
@@ -46,9 +48,7 @@ extern int yylineno;
 %token OP_NOT       
 %token OP_AND      
 %token OP_OR    
-%token OP_COMP    
-%token EQU_MAX
-%token EQU_MIN
+%token OP_COMP
 %token <strVal>CONST_INT
 %token <strVal>CONST_REAL
 %token <strVal>VARIABLE    
@@ -56,9 +56,6 @@ extern int yylineno;
 %token COMENTARIO_A
 %token COMENTARIO_C
 %token COMENTARIO
-%token FOR
-%token NEXT
-%token TO
 %token .
 
 %left  OP_RESTA OP_SUMA
@@ -78,13 +75,14 @@ sentencia: sentencia grammar PUNTO_COMA  {;}
         | grammar PUNTO_COMA             {;}
         ;
 
-grammar:   dec_var                    {printf("Regla - fin de Sentencia de declaracion de variable\n\n");}
-       |   asig                       {printf("Regla - fin de Sentencia de asignacion \n\n");}
-       |   display                    {printf("Regla - fin de Sentencia de Display \n\n");}
-       |   get                        {printf("Regla - fin de Sentencia de Get \n\n");}
+grammar:   /*dec_var                    {printf("Regla - fin de Sentencia de declaracion de variable\n\n");}
+       | */  asig                       {printf("Regla - fin de Sentencia de asignacion \n\n");}
        |   if                         {printf("Regla - fin de Sentencia de IF \n\n");}
        |   while                      {printf("Regla - fin de Sentencia de While \n\n");}
-       |   for                        {printf("Regla - fin de Sentencia de Tema especial - For \n\n");}
+       |  between                     {printf("Regla - fin de Sentencia de Between \n\n");}
+       |  take                     {printf("Regla - fin de Sentencia de Take \n\n");}
+       |  write                     {printf("Regla - fin de Sentencia de Write \n\n");}
+       |  read                     {printf("Regla - fin de Sentencia de Read \n\n");}
        ;
 
 asig:   VARIABLE OP_ASIG expr             {printf("Regla - Sentencia de asignacion por expresion \n");}
@@ -119,13 +117,6 @@ factor: PARENTESIS_A expr PARENTESIS_C    {;}
 	    | VARIABLE                  {;}
       ;
 
-display: DISPLAY CONST_STRING_R   {printf("Regla - Sentencia de display con constante string\n");}
-       | DISPLAY expr             {printf("Regla - Sentencia de display con expresion\n");}
-       ;
-
-get: GET VARIABLE {printf("Regla - Sentencia de Get con variable\n");}
-   ;
-
 while: WHILE  cond_completa {printf("Regla - Sentencia de while con condicion\n");}
        while_exp
        ENDWHILE
@@ -133,14 +124,6 @@ while: WHILE  cond_completa {printf("Regla - Sentencia de while con condicion\n"
 
 while_exp: sentencia {;}
             ;
-
-for: FOR VARIABLE OP_ASIG expr TO expr CORCHETE_A CONST_INT CORCHETE_C {printf("Regla - Sentencia de FOR con valor en corchete\n");}
-     sentencia
-     NEXT VARIABLE
-    | FOR VARIABLE OP_ASIG expr TO expr {printf("Regla - Sentencia de FOR sin valor en corchete\n");}
-      sentencia
-      NEXT VARIABLE
-    ;
 
 if: IF cond_completa      
     sentencia             {;}
@@ -168,17 +151,9 @@ cond_completa: PARENTESIS_A cond_completa PARENTESIS_C                      {;}
              | PARENTESIS_A cond OP_AND cond PARENTESIS_C {printf("Regla - Sentencia de condicion AND multiple\n");}
              | PARENTESIS_A cond OP_OR cond PARENTESIS_C  {printf("Regla - Sentencia de condicion OR multiple\n");} 
              | PARENTESIS_A cond PARENTESIS_C {printf("Regla - Sentencia de condicion simple\n");}
-             | PARENTESIS_A equmin PARENTESIS_C {printf("Regla - Sentencia de condicion equmin\n");}
-             | PARENTESIS_A equmax PARENTESIS_C {printf("Regla - Sentencia de condicion equmax\n");}
              ;
 
-equmax: EQU_MAX PARENTESIS_A cond_equ PARENTESIS_C	{printf("Regla - Sentencia de EQUMAX\n");}
-        ;
 
-equmin: EQU_MIN PARENTESIS_A cond_equ PARENTESIS_C {printf("Regla - Sentencia de EQUMIN\n");}
-        ;
-cond_equ: expr PUNTO_COMA CORCHETE_A lista CORCHETE_C {printf("Regla - Sentencia de Expresion y Listado de variables o constantes en EQUMIN/EQUMAX\n");}
-        ;
 lista: expr_list 							{;}
       | lista COMA expr_list  				{;}
 	    ;
@@ -200,24 +175,24 @@ cond: expr OP_COMP expr  {;}
     | OP_NOT VARIABLE {;}
     ;
 
-dec_var: DIM CORCHETE_A seg_asig CORCHETE_C {
-                                        char dataType[100];
-                                        char variable[100];
-										printf("Regla - Sentencia de declaracion de variable\n");
-                                        while(!emptyStack(&stackDataTypeDecVar)){
-                                          popStack(&stackDataTypeDecVar,dataType);
-                                          pushStack(&invertStackDataType,dataType);
-                                        }
-                                        while(!emptyStack(&invertStackDataType) && !emptyStack(&stackVar)){
-                                            popStack(&invertStackDataType,dataType);
-                                            popStack(&stackVar,variable);
-                                            insertVariable(&symbolTable,variable,dataType);
-                                        }
+between : BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expr  PUNTO_COMA expr  CORCHETE_C PARENTESIS_C {printf("Regla - Sentencia de Between\n");}
 
-};
+take : TAKE PARENTESIS_A operador PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C {printf("Regla - Sentencia de Take\n");}
 
+operador: OP_SUMA {;}
+		  |OP_RESTA {;}
+		  |OP_MULT {;}
+		  |OP_MULT {;}
+		  
+		  
+lista_cte: expr_cte 							{;}
+      | lista_cte COMA expr_cte  				{;}
+	    ;
 
-seg_asig:  VARIABLE COMA seg_asig COMA tipo                 {
+expr_cte: CONST_INT      {;}
+        |  CONST_REAL     {;}
+
+/*seg_asig:  VARIABLE COMA seg_asig COMA tipo                 {
                                                               printf("Regla - sentencia declaracion de variable\n");
                                                               pushStack(&stackVar,$1);
                                                             }
@@ -226,8 +201,11 @@ seg_asig:  VARIABLE COMA seg_asig COMA tipo                 {
                                                               pushStack(&stackVar,$1);
                                                             }
           ;
-			 
+	*/		 
  
+write : WRITE VARIABLE | expr_cte {;}
+read :  READ  VARIABLE {;}
+
 tipo: 	INT 	    {pushStack(&stackDataTypeDecVar,"INTEGER");}
       | REAL      {pushStack(&stackDataTypeDecVar,"FLOAT");}	
       | STRING  	{pushStack(&stackDataTypeDecVar,"STRING");}
