@@ -39,91 +39,101 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     WHILE = 258,
-     ENDWHILE = 259,
-     IF = 260,
-     ELSE = 261,
-     ENDIF = 262,
-     INT = 263,
-     REAL = 264,
-     STRING = 265,
-     WRITE = 266,
-     READ = 267,
-     BETWEEN = 268,
-     TAKE = 269,
-     DECVAR = 270,
-     ENDDEC = 271,
-     CORCHETE_A = 272,
-     CORCHETE_C = 273,
-     COMA = 274,
-     PUNTO_COMA = 275,
-     PARENTESIS_A = 276,
-     PARENTESIS_C = 277,
-     OP_MENOR = 278,
-     OP_MAYOR = 279,
-     OP_MEN_IGU = 280,
-     OP_MAY_IGU = 281,
-     OP_NOT = 282,
-     OP_AND = 283,
-     OP_OR = 284,
-     OP_COMP = 285,
-     CONST_INT = 286,
-     CONST_REAL = 287,
-     VARIABLE = 288,
-     CONST_STRING = 289,
-     COMENTARIO_A = 290,
-     COMENTARIO_C = 291,
-     COMENTARIO = 292,
-     OP_SUMA = 294,
-     OP_RESTA = 295,
-     OP_DIV = 296,
-     OP_MULT = 297,
-     MENOS_UNARIO = 298,
-     OP_ASIG = 299
+     PAL_RESERVADA = 258,
+     WHILE = 259,
+     ENDWHILE = 260,
+     IF = 261,
+     ELSE = 262,
+     ENDIF = 263,
+     TIPO_DATO = 264,
+     INT = 265,
+     REAL = 266,
+     STRING = 267,
+     WRITE = 268,
+     READ = 269,
+     BETWEEN = 270,
+     TAKE = 271,
+     DECVAR = 272,
+     ENDDEC = 273,
+     CORCHETE_A = 274,
+     CORCHETE_C = 275,
+     LLAVE_A = 276,
+     LLAVE_C = 277,
+     COMA = 278,
+     PUNTO_COMA = 279,
+     PARENTESIS_A = 280,
+     PARENTESIS_C = 281,
+     OP_MENOR = 282,
+     OP_MAYOR = 283,
+     OP_MEN_IGU = 284,
+     OP_MAY_IGU = 285,
+     OP_NOT = 286,
+     OP_AND = 287,
+     OP_OR = 288,
+     OP_COMP = 289,
+     OP_IGUAL = 290,
+     CONST_INT = 291,
+     CONST_REAL = 292,
+     VARIABLE = 293,
+     CONST_STRING = 294,
+     COMENTARIO_A = 295,
+     COMENTARIO_C = 296,
+     COMENTARIO = 297,
+     OP_SUMA = 299,
+     OP_RESTA = 300,
+     OP_DIV = 301,
+     OP_MULT = 302,
+     MENOS_UNARIO = 303,
+     OP_ASIG = 304
    };
 #endif
 /* Tokens.  */
-#define WHILE 258
-#define ENDWHILE 259
-#define IF 260
-#define ELSE 261
-#define ENDIF 262
-#define INT 263
-#define REAL 264
-#define STRING 265
-#define WRITE 266
-#define READ 267
-#define BETWEEN 268
-#define TAKE 269
-#define DECVAR 270
-#define ENDDEC 271
-#define CORCHETE_A 272
-#define CORCHETE_C 273
-#define COMA 274
-#define PUNTO_COMA 275
-#define PARENTESIS_A 276
-#define PARENTESIS_C 277
-#define OP_MENOR 278
-#define OP_MAYOR 279
-#define OP_MEN_IGU 280
-#define OP_MAY_IGU 281
-#define OP_NOT 282
-#define OP_AND 283
-#define OP_OR 284
-#define OP_COMP 285
-#define CONST_INT 286
-#define CONST_REAL 287
-#define VARIABLE 288
-#define CONST_STRING 289
-#define COMENTARIO_A 290
-#define COMENTARIO_C 291
-#define COMENTARIO 292
-#define OP_SUMA 294
-#define OP_RESTA 295
-#define OP_DIV 296
-#define OP_MULT 297
-#define MENOS_UNARIO 298
-#define OP_ASIG 299
+#define PAL_RESERVADA 258
+#define WHILE 259
+#define ENDWHILE 260
+#define IF 261
+#define ELSE 262
+#define ENDIF 263
+#define TIPO_DATO 264
+#define INT 265
+#define REAL 266
+#define STRING 267
+#define WRITE 268
+#define READ 269
+#define BETWEEN 270
+#define TAKE 271
+#define DECVAR 272
+#define ENDDEC 273
+#define CORCHETE_A 274
+#define CORCHETE_C 275
+#define LLAVE_A 276
+#define LLAVE_C 277
+#define COMA 278
+#define PUNTO_COMA 279
+#define PARENTESIS_A 280
+#define PARENTESIS_C 281
+#define OP_MENOR 282
+#define OP_MAYOR 283
+#define OP_MEN_IGU 284
+#define OP_MAY_IGU 285
+#define OP_NOT 286
+#define OP_AND 287
+#define OP_OR 288
+#define OP_COMP 289
+#define OP_IGUAL 290
+#define CONST_INT 291
+#define CONST_REAL 292
+#define VARIABLE 293
+#define CONST_STRING 294
+#define COMENTARIO_A 295
+#define COMENTARIO_C 296
+#define COMENTARIO 297
+#define OP_SUMA 299
+#define OP_RESTA 300
+#define OP_DIV 301
+#define OP_MULT 302
+#define MENOS_UNARIO 303
+#define OP_ASIG 304
 
 
 
@@ -133,14 +143,14 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 20 "Sintactico.y"
+#line 19 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
 
     char* strVal;
 
 
 
 /* Line 1676 of yacc.c  */
-#line 144 "y.tab.h"
+#line 154 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

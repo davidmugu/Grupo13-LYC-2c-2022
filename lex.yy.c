@@ -520,24 +520,22 @@ goto find_rule; \
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "Lexico.l"
+#line 1 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 #define INITIAL 0
-#line 2 "Lexico.l"
+#line 2 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "y.tab.h"
+
 
 #define MAX_CHARACTERS 30
 #define MAX_FLOAT_32 2147483647.0
 #define MAX_INT_16 65535
 
-FILE *yyin;
-FILE *ptTxt;
-int yylval;
-
 void displayError(char* msg);
 int yyerror(void);
-#line 541 "lex.yy.c"
+#line 539 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -688,10 +686,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 72 "Lexico.l"
+#line 70 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 
 
-#line 695 "lex.yy.c"
+#line 693 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -784,276 +782,276 @@ do_action:	/* This label is used only to access EOF actions. */
 	{ /* beginning of action switch */
 case 1:
 YY_RULE_SETUP
-#line 74 "Lexico.l"
+#line 72 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 75 "Lexico.l"
+#line 73 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 76 "Lexico.l"
+#line 74 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 77 "Lexico.l"
+#line 75 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_OR;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 78 "Lexico.l"
+#line 76 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_AND;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 79 "Lexico.l"
+#line 77 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_NOT;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 80 "Lexico.l"
+#line 78 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 81 "Lexico.l"
+#line 79 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 82 "Lexico.l"
+#line 80 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return TIPO_DATO;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 83 "Lexico.l"
+#line 81 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return PAL_RESERVADA;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 84 "Lexico.l"
+#line 82 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {
-                            //  yylval.strVal = strdup(yytext);
+                                yylval.strVal = strdup(yytext);
                                 {return VARIABLE;}
                             }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 88 "Lexico.l"
+#line 86 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return COMA;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 89 "Lexico.l"
+#line 87 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return PUNTO_COMA;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 90 "Lexico.l"
+#line 88 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {
                                 float value = atof(strdup(yytext));
                                 if ( value > MAX_FLOAT_32 ) {
                                     displayError("Numero real supera los 32 bits");
                                 } else {
-                                //  yylval.strVal = strdup(yytext);
+                                    yylval.strVal = strdup(yytext);
                                     {return CONST_REAL;}
                                 }
                             }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 99 "Lexico.l"
+#line 97 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {
                                 int value = atoi(strdup(yytext));
                                 if( value > MAX_INT_16 ) {
                                     displayError("Entero supera los 16 bits");
                                 } else {
-                                //    yylval.strVal = strdup(yytext);
+                                    yylval.strVal = strdup(yytext);
                                     {return CONST_INT;}
                                 }
                             }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 108 "Lexico.l"
+#line 106 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {
                                 if(strlen(yytext) > MAX_CHARACTERS) {
                                     displayError("Constante String supera el maximo de caracteres permitido");
                                 } else {
-                                //    yylval.strVal = strdup(yytext);
+                                    yylval.strVal = strdup(yytext);
                                     {return CONST_STRING;}
                                 }
                             }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 116 "Lexico.l"
+#line 114 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return INT;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 117 "Lexico.l"
+#line 115 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return REAL;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 118 "Lexico.l"
+#line 116 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return STRING;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 119 "Lexico.l"
+#line 117 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return WHILE;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 120 "Lexico.l"
+#line 118 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return ENDWHILE;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 121 "Lexico.l"
+#line 119 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return IF;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 122 "Lexico.l"
+#line 120 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return ELSE;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 123 "Lexico.l"
+#line 121 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return ENDIF;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 124 "Lexico.l"
+#line 122 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return WRITE;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 125 "Lexico.l"
+#line 123 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return READ;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 126 "Lexico.l"
+#line 124 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return BETWEEN;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 127 "Lexico.l"
+#line 125 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return TAKE;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 128 "Lexico.l"
+#line 126 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return DECVAR;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 129 "Lexico.l"
+#line 127 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return ENDDEC;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 130 "Lexico.l"
+#line 128 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return CORCHETE_A;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 131 "Lexico.l"
+#line 129 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return CORCHETE_C;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 132 "Lexico.l"
+#line 130 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return PARENTESIS_A;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 133 "Lexico.l"
+#line 131 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return PARENTESIS_C;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 134 "Lexico.l"
+#line 132 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return LLAVE_A;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 135 "Lexico.l"
+#line 133 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return LLAVE_C;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 136 "Lexico.l"
+#line 134 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_ASIG;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 137 "Lexico.l"
+#line 135 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_IGUAL;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 138 "Lexico.l"
+#line 136 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_SUMA;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 139 "Lexico.l"
+#line 137 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_RESTA;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 140 "Lexico.l"
+#line 138 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_MENOR;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 141 "Lexico.l"
+#line 139 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_MAYOR;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 142 "Lexico.l"
+#line 140 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_COMP;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 143 "Lexico.l"
+#line 141 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_MULT;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 144 "Lexico.l"
+#line 142 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_DIV;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 145 "Lexico.l"
+#line 143 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_MEN_IGU;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 146 "Lexico.l"
+#line 144 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {return OP_MAY_IGU;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 147 "Lexico.l"
+#line 145 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 {displayError("Error en Lexico - Token no valido");}        
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 149 "Lexico.l"
+#line 147 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 ECHO;
 	YY_BREAK
-#line 1057 "lex.yy.c"
+#line 1055 "lex.yy.c"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -1937,7 +1935,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 149 "Lexico.l"
+#line 147 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Lexico.l"
 
 
 void displayError(char* msg) {

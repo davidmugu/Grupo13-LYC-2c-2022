@@ -5,10 +5,9 @@
 
 FILE *yyin;
 
-tList symbolTable;
-tStack stackDataTypeDecVar;
-tStack invertStackDataType;
-tStack stackVar;
+Lista tablaSimbolos;
+Pila pilaVariables;
+Pila pilaTiposDatos;
 
 extern int yylex();
 extern void yyerror();
@@ -21,11 +20,13 @@ extern int yylineno;
     char* strVal;
 }
 
+%token PAL_RESERVADA
 %token WHILE
 %token ENDWHILE
 %token IF
 %token ELSE
 %token ENDIF
+%token TIPO_DATO
 %token INT         
 %token REAL       
 %token STRING
@@ -36,7 +37,9 @@ extern int yylineno;
 %token	DECVAR
 %token	ENDDEC
 %token CORCHETE_A 
-%token CORCHETE_C   
+%token CORCHETE_C
+%token LLAVE_A
+%token LLAVE_C
 %token COMA      
 %token PUNTO_COMA 
 %token PARENTESIS_A    
@@ -49,6 +52,7 @@ extern int yylineno;
 %token OP_AND      
 %token OP_OR    
 %token OP_COMP
+%token OP_IGUAL
 %token <strVal>CONST_INT
 %token <strVal>CONST_REAL
 %token <strVal>VARIABLE    
@@ -87,17 +91,18 @@ grammar:   /*dec_var                    {printf("Regla - fin de Sentencia de dec
 
 asig:   VARIABLE OP_ASIG expr             {printf("Regla - Sentencia de asignacion por expresion \n");}
     |   VARIABLE OP_ASIG CONST_STRING_R     {printf("Regla - Sentencia de asignacion por constante string \n");}
+    |   VARIABLE OP_ASIG NUMERO     {printf("Regla - Sentencia de asignacion por constante entera \n");}
     ;
 
 CONST_STRING_R: CONST_STRING {
-	    insertString(&symbolTable, $1);
+	    insertarString(&tablaSimbolos, $1);
 	};
 
 NUMERO: CONST_INT{
-        insertNumber(&symbolTable,$1);
+        insertarEntero(&tablaSimbolos,$1);
       }    
       | CONST_REAL {
-        insertFloat(&symbolTable,$1);
+        insertarReal(&tablaSimbolos,$1);
       };
 
 expr: expr OP_SUMA termino         {printf("Regla - Sentencia de suma \n");}
@@ -183,6 +188,7 @@ operador: OP_SUMA {;}
 		  |OP_RESTA {;}
 		  |OP_MULT {;}
 		  |OP_MULT {;}
+      ;
 		  
 		  
 lista_cte: expr_cte 							{;}
@@ -194,11 +200,11 @@ expr_cte: CONST_INT      {;}
 
 /*seg_asig:  VARIABLE COMA seg_asig COMA tipo                 {
                                                               printf("Regla - sentencia declaracion de variable\n");
-                                                              pushStack(&stackVar,$1);
+                                                              apilar(&pilaVariables,$1);
                                                             }
           |  VARIABLE CORCHETE_C AS CORCHETE_A tipo         {
                                                               printf("Regla - sentencia de declaracion de tipo\n");
-                                                              pushStack(&stackVar,$1);
+                                                              apilar(&pilaVariables,$1);
                                                             }
           ;
 	*/		 
@@ -206,9 +212,9 @@ expr_cte: CONST_INT      {;}
 write : WRITE VARIABLE | expr_cte {;}
 read :  READ  VARIABLE {;}
 
-tipo: 	INT 	    {pushStack(&stackDataTypeDecVar,"INTEGER");}
-      | REAL      {pushStack(&stackDataTypeDecVar,"FLOAT");}	
-      | STRING  	{pushStack(&stackDataTypeDecVar,"STRING");}
+tipo: 	INT 	    {apilar(&pilaTiposDatos,"INTEGER");}
+      | REAL      {apilar(&pilaTiposDatos,"FLOAT");}	
+      | STRING  	{apilar(&pilaTiposDatos,"STRING");}
       ;
 
 %%
@@ -223,13 +229,21 @@ int main(int argc, char* argv[])
 
     printf("\n Compilando... \n\n");
 
-    createList(&symbolTable);
-    createStack(&stackVar);
-    createStack(&stackDataTypeDecVar);
-    createStack(&invertStackDataType);
+    printf("Se procede a crear la Tabla de Simbolos\n");
+    crearLista(&tablaSimbolos);
+    printf("La Tabla de Simbolos se creo correctamente\n");
+    printf("Se procede a crear la Pila de Variables\n");
+    crearPila(&pilaVariables);
+    printf("La Pila de Variables se creo correctamente\n");
+    printf("Se procede a crear la Pila de Tipos de Datos\n");
+    crearPila(&pilaTiposDatos);
+    printf("La Pila de Tipos de Datos se creo correctamente\n");
+
     yyparse();
 
-    deleteTable(&symbolTable);
+    printf("Se procede a eliminar la Tabla de Simbolos\n");
+    eliminarTabla(&tablaSimbolos);
+    printf("La Tabla de Simbolos se elimino correctamente\n");
     
     printf("\n Compilacion exitosa \n");
     fclose(yyin);

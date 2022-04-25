@@ -6,16 +6,16 @@
 #define ERROR -1
 #define DUPLICADO 1
 
-typedef struct sNodo
+typedef struct sNodoLista
 {
     char nombre[50];
     char tipoDato[50];
     char valor[50];
     int  longitud;
-    struct sNodo* sig;
-}nodo;
+    struct sNodoLista* sig;
+}nodoLista;
 
-typedef nodo* Lista;
+typedef nodoLista* Lista;
 
 void crearLista(Lista *l);
 int insertarEnOrden(Lista *l, char* nombre, char* tipoDato, char* valor, int longitud);
@@ -23,7 +23,7 @@ int insertarEntero(Lista *l, char* lex);
 int insertarReal(Lista *l, char* lex);
 int insertarString(Lista *l, char* nombre);
 int insertarVariable(Lista *l, char* nombre, char* tipoDato); 
-void eliminarTabla(Lista *l);
+int eliminarTabla(Lista *l);
 char* eliminarCaracter(char* lex);
 
 void crearLista(Lista *l) {
@@ -32,7 +32,7 @@ void crearLista(Lista *l) {
 
 int insertarEnOrden(Lista *l, char* nombre, char* tipoDato, char* valor, int longitud) {
     int res = -1;
-    nodo* nuevoNodo = (nodo*)malloc(sizeof(nodo));
+    nodoLista* nuevoNodo = (nodoLista*)malloc(sizeof(nodoLista));
     
     if(!nuevoNodo)
         return ERROR;
@@ -66,6 +66,7 @@ int insertarEntero(Lista *l, char* lex) {
         printf("La constante numerica %s ya se ingreso en la tabla de simbolos\n",lex);
         return DUPLICADO;
     }
+    printf("La constante numerica %s se inserto en la tabla de simbolos\n",lex);
     return OK;
 }
 
@@ -120,7 +121,7 @@ char* eliminarCaracter(char* lex) {
 int insertarVariable(Lista *l, char* lex, char* tipoDato) {
     int res = -1;
 
-    res = insertarEnOrden(p, lex, tipoDato, " ", 0);
+    res = insertarEnOrden(l, lex, tipoDato, " ", 0);
     if(res == DUPLICADO){
         printf("La variable %s ya se ingreso en la tabla de simbolos\n",lex);
         return DUPLICADO;
@@ -128,7 +129,7 @@ int insertarVariable(Lista *l, char* lex, char* tipoDato) {
     return OK;
 }
 
-void eliminarTabla(Lista *l) {
+int eliminarTabla(Lista *l) {
     FILE *Tabla = fopen("ts.txt", "wt");
     
     if(!Tabla) {
@@ -157,4 +158,6 @@ void eliminarTabla(Lista *l) {
     printf("+------------------------------------------------------------------------------------+\n");
     fprintf(Tabla, "+------------------------------------------------------------------------------------+\n");
     fclose(Tabla);
+
+    return OK;
 }

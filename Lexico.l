@@ -2,14 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "y.tab.h"
+
 
 #define MAX_CHARACTERS 30
 #define MAX_FLOAT_32 2147483647.0
 #define MAX_INT_16 65535
-
-FILE *yyin;
-FILE *ptTxt;
-int yylval;
 
 void displayError(char* msg);
 int yyerror(void);
@@ -82,7 +80,7 @@ OP_MAY_IGU                  {OP_MAYOR}{OP_IGUAL}
 {TIPO_DATO}                 {return TIPO_DATO;}
 {PAL_RESERVADA}             {return PAL_RESERVADA;}
 {VARIABLE}                  {
-                            //  yylval.strVal = strdup(yytext);
+                                yylval.strVal = strdup(yytext);
                                 {return VARIABLE;}
                             }
 {COMA}                      {return COMA;}
@@ -92,7 +90,7 @@ OP_MAY_IGU                  {OP_MAYOR}{OP_IGUAL}
                                 if ( value > MAX_FLOAT_32 ) {
                                     displayError("Numero real supera los 32 bits");
                                 } else {
-                                //  yylval.strVal = strdup(yytext);
+                                    yylval.strVal = strdup(yytext);
                                     {return CONST_REAL;}
                                 }
                             }
@@ -101,7 +99,7 @@ OP_MAY_IGU                  {OP_MAYOR}{OP_IGUAL}
                                 if( value > MAX_INT_16 ) {
                                     displayError("Entero supera los 16 bits");
                                 } else {
-                                //    yylval.strVal = strdup(yytext);
+                                    yylval.strVal = strdup(yytext);
                                     {return CONST_INT;}
                                 }
                             }
@@ -109,7 +107,7 @@ OP_MAY_IGU                  {OP_MAYOR}{OP_IGUAL}
                                 if(strlen(yytext) > MAX_CHARACTERS) {
                                     displayError("Constante String supera el maximo de caracteres permitido");
                                 } else {
-                                //    yylval.strVal = strdup(yytext);
+                                    yylval.strVal = strdup(yytext);
                                     {return CONST_STRING;}
                                 }
                             }
