@@ -25,12 +25,11 @@ NUMERO                      [0-9]
 LETRA                       [a-zA-Z]
 COMA                        ","
 PUNTO_COMA                  ";"
+DOS_PUNTOS                  ":"
 COMILLA                     ["]
 CONST_REAL                  {NUMERO}+"."{NUMERO}+|{NUMERO}+"."|"."{NUMERO}+
 CONST_INT                   {NUMERO}+
 CONST_STRING                {COMILLA}.(.)+.{COMILLA}
-TIPO_DATO                   {INT}|{REAL}|{STRING}
-PAL_RESERVADA               {WHILE}|{ENDWHILE}|{IF}|{ELSE}|{ENDIF}|{WRITE}|{READ}|{BETWEEN}|{TAKE}|{ENDDEC}|{DECVAR}
 INT                         "INT"|"int"|"INTEGER"|"integer"
 REAL                        "REAL"|"real"|"FLOAT"|"float"
 STRING                      "STRING"|"string"
@@ -77,14 +76,13 @@ OP_MAY_IGU                  {OP_MAYOR}{OP_IGUAL}
 {OP_NOT}                    {return OP_NOT;}
 {ESPACIO_EN_BLANCO}         {;}
 {SALTO_LINEA}               {;}
-{TIPO_DATO}                 {return TIPO_DATO;}
-{PAL_RESERVADA}             {return PAL_RESERVADA;}
 {VARIABLE}                  {
                                 yylval.strVal = strdup(yytext);
                                 {return VARIABLE;}
                             }
 {COMA}                      {return COMA;}
 {PUNTO_COMA}                {return PUNTO_COMA;}
+{DOS_PUNTOS}                {return DOS_PUNTOS;}
 {CONST_REAL}                {
                                 float value = atof(strdup(yytext));
                                 if ( value > MAX_FLOAT_32 ) {
