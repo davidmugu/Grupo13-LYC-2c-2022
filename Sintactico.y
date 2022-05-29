@@ -67,39 +67,39 @@ extern int yylineno;
 
 %%
 
-programa:             prog                                  {;}             
+programa:             prog                                  {printf("Regla - Programa \n");}             
         ;
 
-prog:                 sentencia                             {;}
+prog:                 sentencia                             {printf("Regla - Prog\n");}
     ;
 
-sentencia:            sentencia grammar PUNTO_COMA          {;}
-         |            grammar PUNTO_COMA                    {;}
+sentencia:            sentencia grammar PUNTO_COMA          {printf("Regla - Sentencia Recursiva\n");}
+         |            grammar PUNTO_COMA                    {printf("Regla - Sentencia Corte\n");}
          ;
 
-grammar:              dec_var                               {;}
-       |              asig                                  {;}
-       |              if                                    {;}
-       |              while                                 {;}
-       |              between                               {printf("Regla - Sentencia de Between\n");}
-       |              take                                  {;}
-       |              write                                 {;}
-       |              read                                  {;}
+grammar:              dec_var                               {printf("Regla - Sentencia de DEC_VAR\n");}
+       |              asig                                  {printf("Regla - Sentencia de ASIG\n");}
+       |              if                                    {printf("Regla - Sentencia de IF\n");}
+       |              while                                 {printf("Regla - Sentencia de WHILE\n");}
+       |              between                               {printf("Regla - Sentencia de BETWEEN\n");}
+       |              take                                  {printf("Regla - Sentencia de TAKE\n");}
+       |              write                                 {printf("Regla - Sentencia de WRITE\n");}
+       |              read                                  {printf("Regla - Sentencia de READ\n");}
        ;
 
 dec_var:              DECVAR declaraciones ENDDEC           {printf("Regla - Sentencia de Declaracion de Variables\n");} 
        ;
 
-declaraciones:        lista_var DOS_PUNTOS tipo_dato        {;}
+declaraciones:        lista_var DOS_PUNTOS tipo_dato        {printf("Regla - Declaraciones\n");}
              ;
 
-tipo_dato:            INT                                   {;}
-         |            REAL                                  {;}
-         |            STRING                                {;}
+tipo_dato:            INT                                   {printf("Regla - Tipo INT\n");}
+         |            REAL                                  {printf("Regla - Tipo REAL\n");}
+         |            STRING                                {printf("Regla - Tipo STRING\n");}
          ;
 
-lista_var:            lista_var COMA VARIABLE               {;}
-         |            VARIABLE                              {;}
+lista_var:            lista_var COMA VARIABLE               {printf("Regla - Lista variable Recursiva\n");}
+         |            VARIABLE                              {printf("Regla - Lista variable Corte\n");}
          ;
 
 asig:                 VARIABLE OP_ASIG expresion            {printf("Regla - Sentencia de Asignacion por Expresion\n");} 
@@ -113,14 +113,15 @@ take:                 TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT
     |                 TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C                  {printf("Regla - Sentencia de Take sin Lista de Constantes\n");}   
     ;
 
-lista_cte:            CONST_INT                                   {;}
-         |            CONST_REAL                                  {;}
-         |            lista_cte PUNTO_COMA CONST_INT              {;}
-         |            lista_cte PUNTO_COMA CONST_REAL             {;}
+lista_cte:            CONST_INT                                   {printf("Regla - CTE INT\n");}
+         |            CONST_REAL                                  {printf("Regla - CTE REAL\n");}
+         |            lista_cte PUNTO_COMA CONST_INT              {printf("Regla - Lista CTE INT\n");}
+         |            lista_cte PUNTO_COMA CONST_REAL             {printf("Regla - Lista CTE REAL");}
          ;            
 
 write:                WRITE VARIABLE                        {printf("Regla - Sentencia de Write: VARIABLE\n");}   
-     |                WRITE CONST_STRING                    {printf("Regla - Sentencia de Write: CONST_STRING\n");}
+     |                WRITE CONST_STRING                    {printf("Regla - Sentencia de Write: CONST_STRING");}
+     |               WRITE CONST_INT                      {printf("Regla - Sentencia de Write: CONST_INT\n");}
      ; 
 
 read:                 READ VARIABLE                         {printf("Regla - Sentencia de Read: VARIABLE\n");}              
@@ -134,21 +135,21 @@ if:                   IF condicion LLAVE_A sentencia LLAVE_C ENDIF              
   |                   IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF             {printf("Regla - Sentencia de if con else (mas condicion)\n");}
   ;            
 
-expresion:            expresion OP_SUMA termino           {printf("Regla - Sentencia de suma \n");}
-	       |            expresion OP_RESTA termino          {printf("Regla - Sentencia de resta \n");} 
-	       |            termino                             {;}
+expresion:            expresion OP_SUMA termino           {printf("Regla - Sentencia de suma\n");}
+	       |            expresion OP_RESTA termino          {printf("Regla - Sentencia de resta\n");} 
+	       |            termino                             {printf("Regla - Expresion <- Termino\n");}
          ;
 
 termino:              termino OP_MULT factor              {printf("Regla - Sentencia de multiplicacion\n");}
 	     |              termino OP_DIV factor               {printf("Regla - Sentencia de division\n");}
-	     |              factor                              {;}
+	     |              factor                              {printf("Regla - Termino <- Factor\n");}
        ;
 
                     
-factor:               PARENTESIS_A expresion PARENTESIS_C   {;}
-      |               CONST_INT                             {printf("Constante Entera\n");}
-      |               CONST_REAL                            {printf("Constante Real\n");}
-	    |               VARIABLE                              {printf("Variable\n");}
+factor:               PARENTESIS_A expresion PARENTESIS_C   {printf("Regla - Factor\n");}
+      |               CONST_INT                             {printf("Regla - Constante Entera\n");}
+      |               CONST_REAL                            {printf("Regla - Constante Real\n");}
+	    |               VARIABLE                              {printf("Regla - Variable\n");}
       ;
 
 cond_simple:          expresion OP_COMP expresion           {printf("Comparacion Igual\n");}
@@ -159,9 +160,9 @@ cond_simple:          expresion OP_COMP expresion           {printf("Comparacion
            |          expresion OP_NOT expresion            {printf("Comparacion Distinto\n");}
            ;
 
-condicion:            PARENTESIS_A cond_simple PARENTESIS_C                           {;}
-         |            PARENTESIS_A cond_simple OP_AND cond_simple PARENTESIS_C        {printf("Comparacion AND\n");}
-         |            PARENTESIS_A cond_simple OP_OR cond_simple PARENTESIS_C         {printf("Comparacion OR\n");}
+condicion:            PARENTESIS_A cond_simple PARENTESIS_C                           {printf("Regla - Condicion");}
+         |            PARENTESIS_A cond_simple OP_AND cond_simple PARENTESIS_C        {printf("Regla - Comparacion AND\n");}
+         |            PARENTESIS_A cond_simple OP_OR cond_simple PARENTESIS_C         {printf("Regla Comparacion OR\n");}
          ;
 
 operador_algebraico:  OP_SUMA                               {printf("Operador Suma\n");}

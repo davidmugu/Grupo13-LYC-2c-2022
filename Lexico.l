@@ -74,8 +74,38 @@ OP_MAY_IGU                  {OP_MAYOR}{OP_IGUAL}
 {OP_OR}                     {return OP_OR;}
 {OP_AND}                    {return OP_AND;}
 {OP_NOT}                    {return OP_NOT;}
-{ESPACIO_EN_BLANCO}         {;}
 {SALTO_LINEA}               {;}
+{INT}                       {return INT;}
+{REAL}                      {return REAL;}
+{STRING}                    {return STRING;}
+{WHILE}                     {return WHILE;}
+{ENDWHILE}                  {return ENDWHILE;}
+{IF}                        {return IF;}
+{ELSE}                      {return ELSE;}
+{ENDIF}                     {return ENDIF;}
+{WRITE}                     {return WRITE;}
+{READ}                      {return READ;}
+{BETWEEN}                   {return BETWEEN;}
+{TAKE}                      {return TAKE;}
+{DECVAR}                    {return DECVAR;}
+{ENDDEC}                    {return ENDDEC;}
+{CORCHETE_A}                {return CORCHETE_A;}
+{CORCHETE_C}                {return CORCHETE_C;}
+{PARENTESIS_A}              {return PARENTESIS_A;}
+{PARENTESIS_C}              {return PARENTESIS_C;}
+{LLAVE_A}                   {return LLAVE_A;}
+{LLAVE_C}                   {return LLAVE_C;}
+{OP_ASIG}                   {return OP_ASIG;}
+{OP_IGUAL}                  {return OP_IGUAL;}
+{OP_SUMA}                   {return OP_SUMA;}
+{OP_RESTA}                  {return OP_RESTA;}
+{OP_MENOR}                  {return OP_MENOR;}
+{OP_MAYOR}                  {return OP_MAYOR;}
+{OP_COMP}                   {return OP_COMP;}
+{OP_MULT}                   {return OP_MULT;}
+{OP_DIV}                    {return OP_DIV;}
+{OP_MEN_IGU}                {return OP_MEN_IGU;}
+{OP_MAY_IGU}                {return OP_MAY_IGU;}
 {VARIABLE}                  {
                                 yylval.strVal = strdup(yytext);
                                 {return VARIABLE;}
@@ -109,37 +139,7 @@ OP_MAY_IGU                  {OP_MAYOR}{OP_IGUAL}
                                     {return CONST_STRING;}
                                 }
                             }
-{INT}                       {return INT;}
-{REAL}                      {return REAL;}
-{STRING}                    {return STRING;}
-{WHILE}                     {return WHILE;}
-{ENDWHILE}                  {return ENDWHILE;}
-{IF}                        {return IF;}
-{ELSE}                      {return ELSE;}
-{ENDIF}                     {return ENDIF;}
-{WRITE}                     {return WRITE;}
-{READ}                      {return READ;}
-{BETWEEN}                   {return BETWEEN;}
-{TAKE}                      {return TAKE;}
-{DECVAR}                    {return DECVAR;}
-{ENDDEC}                    {return ENDDEC;}
-{CORCHETE_A}                {return CORCHETE_A;}
-{CORCHETE_C}                {return CORCHETE_C;}
-{PARENTESIS_A}              {return PARENTESIS_A;}
-{PARENTESIS_C}              {return PARENTESIS_C;}
-{LLAVE_A}                   {return LLAVE_A;}
-{LLAVE_C}                   {return LLAVE_C;}
-{OP_ASIG}                   {return OP_ASIG;}
-{OP_IGUAL}                  {return OP_IGUAL;}
-{OP_SUMA}                   {return OP_SUMA;}
-{OP_RESTA}                  {return OP_RESTA;}
-{OP_MENOR}                  {return OP_MENOR;}
-{OP_MAYOR}                  {return OP_MAYOR;}
-{OP_COMP}                   {return OP_COMP;}
-{OP_MULT}                   {return OP_MULT;}
-{OP_DIV}                    {return OP_DIV;}
-{OP_MEN_IGU}                {return OP_MEN_IGU;}
-{OP_MAY_IGU}                {return OP_MAY_IGU;}
+{ESPACIO_EN_BLANCO}         {;}
 .                           {displayError("Error en Lexico - Token no valido");}        
 
 %%

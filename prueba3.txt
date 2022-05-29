@@ -1,6 +1,6 @@
 -/Prueba de Declaraciones de Variables/-
 -/A CORREGIR/-
-DECVAR a : int ENDDEC ;
+-/DECVAR a : INT ENDDEC ;/-
 
 -/Prueba de Asignacion/-
 a := 5;
