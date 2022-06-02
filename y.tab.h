@@ -139,7 +139,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 19 "Sintactico.y"
+#line 19 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
 
     char* strVal;
 

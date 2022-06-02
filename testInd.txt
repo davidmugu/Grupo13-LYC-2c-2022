@@ -1,35 +1,7 @@
 -/Prueba de Declaraciones de Variables/-
 -/A CORREGIR/-
-DECVAR a : INT ENDDEC ;
-
--/Prueba de Asignacion/-
-a := 5;
-b := "hola";
-c := var1;
-var2 := 4.5;
-variable := 5+4 ;
-a := 8+9+(b / 2.89);
-
--/Prueba de Decision/-
--/A CORREGIR/-
- IF (a > 2) { a := 5; } ENDIF;
-
--/Prueba de Iteracion/-
--/A CORREGIR/-
-WHILE ( a > 6) { 
-    a := 5; 
-} ENDWHILE ;
-
--/Prueba de Between/-
- BETWEEN ( var , [ 2 ; 4 ] ) ; 
-
--/Prueba de TAKE/-
- TAKE (+ ; 7 ; [ 2 ; 7 ; 9] ) ; 
-TAKE (- ; 7 ; [] ) ;
-
-
--/Prueba de Entrada y Salida /-
-
- WRITE var2 ; 
- READ varia54 ; 
-WRITE "Es un string" ; 
+DECVAR 
+a, b : INT
+c : REAL
+d, e, f : STRING
+ENDDEC ;

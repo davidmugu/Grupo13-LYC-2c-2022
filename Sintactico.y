@@ -90,38 +90,50 @@ grammar:              dec_var                               {printf("Regla - Sen
 dec_var:              DECVAR declaraciones ENDDEC           {printf("Regla - Sentencia de Declaracion de Variables\n");} 
        ;
 
-declaraciones:        lista_var DOS_PUNTOS tipo_dato        {printf("Regla - Declaraciones\n");}
+declaraciones:        lista_var DOS_PUNTOS tipo_dato                      {;}
+             |        lista_var DOS_PUNTOS tipo_dato declaraciones        {;}
              ;
 
-tipo_dato:            INT                                   {printf("Regla - Tipo INT\n");}
-         |            REAL                                  {printf("Regla - Tipo REAL\n");}
-         |            STRING                                {printf("Regla - Tipo STRING\n");}
+lista_var:           lista_var COMA VARIABLE                {apilar(&pilaVariables, $3);}    
+         |           VARIABLE                               {apilar(&pilaVariables, $1);}                                                  
          ;
-
-lista_var:            lista_var COMA VARIABLE               {printf("Regla - Lista variable Recursiva\n");}
-         |            VARIABLE                              {printf("Regla - Lista variable Corte\n");}
+tipo_dato:            INT                                   {while(!pilaVacia(&pilaVariables)) {
+                                                             char variable[100];
+                                                             desapilar(&pilaVariables, variable);
+                                                             insertarVariable(&tablaSimbolos, variable, "INT");
+                                                             }}
+         |            REAL                                  {while(!pilaVacia(&pilaVariables)) {
+                                                             char variable[100];
+                                                             desapilar(&pilaVariables, variable);
+                                                             insertarVariable(&tablaSimbolos, variable, "REAL");
+                                                             }}
+         |            STRING                                {while(!pilaVacia(&pilaVariables)) {
+                                                             char variable[100];
+                                                             desapilar(&pilaVariables, variable);
+                                                             insertarVariable(&tablaSimbolos, variable, "STRING");
+                                                             }}                                                      
          ;
 
 asig:                 VARIABLE OP_ASIG expresion            {printf("Regla - Sentencia de Asignacion por Expresion\n");} 
-    |                 VARIABLE OP_ASIG CONST_STRING         {printf("Regla - Sentencia de Asignacion por String\n");} 
+    |                 VARIABLE OP_ASIG CONST_STRING         {printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
     ;
 
 between:              BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C        {printf("Regla - Sentencia de Between\n");}  
        ;
 
-take:                 TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C        {printf("Regla - Sentencia de Take con Lista de Constantes\n");} 
-    |                 TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C                  {printf("Regla - Sentencia de Take sin Lista de Constantes\n");}   
+take:                 TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C        {printf("Regla - Sentencia de Take con Lista de Constantes\n");insertarEntero(&tablaSimbolos, $5);} 
+    |                 TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C                  {printf("Regla - Sentencia de Take sin Lista de Constantes\n");insertarEntero(&tablaSimbolos, $5);}   
     ;
 
-lista_cte:            CONST_INT                                   {printf("Regla - CTE INT\n");}
-         |            CONST_REAL                                  {printf("Regla - CTE REAL\n");}
-         |            lista_cte PUNTO_COMA CONST_INT              {printf("Regla - Lista CTE INT\n");}
-         |            lista_cte PUNTO_COMA CONST_REAL             {printf("Regla - Lista CTE REAL");}
+lista_cte:            CONST_INT                                   {printf("Regla - CTE INT\n");insertarEntero(&tablaSimbolos, $1);}
+         |            CONST_REAL                                  {printf("Regla - CTE REAL\n");insertarReal(&tablaSimbolos, $1);}
+         |            lista_cte PUNTO_COMA CONST_INT              {printf("Regla - Lista CTE INT\n");insertarEntero(&tablaSimbolos, $3);}
+         |            lista_cte PUNTO_COMA CONST_REAL             {printf("Regla - Lista CTE REAL");insertarReal(&tablaSimbolos, $3);}
          ;            
 
 write:                WRITE VARIABLE                        {printf("Regla - Sentencia de Write: VARIABLE\n");}   
-     |                WRITE CONST_STRING                    {printf("Regla - Sentencia de Write: CONST_STRING");}
-     |               WRITE CONST_INT                      {printf("Regla - Sentencia de Write: CONST_INT\n");}
+     |                WRITE CONST_STRING                    {printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, $2);}
+     |                WRITE CONST_INT                      {printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, $2);}
      ; 
 
 read:                 READ VARIABLE                         {printf("Regla - Sentencia de Read: VARIABLE\n");}              
@@ -147,9 +159,9 @@ termino:              termino OP_MULT factor              {printf("Regla - Sente
 
                     
 factor:               PARENTESIS_A expresion PARENTESIS_C   {printf("Regla - Factor\n");}
-      |               CONST_INT                             {printf("Regla - Constante Entera\n");}
-      |               CONST_REAL                            {printf("Regla - Constante Real\n");}
-	    |               VARIABLE                              {printf("Regla - Variable\n");}
+      |               CONST_INT                             {printf("Regla - Constante Entera\n");insertarEntero(&tablaSimbolos, $1);}
+      |               CONST_REAL                            {printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, $1);}
+	  |               VARIABLE                              {printf("Regla - Variable\n");}
       ;
 
 cond_simple:          expresion OP_COMP expresion           {printf("Comparacion Igual\n");}
