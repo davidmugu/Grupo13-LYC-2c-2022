@@ -1,14 +1,14 @@
 %{
 #include "lista.h"
-#include "pila.h"
+#include "pila2.h"
 #include "tercetos.h"
 #include "y.tab.h"
 
 FILE *yyin;
 
 Lista tablaSimbolos;
-Pila pilaVariables;
-Pila pilaTiposDatos;
+t_pila pilaVariables;//Pila pilaVariables;
+t_pila pilaTiposDatos;//Pila pilaTiposDatos;
 
 /* VARIABLES PARA GCI */
 
@@ -18,6 +18,14 @@ int aux_indice;
 
 int programa_ind, prog_ind, sentencia_ind, grammar_ind, dec_var_ind, declaraciones_ind, lista_var_ind, tipo_dato_ind, asig_ind, between_ind, take_ind,
 lista_cte_ind, write_ind, read_ind, while_ind, if_ind, expresion_ind, termino_ind, factor_ind, cond_simple_ind, condicion_ind, operador_algebraico_ind;
+
+
+/**/
+t_pila pila_termino, pila_expresion;
+int contador_t, contador_e, recuperar_puntero, es_nuevo_token;
+t_lista_tercetos lista_tercetos;
+t_pila pila_condicion, pila_cantidad_desapilar;
+char *operador_comparacion;
 
 /*-------------------*/
 
@@ -85,7 +93,7 @@ programa:             prog                                  {prog_ind = programa
 prog:                 sentencia                             {sentencia_ind = prog_ind; printf("Regla - Prog\n");} //
     ;
 
-sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = crear_terceto(sentencia_ind,grammar_ind,PUNTO_COMA,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
+sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = crear_terceto(transformar_indice(sentencia_ind),transformar_indice(grammar_ind),NULL,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
          |            grammar PUNTO_COMA                    {grammar_ind = sentencia_ind; printf("Regla - Sentencia Corte\n");}
          ;
 
@@ -106,8 +114,8 @@ declaraciones:        lista_var DOS_PUNTOS tipo_dato                      {;}
              |        lista_var DOS_PUNTOS tipo_dato declaraciones        {;}
              ;
 
-lista_var:           lista_var COMA VARIABLE                {apilar(&pilaVariables, $3);}    
-         |           VARIABLE                               {apilar(&pilaVariables, $1);}                                                  
+lista_var:           lista_var COMA VARIABLE                {apilar(&pilaVariables,$3);}   
+         |           VARIABLE                               {apilar(&pilaVariables, &$1);}                                                  
          ;
 tipo_dato:            INT                                   {while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
