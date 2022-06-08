@@ -30,118 +30,119 @@ Gramática
    13 dec_var: DECVAR declaraciones ENDDEC
 
    14 declaraciones: lista_var DOS_PUNTOS tipo_dato
+   15              | lista_var DOS_PUNTOS tipo_dato declaraciones
 
-   15 tipo_dato: INT
-   16          | REAL
-   17          | STRING
+   16 lista_var: lista_var COMA VARIABLE
+   17          | VARIABLE
 
-   18 lista_var: lista_var COMA VARIABLE
-   19          | VARIABLE
+   18 tipo_dato: INT
+   19          | REAL
+   20          | STRING
 
-   20 asig: VARIABLE OP_ASIG expresion
-   21     | VARIABLE OP_ASIG CONST_STRING
+   21 asig: VARIABLE OP_ASIG expresion
+   22     | VARIABLE OP_ASIG CONST_STRING
 
-   22 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
+   23 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
 
-   23 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
-   24     | TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
+   24 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
+   25     | TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
 
-   25 lista_cte: CONST_INT
-   26          | CONST_REAL
-   27          | lista_cte PUNTO_COMA CONST_INT
-   28          | lista_cte PUNTO_COMA CONST_REAL
+   26 lista_cte: CONST_INT
+   27          | CONST_REAL
+   28          | lista_cte PUNTO_COMA CONST_INT
+   29          | lista_cte PUNTO_COMA CONST_REAL
 
-   29 write: WRITE VARIABLE
-   30      | WRITE CONST_STRING
-   31      | WRITE CONST_INT
+   30 write: WRITE VARIABLE
+   31      | WRITE CONST_STRING
+   32      | WRITE CONST_INT
 
-   32 read: READ VARIABLE
+   33 read: READ VARIABLE
 
-   33 while: WHILE condicion LLAVE_A sentencia LLAVE_C ENDWHILE
+   34 while: WHILE condicion LLAVE_A sentencia LLAVE_C ENDWHILE
 
-   34 if: IF condicion LLAVE_A sentencia LLAVE_C ENDIF
-   35   | IF condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF
-   36   | IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
+   35 if: IF condicion LLAVE_A sentencia LLAVE_C ENDIF
+   36   | IF condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF
+   37   | IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
 
-   37 expresion: expresion OP_SUMA termino
-   38          | expresion OP_RESTA termino
-   39          | termino
+   38 expresion: expresion OP_SUMA termino
+   39          | expresion OP_RESTA termino
+   40          | termino
 
-   40 termino: termino OP_MULT factor
-   41        | termino OP_DIV factor
-   42        | factor
+   41 termino: termino OP_MULT factor
+   42        | termino OP_DIV factor
+   43        | factor
 
-   43 factor: PARENTESIS_A expresion PARENTESIS_C
-   44       | CONST_INT
-   45       | CONST_REAL
-   46       | VARIABLE
+   44 factor: PARENTESIS_A expresion PARENTESIS_C
+   45       | CONST_INT
+   46       | CONST_REAL
+   47       | VARIABLE
 
-   47 cond_simple: expresion OP_COMP expresion
-   48            | expresion OP_MAY_IGU expresion
-   49            | expresion OP_MEN_IGU expresion
-   50            | expresion OP_MAYOR expresion
-   51            | expresion OP_MENOR expresion
-   52            | expresion OP_NOT expresion
+   48 cond_simple: expresion OP_COMP expresion
+   49            | expresion OP_MAY_IGU expresion
+   50            | expresion OP_MEN_IGU expresion
+   51            | expresion OP_MAYOR expresion
+   52            | expresion OP_MENOR expresion
+   53            | expresion OP_NOT expresion
 
-   53 condicion: PARENTESIS_A cond_simple PARENTESIS_C
-   54          | PARENTESIS_A cond_simple OP_AND cond_simple PARENTESIS_C
-   55          | PARENTESIS_A cond_simple OP_OR cond_simple PARENTESIS_C
+   54 condicion: PARENTESIS_A cond_simple PARENTESIS_C
+   55          | PARENTESIS_A cond_simple OP_AND cond_simple PARENTESIS_C
+   56          | PARENTESIS_A cond_simple OP_OR cond_simple PARENTESIS_C
 
-   56 operador_algebraico: OP_SUMA
-   57                    | OP_RESTA
-   58                    | OP_DIV
-   59                    | OP_MULT
+   57 operador_algebraico: OP_SUMA
+   58                    | OP_RESTA
+   59                    | OP_DIV
+   60                    | OP_MULT
 
 
 Terminales con las reglas donde aparecen
 
 $end (0) 0
 error (256)
-WHILE (258) 33
-ENDWHILE (259) 33
-IF (260) 34 35 36
-ELSE (261) 35 36
-ENDIF (262) 34 35 36
-WRITE (263) 29 30 31
-READ (264) 32
-BETWEEN (265) 22
-TAKE (266) 23 24
+WHILE (258) 34
+ENDWHILE (259) 34
+IF (260) 35 36 37
+ELSE (261) 36 37
+ENDIF (262) 35 36 37
+WRITE (263) 30 31 32
+READ (264) 33
+BETWEEN (265) 23
+TAKE (266) 24 25
 DECVAR (267) 13
 ENDDEC (268) 13
-INT (269) 15
-REAL (270) 16
-STRING (271) 17
-CORCHETE_A (272) 22 23 24
-CORCHETE_C (273) 22 23 24
-LLAVE_A (274) 33 34 35 36
-LLAVE_C (275) 33 34 35 36
-PARENTESIS_A (276) 22 23 24 43 53 54 55
-PARENTESIS_C (277) 22 23 24 43 53 54 55
-COMA (278) 18 22
-PUNTO_COMA (279) 3 4 22 23 24 27 28
-DOS_PUNTOS (280) 14
-OP_MENOR (281) 51
-OP_MAYOR (282) 50
-OP_MEN_IGU (283) 49
-OP_MAY_IGU (284) 48
-OP_NOT (285) 52
-OP_AND (286) 54
-OP_OR (287) 55
-OP_COMP (288) 47
+INT (269) 18
+REAL (270) 19
+STRING (271) 20
+CORCHETE_A (272) 23 24 25
+CORCHETE_C (273) 23 24 25
+LLAVE_A (274) 34 35 36 37
+LLAVE_C (275) 34 35 36 37
+PARENTESIS_A (276) 23 24 25 44 54 55 56
+PARENTESIS_C (277) 23 24 25 44 54 55 56
+COMA (278) 16 23
+PUNTO_COMA (279) 3 4 23 24 25 28 29
+DOS_PUNTOS (280) 14 15
+OP_MENOR (281) 52
+OP_MAYOR (282) 51
+OP_MEN_IGU (283) 50
+OP_MAY_IGU (284) 49
+OP_NOT (285) 53
+OP_AND (286) 55
+OP_OR (287) 56
+OP_COMP (288) 48
 OP_IGUAL (289)
-CONST_INT (290) 23 24 25 27 31 44
-CONST_REAL (291) 26 28 45
-CONST_STRING (292) 21 30
-VARIABLE (293) 18 19 20 21 22 29 32 46
+CONST_INT (290) 24 25 26 28 32 45
+CONST_REAL (291) 27 29 46
+CONST_STRING (292) 22 31
+VARIABLE (293) 16 17 21 22 23 30 33 47
 COMENTARIO_A (294)
 COMENTARIO_C (295)
 COMENTARIO (296)
 . (297)
-OP_SUMA (298) 37 56
-OP_RESTA (299) 38 57
-OP_DIV (300) 41 58
-OP_MULT (301) 40 59
-OP_ASIG (302) 20 21
+OP_SUMA (298) 38 57
+OP_RESTA (299) 39 58
+OP_DIV (300) 42 59
+OP_MULT (301) 41 60
+OP_ASIG (302) 21 22
 
 
 No terminales con las reglas donde aparecen
@@ -153,46 +154,46 @@ programa (49)
 prog (50)
     en la izquierda: 2, en la derecha: 1
 sentencia (51)
-    en la izquierda: 3 4, en la derecha: 2 3 33 34 35 36
+    en la izquierda: 3 4, en la derecha: 2 3 34 35 36 37
 grammar (52)
     en la izquierda: 5 6 7 8 9 10 11 12, en la derecha: 3 4
 dec_var (53)
     en la izquierda: 13, en la derecha: 5
 declaraciones (54)
-    en la izquierda: 14, en la derecha: 13
-tipo_dato (55)
-    en la izquierda: 15 16 17, en la derecha: 14
-lista_var (56)
-    en la izquierda: 18 19, en la derecha: 14 18
+    en la izquierda: 14 15, en la derecha: 13 15
+lista_var (55)
+    en la izquierda: 16 17, en la derecha: 14 15 16
+tipo_dato (56)
+    en la izquierda: 18 19 20, en la derecha: 14 15
 asig (57)
-    en la izquierda: 20 21, en la derecha: 6
+    en la izquierda: 21 22, en la derecha: 6
 between (58)
-    en la izquierda: 22, en la derecha: 9
+    en la izquierda: 23, en la derecha: 9
 take (59)
-    en la izquierda: 23 24, en la derecha: 10
+    en la izquierda: 24 25, en la derecha: 10
 lista_cte (60)
-    en la izquierda: 25 26 27 28, en la derecha: 23 27 28
+    en la izquierda: 26 27 28 29, en la derecha: 24 28 29
 write (61)
-    en la izquierda: 29 30 31, en la derecha: 11
+    en la izquierda: 30 31 32, en la derecha: 11
 read (62)
-    en la izquierda: 32, en la derecha: 12
+    en la izquierda: 33, en la derecha: 12
 while (63)
-    en la izquierda: 33, en la derecha: 8
+    en la izquierda: 34, en la derecha: 8
 if (64)
-    en la izquierda: 34 35 36, en la derecha: 7
+    en la izquierda: 35 36 37, en la derecha: 7
 expresion (65)
-    en la izquierda: 37 38 39, en la derecha: 20 22 37 38 43 47 48
-    49 50 51 52
+    en la izquierda: 38 39 40, en la derecha: 21 23 38 39 44 48 49
+    50 51 52 53
 termino (66)
-    en la izquierda: 40 41 42, en la derecha: 37 38 39 40 41
+    en la izquierda: 41 42 43, en la derecha: 38 39 40 41 42
 factor (67)
-    en la izquierda: 43 44 45 46, en la derecha: 40 41 42
+    en la izquierda: 44 45 46 47, en la derecha: 41 42 43
 cond_simple (68)
-    en la izquierda: 47 48 49 50 51 52, en la derecha: 53 54 55
+    en la izquierda: 48 49 50 51 52 53, en la derecha: 54 55 56
 condicion (69)
-    en la izquierda: 53 54 55, en la derecha: 33 34 35 36
+    en la izquierda: 54 55 56, en la derecha: 34 35 36 37
 operador_algebraico (70)
-    en la izquierda: 56 57 58 59, en la derecha: 23 24
+    en la izquierda: 57 58 59 60, en la derecha: 24 25
 
 
 estado 0
@@ -224,7 +225,7 @@ estado 0
 
 estado 1
 
-   33 while: WHILE . condicion LLAVE_A sentencia LLAVE_C ENDWHILE
+   34 while: WHILE . condicion LLAVE_A sentencia LLAVE_C ENDWHILE
 
     PARENTESIS_A  desplazar e ir al estado 21
 
@@ -233,9 +234,9 @@ estado 1
 
 estado 2
 
-   34 if: IF . condicion LLAVE_A sentencia LLAVE_C ENDIF
-   35   | IF . condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF
-   36   | IF . condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
+   35 if: IF . condicion LLAVE_A sentencia LLAVE_C ENDIF
+   36   | IF . condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF
+   37   | IF . condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
 
     PARENTESIS_A  desplazar e ir al estado 21
 
@@ -244,9 +245,9 @@ estado 2
 
 estado 3
 
-   29 write: WRITE . VARIABLE
-   30      | WRITE . CONST_STRING
-   31      | WRITE . CONST_INT
+   30 write: WRITE . VARIABLE
+   31      | WRITE . CONST_STRING
+   32      | WRITE . CONST_INT
 
     CONST_INT     desplazar e ir al estado 24
     CONST_STRING  desplazar e ir al estado 25
@@ -255,22 +256,22 @@ estado 3
 
 estado 4
 
-   32 read: READ . VARIABLE
+   33 read: READ . VARIABLE
 
     VARIABLE  desplazar e ir al estado 27
 
 
 estado 5
 
-   22 between: BETWEEN . PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
+   23 between: BETWEEN . PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
 
     PARENTESIS_A  desplazar e ir al estado 28
 
 
 estado 6
 
-   23 take: TAKE . PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
-   24     | TAKE . PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
+   24 take: TAKE . PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
+   25     | TAKE . PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
 
     PARENTESIS_A  desplazar e ir al estado 29
 
@@ -287,8 +288,8 @@ estado 7
 
 estado 8
 
-   20 asig: VARIABLE . OP_ASIG expresion
-   21     | VARIABLE . OP_ASIG CONST_STRING
+   21 asig: VARIABLE . OP_ASIG expresion
+   22     | VARIABLE . OP_ASIG CONST_STRING
 
     OP_ASIG  desplazar e ir al estado 33
 
@@ -399,9 +400,9 @@ estado 20
 
 estado 21
 
-   53 condicion: PARENTESIS_A . cond_simple PARENTESIS_C
-   54          | PARENTESIS_A . cond_simple OP_AND cond_simple PARENTESIS_C
-   55          | PARENTESIS_A . cond_simple OP_OR cond_simple PARENTESIS_C
+   54 condicion: PARENTESIS_A . cond_simple PARENTESIS_C
+   55          | PARENTESIS_A . cond_simple OP_AND cond_simple PARENTESIS_C
+   56          | PARENTESIS_A . cond_simple OP_OR cond_simple PARENTESIS_C
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -416,59 +417,59 @@ estado 21
 
 estado 22
 
-   33 while: WHILE condicion . LLAVE_A sentencia LLAVE_C ENDWHILE
+   34 while: WHILE condicion . LLAVE_A sentencia LLAVE_C ENDWHILE
 
     LLAVE_A  desplazar e ir al estado 45
 
 
 estado 23
 
-   34 if: IF condicion . LLAVE_A sentencia LLAVE_C ENDIF
-   35   | IF condicion . LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF
-   36   | IF condicion . LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
+   35 if: IF condicion . LLAVE_A sentencia LLAVE_C ENDIF
+   36   | IF condicion . LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF
+   37   | IF condicion . LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
 
     LLAVE_A  desplazar e ir al estado 46
 
 
 estado 24
 
-   31 write: WRITE CONST_INT .
+   32 write: WRITE CONST_INT .
 
-    $default  reduce usando la regla 31 (write)
+    $default  reduce usando la regla 32 (write)
 
 
 estado 25
 
-   30 write: WRITE CONST_STRING .
+   31 write: WRITE CONST_STRING .
 
-    $default  reduce usando la regla 30 (write)
+    $default  reduce usando la regla 31 (write)
 
 
 estado 26
 
-   29 write: WRITE VARIABLE .
+   30 write: WRITE VARIABLE .
 
-    $default  reduce usando la regla 29 (write)
+    $default  reduce usando la regla 30 (write)
 
 
 estado 27
 
-   32 read: READ VARIABLE .
+   33 read: READ VARIABLE .
 
-    $default  reduce usando la regla 32 (read)
+    $default  reduce usando la regla 33 (read)
 
 
 estado 28
 
-   22 between: BETWEEN PARENTESIS_A . VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
+   23 between: BETWEEN PARENTESIS_A . VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
 
     VARIABLE  desplazar e ir al estado 47
 
 
 estado 29
 
-   23 take: TAKE PARENTESIS_A . operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
-   24     | TAKE PARENTESIS_A . operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
+   24 take: TAKE PARENTESIS_A . operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
+   25     | TAKE PARENTESIS_A . operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
 
     OP_SUMA   desplazar e ir al estado 48
     OP_RESTA  desplazar e ir al estado 49
@@ -480,9 +481,9 @@ estado 29
 
 estado 30
 
-   19 lista_var: VARIABLE .
+   17 lista_var: VARIABLE .
 
-    $default  reduce usando la regla 19 (lista_var)
+    $default  reduce usando la regla 17 (lista_var)
 
 
 estado 31
@@ -495,7 +496,8 @@ estado 31
 estado 32
 
    14 declaraciones: lista_var . DOS_PUNTOS tipo_dato
-   18 lista_var: lista_var . COMA VARIABLE
+   15              | lista_var . DOS_PUNTOS tipo_dato declaraciones
+   16 lista_var: lista_var . COMA VARIABLE
 
     COMA        desplazar e ir al estado 54
     DOS_PUNTOS  desplazar e ir al estado 55
@@ -503,8 +505,8 @@ estado 32
 
 estado 33
 
-   20 asig: VARIABLE OP_ASIG . expresion
-   21     | VARIABLE OP_ASIG . CONST_STRING
+   21 asig: VARIABLE OP_ASIG . expresion
+   22     | VARIABLE OP_ASIG . CONST_STRING
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -540,7 +542,7 @@ estado 36
 
 estado 37
 
-   43 factor: PARENTESIS_A . expresion PARENTESIS_C
+   44 factor: PARENTESIS_A . expresion PARENTESIS_C
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -554,35 +556,35 @@ estado 37
 
 estado 38
 
-   44 factor: CONST_INT .
-
-    $default  reduce usando la regla 44 (factor)
-
-
-estado 39
-
-   45 factor: CONST_REAL .
+   45 factor: CONST_INT .
 
     $default  reduce usando la regla 45 (factor)
 
 
-estado 40
+estado 39
 
-   46 factor: VARIABLE .
+   46 factor: CONST_REAL .
 
     $default  reduce usando la regla 46 (factor)
 
 
+estado 40
+
+   47 factor: VARIABLE .
+
+    $default  reduce usando la regla 47 (factor)
+
+
 estado 41
 
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
-   47 cond_simple: expresion . OP_COMP expresion
-   48            | expresion . OP_MAY_IGU expresion
-   49            | expresion . OP_MEN_IGU expresion
-   50            | expresion . OP_MAYOR expresion
-   51            | expresion . OP_MENOR expresion
-   52            | expresion . OP_NOT expresion
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
+   48 cond_simple: expresion . OP_COMP expresion
+   49            | expresion . OP_MAY_IGU expresion
+   50            | expresion . OP_MEN_IGU expresion
+   51            | expresion . OP_MAYOR expresion
+   52            | expresion . OP_MENOR expresion
+   53            | expresion . OP_NOT expresion
 
     OP_MENOR    desplazar e ir al estado 60
     OP_MAYOR    desplazar e ir al estado 61
@@ -596,28 +598,28 @@ estado 41
 
 estado 42
 
-   39 expresion: termino .
-   40 termino: termino . OP_MULT factor
-   41        | termino . OP_DIV factor
+   40 expresion: termino .
+   41 termino: termino . OP_MULT factor
+   42        | termino . OP_DIV factor
 
     OP_DIV   desplazar e ir al estado 68
     OP_MULT  desplazar e ir al estado 69
 
-    $default  reduce usando la regla 39 (expresion)
+    $default  reduce usando la regla 40 (expresion)
 
 
 estado 43
 
-   42 termino: factor .
+   43 termino: factor .
 
-    $default  reduce usando la regla 42 (termino)
+    $default  reduce usando la regla 43 (termino)
 
 
 estado 44
 
-   53 condicion: PARENTESIS_A cond_simple . PARENTESIS_C
-   54          | PARENTESIS_A cond_simple . OP_AND cond_simple PARENTESIS_C
-   55          | PARENTESIS_A cond_simple . OP_OR cond_simple PARENTESIS_C
+   54 condicion: PARENTESIS_A cond_simple . PARENTESIS_C
+   55          | PARENTESIS_A cond_simple . OP_AND cond_simple PARENTESIS_C
+   56          | PARENTESIS_A cond_simple . OP_OR cond_simple PARENTESIS_C
 
     PARENTESIS_C  desplazar e ir al estado 70
     OP_AND        desplazar e ir al estado 71
@@ -626,7 +628,7 @@ estado 44
 
 estado 45
 
-   33 while: WHILE condicion LLAVE_A . sentencia LLAVE_C ENDWHILE
+   34 while: WHILE condicion LLAVE_A . sentencia LLAVE_C ENDWHILE
 
     WHILE     desplazar e ir al estado 1
     IF        desplazar e ir al estado 2
@@ -651,9 +653,9 @@ estado 45
 
 estado 46
 
-   34 if: IF condicion LLAVE_A . sentencia LLAVE_C ENDIF
-   35   | IF condicion LLAVE_A . sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF
-   36   | IF condicion LLAVE_A . sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
+   35 if: IF condicion LLAVE_A . sentencia LLAVE_C ENDIF
+   36   | IF condicion LLAVE_A . sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF
+   37   | IF condicion LLAVE_A . sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
 
     WHILE     desplazar e ir al estado 1
     IF        desplazar e ir al estado 2
@@ -678,43 +680,43 @@ estado 46
 
 estado 47
 
-   22 between: BETWEEN PARENTESIS_A VARIABLE . COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
+   23 between: BETWEEN PARENTESIS_A VARIABLE . COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
 
     COMA  desplazar e ir al estado 75
 
 
 estado 48
 
-   56 operador_algebraico: OP_SUMA .
-
-    $default  reduce usando la regla 56 (operador_algebraico)
-
-
-estado 49
-
-   57 operador_algebraico: OP_RESTA .
+   57 operador_algebraico: OP_SUMA .
 
     $default  reduce usando la regla 57 (operador_algebraico)
 
 
-estado 50
+estado 49
 
-   58 operador_algebraico: OP_DIV .
+   58 operador_algebraico: OP_RESTA .
 
     $default  reduce usando la regla 58 (operador_algebraico)
 
 
-estado 51
+estado 50
 
-   59 operador_algebraico: OP_MULT .
+   59 operador_algebraico: OP_DIV .
 
     $default  reduce usando la regla 59 (operador_algebraico)
 
 
+estado 51
+
+   60 operador_algebraico: OP_MULT .
+
+    $default  reduce usando la regla 60 (operador_algebraico)
+
+
 estado 52
 
-   23 take: TAKE PARENTESIS_A operador_algebraico . PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
-   24     | TAKE PARENTESIS_A operador_algebraico . PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
+   24 take: TAKE PARENTESIS_A operador_algebraico . PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
+   25     | TAKE PARENTESIS_A operador_algebraico . PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
 
     PUNTO_COMA  desplazar e ir al estado 76
 
@@ -728,7 +730,7 @@ estado 53
 
 estado 54
 
-   18 lista_var: lista_var COMA . VARIABLE
+   16 lista_var: lista_var COMA . VARIABLE
 
     VARIABLE  desplazar e ir al estado 77
 
@@ -736,6 +738,7 @@ estado 54
 estado 55
 
    14 declaraciones: lista_var DOS_PUNTOS . tipo_dato
+   15              | lista_var DOS_PUNTOS . tipo_dato declaraciones
 
     INT     desplazar e ir al estado 78
     REAL    desplazar e ir al estado 79
@@ -746,21 +749,21 @@ estado 55
 
 estado 56
 
-   21 asig: VARIABLE OP_ASIG CONST_STRING .
+   22 asig: VARIABLE OP_ASIG CONST_STRING .
 
-    $default  reduce usando la regla 21 (asig)
+    $default  reduce usando la regla 22 (asig)
 
 
 estado 57
 
-   20 asig: VARIABLE OP_ASIG expresion .
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
+   21 asig: VARIABLE OP_ASIG expresion .
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
 
     OP_SUMA   desplazar e ir al estado 66
     OP_RESTA  desplazar e ir al estado 67
 
-    $default  reduce usando la regla 20 (asig)
+    $default  reduce usando la regla 21 (asig)
 
 
 estado 58
@@ -772,9 +775,9 @@ estado 58
 
 estado 59
 
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
-   43 factor: PARENTESIS_A expresion . PARENTESIS_C
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
+   44 factor: PARENTESIS_A expresion . PARENTESIS_C
 
     PARENTESIS_C  desplazar e ir al estado 82
     OP_SUMA       desplazar e ir al estado 66
@@ -783,7 +786,7 @@ estado 59
 
 estado 60
 
-   51 cond_simple: expresion OP_MENOR . expresion
+   52 cond_simple: expresion OP_MENOR . expresion
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -797,7 +800,7 @@ estado 60
 
 estado 61
 
-   50 cond_simple: expresion OP_MAYOR . expresion
+   51 cond_simple: expresion OP_MAYOR . expresion
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -811,7 +814,7 @@ estado 61
 
 estado 62
 
-   49 cond_simple: expresion OP_MEN_IGU . expresion
+   50 cond_simple: expresion OP_MEN_IGU . expresion
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -825,7 +828,7 @@ estado 62
 
 estado 63
 
-   48 cond_simple: expresion OP_MAY_IGU . expresion
+   49 cond_simple: expresion OP_MAY_IGU . expresion
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -839,7 +842,7 @@ estado 63
 
 estado 64
 
-   52 cond_simple: expresion OP_NOT . expresion
+   53 cond_simple: expresion OP_NOT . expresion
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -853,7 +856,7 @@ estado 64
 
 estado 65
 
-   47 cond_simple: expresion OP_COMP . expresion
+   48 cond_simple: expresion OP_COMP . expresion
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -867,7 +870,7 @@ estado 65
 
 estado 66
 
-   37 expresion: expresion OP_SUMA . termino
+   38 expresion: expresion OP_SUMA . termino
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -880,7 +883,7 @@ estado 66
 
 estado 67
 
-   38 expresion: expresion OP_RESTA . termino
+   39 expresion: expresion OP_RESTA . termino
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -893,7 +896,7 @@ estado 67
 
 estado 68
 
-   41 termino: termino OP_DIV . factor
+   42 termino: termino OP_DIV . factor
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -905,7 +908,7 @@ estado 68
 
 estado 69
 
-   40 termino: termino OP_MULT . factor
+   41 termino: termino OP_MULT . factor
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -917,14 +920,14 @@ estado 69
 
 estado 70
 
-   53 condicion: PARENTESIS_A cond_simple PARENTESIS_C .
+   54 condicion: PARENTESIS_A cond_simple PARENTESIS_C .
 
-    $default  reduce usando la regla 53 (condicion)
+    $default  reduce usando la regla 54 (condicion)
 
 
 estado 71
 
-   54 condicion: PARENTESIS_A cond_simple OP_AND . cond_simple PARENTESIS_C
+   55 condicion: PARENTESIS_A cond_simple OP_AND . cond_simple PARENTESIS_C
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -939,7 +942,7 @@ estado 71
 
 estado 72
 
-   55 condicion: PARENTESIS_A cond_simple OP_OR . cond_simple PARENTESIS_C
+   56 condicion: PARENTESIS_A cond_simple OP_OR . cond_simple PARENTESIS_C
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
@@ -955,7 +958,7 @@ estado 72
 estado 73
 
     3 sentencia: sentencia . grammar PUNTO_COMA
-   33 while: WHILE condicion LLAVE_A sentencia . LLAVE_C ENDWHILE
+   34 while: WHILE condicion LLAVE_A sentencia . LLAVE_C ENDWHILE
 
     WHILE     desplazar e ir al estado 1
     IF        desplazar e ir al estado 2
@@ -981,9 +984,9 @@ estado 73
 estado 74
 
     3 sentencia: sentencia . grammar PUNTO_COMA
-   34 if: IF condicion LLAVE_A sentencia . LLAVE_C ENDIF
-   35   | IF condicion LLAVE_A sentencia . LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF
-   36   | IF condicion LLAVE_A sentencia . LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
+   35 if: IF condicion LLAVE_A sentencia . LLAVE_C ENDIF
+   36   | IF condicion LLAVE_A sentencia . LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF
+   37   | IF condicion LLAVE_A sentencia . LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
 
     WHILE     desplazar e ir al estado 1
     IF        desplazar e ir al estado 2
@@ -1008,114 +1011,72 @@ estado 74
 
 estado 75
 
-   22 between: BETWEEN PARENTESIS_A VARIABLE COMA . CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
+   23 between: BETWEEN PARENTESIS_A VARIABLE COMA . CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
 
     CORCHETE_A  desplazar e ir al estado 97
 
 
 estado 76
 
-   23 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA . CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
-   24     | TAKE PARENTESIS_A operador_algebraico PUNTO_COMA . CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
+   24 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA . CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
+   25     | TAKE PARENTESIS_A operador_algebraico PUNTO_COMA . CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
 
     CONST_INT  desplazar e ir al estado 98
 
 
 estado 77
 
-   18 lista_var: lista_var COMA VARIABLE .
+   16 lista_var: lista_var COMA VARIABLE .
 
-    $default  reduce usando la regla 18 (lista_var)
+    $default  reduce usando la regla 16 (lista_var)
 
 
 estado 78
 
-   15 tipo_dato: INT .
+   18 tipo_dato: INT .
 
-    $default  reduce usando la regla 15 (tipo_dato)
+    $default  reduce usando la regla 18 (tipo_dato)
 
 
 estado 79
 
-   16 tipo_dato: REAL .
+   19 tipo_dato: REAL .
 
-    $default  reduce usando la regla 16 (tipo_dato)
+    $default  reduce usando la regla 19 (tipo_dato)
 
 
 estado 80
 
-   17 tipo_dato: STRING .
+   20 tipo_dato: STRING .
 
-    $default  reduce usando la regla 17 (tipo_dato)
+    $default  reduce usando la regla 20 (tipo_dato)
 
 
 estado 81
 
    14 declaraciones: lista_var DOS_PUNTOS tipo_dato .
+   15              | lista_var DOS_PUNTOS tipo_dato . declaraciones
+
+    VARIABLE  desplazar e ir al estado 30
 
     $default  reduce usando la regla 14 (declaraciones)
+
+    declaraciones  ir al estado 99
+    lista_var      ir al estado 32
 
 
 estado 82
 
-   43 factor: PARENTESIS_A expresion PARENTESIS_C .
+   44 factor: PARENTESIS_A expresion PARENTESIS_C .
 
-    $default  reduce usando la regla 43 (factor)
+    $default  reduce usando la regla 44 (factor)
 
 
 estado 83
 
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
-   51 cond_simple: expresion OP_MENOR expresion .
-
-    OP_SUMA   desplazar e ir al estado 66
-    OP_RESTA  desplazar e ir al estado 67
-
-    $default  reduce usando la regla 51 (cond_simple)
-
-
-estado 84
-
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
-   50 cond_simple: expresion OP_MAYOR expresion .
-
-    OP_SUMA   desplazar e ir al estado 66
-    OP_RESTA  desplazar e ir al estado 67
-
-    $default  reduce usando la regla 50 (cond_simple)
-
-
-estado 85
-
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
-   49 cond_simple: expresion OP_MEN_IGU expresion .
-
-    OP_SUMA   desplazar e ir al estado 66
-    OP_RESTA  desplazar e ir al estado 67
-
-    $default  reduce usando la regla 49 (cond_simple)
-
-
-estado 86
-
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
-   48 cond_simple: expresion OP_MAY_IGU expresion .
-
-    OP_SUMA   desplazar e ir al estado 66
-    OP_RESTA  desplazar e ir al estado 67
-
-    $default  reduce usando la regla 48 (cond_simple)
-
-
-estado 87
-
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
-   52 cond_simple: expresion OP_NOT expresion .
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
+   52 cond_simple: expresion OP_MENOR expresion .
 
     OP_SUMA   desplazar e ir al estado 66
     OP_RESTA  desplazar e ir al estado 67
@@ -1123,35 +1084,71 @@ estado 87
     $default  reduce usando la regla 52 (cond_simple)
 
 
-estado 88
+estado 84
 
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
-   47 cond_simple: expresion OP_COMP expresion .
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
+   51 cond_simple: expresion OP_MAYOR expresion .
 
     OP_SUMA   desplazar e ir al estado 66
     OP_RESTA  desplazar e ir al estado 67
 
-    $default  reduce usando la regla 47 (cond_simple)
+    $default  reduce usando la regla 51 (cond_simple)
+
+
+estado 85
+
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
+   50 cond_simple: expresion OP_MEN_IGU expresion .
+
+    OP_SUMA   desplazar e ir al estado 66
+    OP_RESTA  desplazar e ir al estado 67
+
+    $default  reduce usando la regla 50 (cond_simple)
+
+
+estado 86
+
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
+   49 cond_simple: expresion OP_MAY_IGU expresion .
+
+    OP_SUMA   desplazar e ir al estado 66
+    OP_RESTA  desplazar e ir al estado 67
+
+    $default  reduce usando la regla 49 (cond_simple)
+
+
+estado 87
+
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
+   53 cond_simple: expresion OP_NOT expresion .
+
+    OP_SUMA   desplazar e ir al estado 66
+    OP_RESTA  desplazar e ir al estado 67
+
+    $default  reduce usando la regla 53 (cond_simple)
+
+
+estado 88
+
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
+   48 cond_simple: expresion OP_COMP expresion .
+
+    OP_SUMA   desplazar e ir al estado 66
+    OP_RESTA  desplazar e ir al estado 67
+
+    $default  reduce usando la regla 48 (cond_simple)
 
 
 estado 89
 
-   37 expresion: expresion OP_SUMA termino .
-   40 termino: termino . OP_MULT factor
-   41        | termino . OP_DIV factor
-
-    OP_DIV   desplazar e ir al estado 68
-    OP_MULT  desplazar e ir al estado 69
-
-    $default  reduce usando la regla 37 (expresion)
-
-
-estado 90
-
-   38 expresion: expresion OP_RESTA termino .
-   40 termino: termino . OP_MULT factor
-   41        | termino . OP_DIV factor
+   38 expresion: expresion OP_SUMA termino .
+   41 termino: termino . OP_MULT factor
+   42        | termino . OP_DIV factor
 
     OP_DIV   desplazar e ir al estado 68
     OP_MULT  desplazar e ir al estado 69
@@ -1159,134 +1156,153 @@ estado 90
     $default  reduce usando la regla 38 (expresion)
 
 
+estado 90
+
+   39 expresion: expresion OP_RESTA termino .
+   41 termino: termino . OP_MULT factor
+   42        | termino . OP_DIV factor
+
+    OP_DIV   desplazar e ir al estado 68
+    OP_MULT  desplazar e ir al estado 69
+
+    $default  reduce usando la regla 39 (expresion)
+
+
 estado 91
 
-   41 termino: termino OP_DIV factor .
+   42 termino: termino OP_DIV factor .
 
-    $default  reduce usando la regla 41 (termino)
+    $default  reduce usando la regla 42 (termino)
 
 
 estado 92
 
-   40 termino: termino OP_MULT factor .
+   41 termino: termino OP_MULT factor .
 
-    $default  reduce usando la regla 40 (termino)
+    $default  reduce usando la regla 41 (termino)
 
 
 estado 93
 
-   54 condicion: PARENTESIS_A cond_simple OP_AND cond_simple . PARENTESIS_C
-
-    PARENTESIS_C  desplazar e ir al estado 99
-
-
-estado 94
-
-   55 condicion: PARENTESIS_A cond_simple OP_OR cond_simple . PARENTESIS_C
+   55 condicion: PARENTESIS_A cond_simple OP_AND cond_simple . PARENTESIS_C
 
     PARENTESIS_C  desplazar e ir al estado 100
 
 
+estado 94
+
+   56 condicion: PARENTESIS_A cond_simple OP_OR cond_simple . PARENTESIS_C
+
+    PARENTESIS_C  desplazar e ir al estado 101
+
+
 estado 95
 
-   33 while: WHILE condicion LLAVE_A sentencia LLAVE_C . ENDWHILE
+   34 while: WHILE condicion LLAVE_A sentencia LLAVE_C . ENDWHILE
 
-    ENDWHILE  desplazar e ir al estado 101
+    ENDWHILE  desplazar e ir al estado 102
 
 
 estado 96
 
-   34 if: IF condicion LLAVE_A sentencia LLAVE_C . ENDIF
-   35   | IF condicion LLAVE_A sentencia LLAVE_C . ELSE LLAVE_A sentencia LLAVE_C ENDIF
-   36   | IF condicion LLAVE_A sentencia LLAVE_C . ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
+   35 if: IF condicion LLAVE_A sentencia LLAVE_C . ENDIF
+   36   | IF condicion LLAVE_A sentencia LLAVE_C . ELSE LLAVE_A sentencia LLAVE_C ENDIF
+   37   | IF condicion LLAVE_A sentencia LLAVE_C . ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF
 
-    ELSE   desplazar e ir al estado 102
-    ENDIF  desplazar e ir al estado 103
+    ELSE   desplazar e ir al estado 103
+    ENDIF  desplazar e ir al estado 104
 
 
 estado 97
 
-   22 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A . expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
+   23 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A . expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
     CONST_REAL    desplazar e ir al estado 39
     VARIABLE      desplazar e ir al estado 40
 
-    expresion  ir al estado 104
+    expresion  ir al estado 105
     termino    ir al estado 42
     factor     ir al estado 43
 
 
 estado 98
 
-   23 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT . PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
-   24     | TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT . PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
+   24 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT . PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
+   25     | TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT . PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C
 
-    PUNTO_COMA  desplazar e ir al estado 105
+    PUNTO_COMA  desplazar e ir al estado 106
 
 
 estado 99
 
-   54 condicion: PARENTESIS_A cond_simple OP_AND cond_simple PARENTESIS_C .
+   15 declaraciones: lista_var DOS_PUNTOS tipo_dato declaraciones .
 
-    $default  reduce usando la regla 54 (condicion)
+    $default  reduce usando la regla 15 (declaraciones)
 
 
 estado 100
 
-   55 condicion: PARENTESIS_A cond_simple OP_OR cond_simple PARENTESIS_C .
+   55 condicion: PARENTESIS_A cond_simple OP_AND cond_simple PARENTESIS_C .
 
     $default  reduce usando la regla 55 (condicion)
 
 
 estado 101
 
-   33 while: WHILE condicion LLAVE_A sentencia LLAVE_C ENDWHILE .
+   56 condicion: PARENTESIS_A cond_simple OP_OR cond_simple PARENTESIS_C .
 
-    $default  reduce usando la regla 33 (while)
+    $default  reduce usando la regla 56 (condicion)
 
 
 estado 102
 
-   35 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE . LLAVE_A sentencia LLAVE_C ENDIF
-   36   | IF condicion LLAVE_A sentencia LLAVE_C ELSE . condicion LLAVE_A sentencia LLAVE_C ENDIF
+   34 while: WHILE condicion LLAVE_A sentencia LLAVE_C ENDWHILE .
 
-    LLAVE_A       desplazar e ir al estado 106
-    PARENTESIS_A  desplazar e ir al estado 21
-
-    condicion  ir al estado 107
+    $default  reduce usando la regla 34 (while)
 
 
 estado 103
 
-   34 if: IF condicion LLAVE_A sentencia LLAVE_C ENDIF .
+   36 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE . LLAVE_A sentencia LLAVE_C ENDIF
+   37   | IF condicion LLAVE_A sentencia LLAVE_C ELSE . condicion LLAVE_A sentencia LLAVE_C ENDIF
 
-    $default  reduce usando la regla 34 (if)
+    LLAVE_A       desplazar e ir al estado 107
+    PARENTESIS_A  desplazar e ir al estado 21
+
+    condicion  ir al estado 108
 
 
 estado 104
 
-   22 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion . PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
+   35 if: IF condicion LLAVE_A sentencia LLAVE_C ENDIF .
 
-    PUNTO_COMA  desplazar e ir al estado 108
-    OP_SUMA     desplazar e ir al estado 66
-    OP_RESTA    desplazar e ir al estado 67
+    $default  reduce usando la regla 35 (if)
 
 
 estado 105
 
-   23 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA . CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
-   24     | TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA . CORCHETE_A CORCHETE_C PARENTESIS_C
+   23 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion . PUNTO_COMA expresion CORCHETE_C PARENTESIS_C
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
 
-    CORCHETE_A  desplazar e ir al estado 109
+    PUNTO_COMA  desplazar e ir al estado 109
+    OP_SUMA     desplazar e ir al estado 66
+    OP_RESTA    desplazar e ir al estado 67
 
 
 estado 106
 
-   35 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A . sentencia LLAVE_C ENDIF
+   24 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA . CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C
+   25     | TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA . CORCHETE_A CORCHETE_C PARENTESIS_C
+
+    CORCHETE_A  desplazar e ir al estado 110
+
+
+estado 107
+
+   36 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A . sentencia LLAVE_C ENDIF
 
     WHILE     desplazar e ir al estado 1
     IF        desplazar e ir al estado 2
@@ -1297,7 +1313,7 @@ estado 106
     DECVAR    desplazar e ir al estado 7
     VARIABLE  desplazar e ir al estado 8
 
-    sentencia  ir al estado 110
+    sentencia  ir al estado 111
     grammar    ir al estado 12
     dec_var    ir al estado 13
     asig       ir al estado 14
@@ -1309,43 +1325,43 @@ estado 106
     if         ir al estado 20
 
 
-estado 107
-
-   36 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion . LLAVE_A sentencia LLAVE_C ENDIF
-
-    LLAVE_A  desplazar e ir al estado 111
-
-
 estado 108
 
-   22 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA . expresion CORCHETE_C PARENTESIS_C
+   37 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion . LLAVE_A sentencia LLAVE_C ENDIF
+
+    LLAVE_A  desplazar e ir al estado 112
+
+
+estado 109
+
+   23 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA . expresion CORCHETE_C PARENTESIS_C
 
     PARENTESIS_A  desplazar e ir al estado 37
     CONST_INT     desplazar e ir al estado 38
     CONST_REAL    desplazar e ir al estado 39
     VARIABLE      desplazar e ir al estado 40
 
-    expresion  ir al estado 112
+    expresion  ir al estado 113
     termino    ir al estado 42
     factor     ir al estado 43
 
 
-estado 109
-
-   23 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A . lista_cte CORCHETE_C PARENTESIS_C
-   24     | TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A . CORCHETE_C PARENTESIS_C
-
-    CORCHETE_C  desplazar e ir al estado 113
-    CONST_INT   desplazar e ir al estado 114
-    CONST_REAL  desplazar e ir al estado 115
-
-    lista_cte  ir al estado 116
-
-
 estado 110
 
+   24 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A . lista_cte CORCHETE_C PARENTESIS_C
+   25     | TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A . CORCHETE_C PARENTESIS_C
+
+    CORCHETE_C  desplazar e ir al estado 114
+    CONST_INT   desplazar e ir al estado 115
+    CONST_REAL  desplazar e ir al estado 116
+
+    lista_cte  ir al estado 117
+
+
+estado 111
+
     3 sentencia: sentencia . grammar PUNTO_COMA
-   35 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia . LLAVE_C ENDIF
+   36 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia . LLAVE_C ENDIF
 
     WHILE     desplazar e ir al estado 1
     IF        desplazar e ir al estado 2
@@ -1354,7 +1370,7 @@ estado 110
     BETWEEN   desplazar e ir al estado 5
     TAKE      desplazar e ir al estado 6
     DECVAR    desplazar e ir al estado 7
-    LLAVE_C   desplazar e ir al estado 117
+    LLAVE_C   desplazar e ir al estado 118
     VARIABLE  desplazar e ir al estado 8
 
     grammar  ir al estado 35
@@ -1368,9 +1384,9 @@ estado 110
     if       ir al estado 20
 
 
-estado 111
+estado 112
 
-   36 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A . sentencia LLAVE_C ENDIF
+   37 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A . sentencia LLAVE_C ENDIF
 
     WHILE     desplazar e ir al estado 1
     IF        desplazar e ir al estado 2
@@ -1381,7 +1397,7 @@ estado 111
     DECVAR    desplazar e ir al estado 7
     VARIABLE  desplazar e ir al estado 8
 
-    sentencia  ir al estado 118
+    sentencia  ir al estado 119
     grammar    ir al estado 12
     dec_var    ir al estado 13
     asig       ir al estado 14
@@ -1393,59 +1409,59 @@ estado 111
     if         ir al estado 20
 
 
-estado 112
+estado 113
 
-   22 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion . CORCHETE_C PARENTESIS_C
-   37 expresion: expresion . OP_SUMA termino
-   38          | expresion . OP_RESTA termino
+   23 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion . CORCHETE_C PARENTESIS_C
+   38 expresion: expresion . OP_SUMA termino
+   39          | expresion . OP_RESTA termino
 
-    CORCHETE_C  desplazar e ir al estado 119
+    CORCHETE_C  desplazar e ir al estado 120
     OP_SUMA     desplazar e ir al estado 66
     OP_RESTA    desplazar e ir al estado 67
 
 
-estado 113
-
-   24 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C . PARENTESIS_C
-
-    PARENTESIS_C  desplazar e ir al estado 120
-
-
 estado 114
 
-   25 lista_cte: CONST_INT .
+   25 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C . PARENTESIS_C
 
-    $default  reduce usando la regla 25 (lista_cte)
+    PARENTESIS_C  desplazar e ir al estado 121
 
 
 estado 115
 
-   26 lista_cte: CONST_REAL .
+   26 lista_cte: CONST_INT .
 
     $default  reduce usando la regla 26 (lista_cte)
 
 
 estado 116
 
-   23 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte . CORCHETE_C PARENTESIS_C
-   27 lista_cte: lista_cte . PUNTO_COMA CONST_INT
-   28          | lista_cte . PUNTO_COMA CONST_REAL
+   27 lista_cte: CONST_REAL .
 
-    CORCHETE_C  desplazar e ir al estado 121
-    PUNTO_COMA  desplazar e ir al estado 122
+    $default  reduce usando la regla 27 (lista_cte)
 
 
 estado 117
 
-   35 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C . ENDIF
+   24 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte . CORCHETE_C PARENTESIS_C
+   28 lista_cte: lista_cte . PUNTO_COMA CONST_INT
+   29          | lista_cte . PUNTO_COMA CONST_REAL
 
-    ENDIF  desplazar e ir al estado 123
+    CORCHETE_C  desplazar e ir al estado 122
+    PUNTO_COMA  desplazar e ir al estado 123
 
 
 estado 118
 
+   36 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C . ENDIF
+
+    ENDIF  desplazar e ir al estado 124
+
+
+estado 119
+
     3 sentencia: sentencia . grammar PUNTO_COMA
-   36 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia . LLAVE_C ENDIF
+   37 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia . LLAVE_C ENDIF
 
     WHILE     desplazar e ir al estado 1
     IF        desplazar e ir al estado 2
@@ -1454,7 +1470,7 @@ estado 118
     BETWEEN   desplazar e ir al estado 5
     TAKE      desplazar e ir al estado 6
     DECVAR    desplazar e ir al estado 7
-    LLAVE_C   desplazar e ir al estado 124
+    LLAVE_C   desplazar e ir al estado 125
     VARIABLE  desplazar e ir al estado 8
 
     grammar  ir al estado 35
@@ -1468,80 +1484,80 @@ estado 118
     if       ir al estado 20
 
 
-estado 119
-
-   22 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C . PARENTESIS_C
-
-    PARENTESIS_C  desplazar e ir al estado 125
-
-
 estado 120
 
-   24 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C .
-
-    $default  reduce usando la regla 24 (take)
-
-
-estado 121
-
-   23 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C . PARENTESIS_C
+   23 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C . PARENTESIS_C
 
     PARENTESIS_C  desplazar e ir al estado 126
 
 
+estado 121
+
+   25 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A CORCHETE_C PARENTESIS_C .
+
+    $default  reduce usando la regla 25 (take)
+
+
 estado 122
 
-   27 lista_cte: lista_cte PUNTO_COMA . CONST_INT
-   28          | lista_cte PUNTO_COMA . CONST_REAL
+   24 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C . PARENTESIS_C
 
-    CONST_INT   desplazar e ir al estado 127
-    CONST_REAL  desplazar e ir al estado 128
+    PARENTESIS_C  desplazar e ir al estado 127
 
 
 estado 123
 
-   35 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF .
+   28 lista_cte: lista_cte PUNTO_COMA . CONST_INT
+   29          | lista_cte PUNTO_COMA . CONST_REAL
 
-    $default  reduce usando la regla 35 (if)
+    CONST_INT   desplazar e ir al estado 128
+    CONST_REAL  desplazar e ir al estado 129
 
 
 estado 124
 
-   36 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C . ENDIF
+   36 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE LLAVE_A sentencia LLAVE_C ENDIF .
 
-    ENDIF  desplazar e ir al estado 129
+    $default  reduce usando la regla 36 (if)
 
 
 estado 125
 
-   22 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C .
+   37 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C . ENDIF
 
-    $default  reduce usando la regla 22 (between)
+    ENDIF  desplazar e ir al estado 130
 
 
 estado 126
 
-   23 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C .
+   23 between: BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C .
 
-    $default  reduce usando la regla 23 (take)
+    $default  reduce usando la regla 23 (between)
 
 
 estado 127
 
-   27 lista_cte: lista_cte PUNTO_COMA CONST_INT .
+   24 take: TAKE PARENTESIS_A operador_algebraico PUNTO_COMA CONST_INT PUNTO_COMA CORCHETE_A lista_cte CORCHETE_C PARENTESIS_C .
 
-    $default  reduce usando la regla 27 (lista_cte)
+    $default  reduce usando la regla 24 (take)
 
 
 estado 128
 
-   28 lista_cte: lista_cte PUNTO_COMA CONST_REAL .
+   28 lista_cte: lista_cte PUNTO_COMA CONST_INT .
 
     $default  reduce usando la regla 28 (lista_cte)
 
 
 estado 129
 
-   36 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF .
+   29 lista_cte: lista_cte PUNTO_COMA CONST_REAL .
 
-    $default  reduce usando la regla 36 (if)
+    $default  reduce usando la regla 29 (lista_cte)
+
+
+estado 130
+
+   37 if: IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF .
+
+    $default  reduce usando la regla 37 (if)

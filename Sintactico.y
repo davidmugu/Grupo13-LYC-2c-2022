@@ -1,6 +1,7 @@
 %{
 #include "lista.h"
 #include "pila.h"
+#include "tercetos.h"
 #include "y.tab.h"
 
 FILE *yyin;
@@ -8,6 +9,17 @@ FILE *yyin;
 Lista tablaSimbolos;
 Pila pilaVariables;
 Pila pilaTiposDatos;
+
+/* VARIABLES PARA GCI */
+
+int numeracion_terceto;
+char aux[1000];
+int aux_indice;
+
+int programa_ind, prog_ind, sentencia_ind, grammar_ind, dec_var_ind, declaraciones_ind, lista_var_ind, tipo_dato_ind, asig_ind, between_ind, take_ind,
+lista_cte_ind, write_ind, read_ind, while_ind, if_ind, expresion_ind, termino_ind, factor_ind, cond_simple_ind, condicion_ind, operador_algebraico_ind;
+
+/*-------------------*/
 
 extern int yylex();
 extern void yyerror();
@@ -67,24 +79,24 @@ extern int yylineno;
 
 %%
 
-programa:             prog                                  {printf("Regla - Programa \n");}             
+programa:             prog                                  {prog_ind = programa_ind; printf("Regla - Programa \n");}   //          
         ;
 
-prog:                 sentencia                             {printf("Regla - Prog\n");}
+prog:                 sentencia                             {sentencia_ind = prog_ind; printf("Regla - Prog\n");} //
     ;
 
-sentencia:            sentencia grammar PUNTO_COMA          {printf("Regla - Sentencia Recursiva\n");}
-         |            grammar PUNTO_COMA                    {printf("Regla - Sentencia Corte\n");}
+sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = crear_terceto(sentencia_ind,grammar_ind,PUNTO_COMA,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
+         |            grammar PUNTO_COMA                    {grammar_ind = sentencia_ind; printf("Regla - Sentencia Corte\n");}
          ;
 
-grammar:              dec_var                               {printf("Regla - Sentencia de DEC_VAR\n");}
-       |              asig                                  {printf("Regla - Sentencia de ASIG\n");}
-       |              if                                    {printf("Regla - Sentencia de IF\n");}
-       |              while                                 {printf("Regla - Sentencia de WHILE\n");}
-       |              between                               {printf("Regla - Sentencia de BETWEEN\n");}
-       |              take                                  {printf("Regla - Sentencia de TAKE\n");}
-       |              write                                 {printf("Regla - Sentencia de WRITE\n");}
-       |              read                                  {printf("Regla - Sentencia de READ\n");}
+grammar:              dec_var                               {dec_var_ind = grammar_ind; printf("Regla - Sentencia de DEC_VAR\n");}  //
+       |              asig                                  {asig_ind = grammar_ind; printf("Regla - Sentencia de ASIG\n");}    //
+       |              if                                    {if_ind = grammar_ind; printf("Regla - Sentencia de IF\n");}        //
+       |              while                                 {while_ind = grammar_ind; printf("Regla - Sentencia de WHILE\n");}  //
+       |              between                               {between_ind = grammar_ind; printf("Regla - Sentencia de BETWEEN\n");}  //
+       |              take                                  {take_ind = grammar_ind; printf("Regla - Sentencia de TAKE\n");}   //
+       |              write                                 {write_ind = grammar_ind; printf("Regla - Sentencia de WRITE\n");}  //
+       |              read                                  {read_ind = grammar_ind; printf("Regla - Sentencia de READ\n");}    //
        ;
 
 dec_var:              DECVAR declaraciones ENDDEC           {printf("Regla - Sentencia de Declaracion de Variables\n");} 
@@ -115,7 +127,7 @@ tipo_dato:            INT                                   {while(!pilaVacia(&p
          ;
 
 asig:                 VARIABLE OP_ASIG expresion            {printf("Regla - Sentencia de Asignacion por Expresion\n");} 
-    |                 VARIABLE OP_ASIG CONST_STRING         {printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
+    |                 VARIABLE OP_ASIG CONST_STRING         {asig_ind = crear_terceto(OP_IGUAL, $1, $3, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
     ;
 
 between:              BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C        {printf("Regla - Sentencia de Between\n");}  
@@ -205,7 +217,12 @@ int main(int argc, char* argv[])
     crearPila(&pilaTiposDatos);
     printf("La Pila de Tipos de Datos se creo correctamente\n\n");
 
+    iniciar_gci(&lista_tercetos, &pila_condicion, &pila_cantidad_desapilar, &pila_termino, &pila_expresion, &contador_t, &contador_e, &es_nuevo_token, &recuperar_puntero, &numeracion_terceto);
+
+
     yyparse();
+
+    finalizar_gci(&lista_tercetos, &pila_condicion, &pila_cantidad_desapilar, &pila_termino, &pila_expresion, "intermedio.txt");
 
     printf("\n\nSe procede a eliminar la Tabla de Simbolos\n");
     eliminarTabla(&tablaSimbolos);

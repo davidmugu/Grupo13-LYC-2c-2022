@@ -68,10 +68,11 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 1 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 1 "Sintactico.y"
 
 #include "lista.h"
 #include "pila.h"
+#include "tercetos.h"
 #include "y.tab.h"
 
 FILE *yyin;
@@ -79,6 +80,17 @@ FILE *yyin;
 Lista tablaSimbolos;
 Pila pilaVariables;
 Pila pilaTiposDatos;
+
+/* VARIABLES PARA GCI */
+
+int numeracion_terceto;
+char aux[1000];
+int aux_indice;
+
+int programa_ind, prog_ind, sentencia_ind, grammar_ind, dec_var_ind, declaraciones_ind, lista_var_ind, tipo_dato_ind, asig_ind, between_ind, take_ind,
+lista_cte_ind, write_ind, read_ind, while_ind, if_ind, expresion_ind, termino_ind, factor_ind, cond_simple_ind, condicion_ind, operador_algebraico_ind;
+
+/*-------------------*/
 
 extern int yylex();
 extern void yyerror();
@@ -88,7 +100,7 @@ extern int yylineno;
 
 
 /* Line 189 of yacc.c  */
-#line 92 "y.tab.c"
+#line 104 "y.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -215,14 +227,14 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 19 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 31 "Sintactico.y"
 
     char* strVal;
 
 
 
 /* Line 214 of yacc.c  */
-#line 226 "y.tab.c"
+#line 238 "y.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -234,7 +246,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 238 "y.tab.c"
+#line 250 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -549,13 +561,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    70,    70,    73,    76,    77,    80,    81,    82,    83,
-      84,    85,    86,    87,    90,    93,    94,    97,    98,   100,
-     105,   110,   117,   118,   121,   124,   125,   128,   129,   130,
-     131,   134,   135,   136,   139,   142,   145,   146,   147,   150,
-     151,   152,   155,   156,   157,   161,   162,   163,   164,   167,
-     168,   169,   170,   171,   172,   175,   176,   177,   180,   181,
-     182,   183
+       0,    82,    82,    85,    88,    89,    92,    93,    94,    95,
+      96,    97,    98,    99,   102,   105,   106,   109,   110,   112,
+     117,   122,   129,   130,   133,   136,   137,   140,   141,   142,
+     143,   146,   147,   148,   151,   154,   157,   158,   159,   162,
+     163,   164,   167,   168,   169,   173,   174,   175,   176,   179,
+     180,   181,   182,   183,   184,   187,   188,   189,   192,   193,
+     194,   195
 };
 #endif
 
@@ -1550,126 +1562,126 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 70 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Programa \n");}
+#line 82 "Sintactico.y"
+    {prog_ind = programa_ind; printf("Regla - Programa \n");}
     break;
 
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 73 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Prog\n");}
+#line 85 "Sintactico.y"
+    {sentencia_ind = prog_ind; printf("Regla - Prog\n");}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 76 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia Recursiva\n");}
+#line 88 "Sintactico.y"
+    {sentencia_ind = crear_terceto(sentencia_ind,grammar_ind,PUNTO_COMA,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 77 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia Corte\n");}
+#line 89 "Sintactico.y"
+    {grammar_ind = sentencia_ind; printf("Regla - Sentencia Corte\n");}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 80 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia de DEC_VAR\n");}
+#line 92 "Sintactico.y"
+    {dec_var_ind = grammar_ind; printf("Regla - Sentencia de DEC_VAR\n");}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 81 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia de ASIG\n");}
+#line 93 "Sintactico.y"
+    {asig_ind = grammar_ind; printf("Regla - Sentencia de ASIG\n");}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 82 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia de IF\n");}
+#line 94 "Sintactico.y"
+    {if_ind = grammar_ind; printf("Regla - Sentencia de IF\n");}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 83 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia de WHILE\n");}
+#line 95 "Sintactico.y"
+    {while_ind = grammar_ind; printf("Regla - Sentencia de WHILE\n");}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 84 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia de BETWEEN\n");}
+#line 96 "Sintactico.y"
+    {between_ind = grammar_ind; printf("Regla - Sentencia de BETWEEN\n");}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 85 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia de TAKE\n");}
+#line 97 "Sintactico.y"
+    {take_ind = grammar_ind; printf("Regla - Sentencia de TAKE\n");}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 86 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia de WRITE\n");}
+#line 98 "Sintactico.y"
+    {write_ind = grammar_ind; printf("Regla - Sentencia de WRITE\n");}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 87 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia de READ\n");}
+#line 99 "Sintactico.y"
+    {read_ind = grammar_ind; printf("Regla - Sentencia de READ\n");}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 90 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 102 "Sintactico.y"
     {printf("Regla - Sentencia de Declaracion de Variables\n");}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 93 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 105 "Sintactico.y"
     {;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 94 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 106 "Sintactico.y"
     {;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 97 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 109 "Sintactico.y"
     {apilar(&pilaVariables, (yyvsp[(3) - (3)].strVal));}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 98 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 110 "Sintactico.y"
     {apilar(&pilaVariables, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 100 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 112 "Sintactico.y"
     {while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
@@ -1680,7 +1692,7 @@ yyreduce:
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 105 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 117 "Sintactico.y"
     {while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
@@ -1691,7 +1703,7 @@ yyreduce:
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 110 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 122 "Sintactico.y"
     {while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
@@ -1702,287 +1714,287 @@ yyreduce:
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 117 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 129 "Sintactico.y"
     {printf("Regla - Sentencia de Asignacion por Expresion\n");}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 118 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
+#line 130 "Sintactico.y"
+    {asig_ind = crear_terceto(OP_IGUAL, (yyvsp[(1) - (3)].strVal), (yyvsp[(3) - (3)].strVal), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 121 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 133 "Sintactico.y"
     {printf("Regla - Sentencia de Between\n");}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 124 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 136 "Sintactico.y"
     {printf("Regla - Sentencia de Take con Lista de Constantes\n");insertarEntero(&tablaSimbolos, (yyvsp[(5) - (10)].strVal));}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 125 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 137 "Sintactico.y"
     {printf("Regla - Sentencia de Take sin Lista de Constantes\n");insertarEntero(&tablaSimbolos, (yyvsp[(5) - (9)].strVal));}
     break;
 
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 128 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 140 "Sintactico.y"
     {printf("Regla - CTE INT\n");insertarEntero(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 129 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 141 "Sintactico.y"
     {printf("Regla - CTE REAL\n");insertarReal(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 130 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 142 "Sintactico.y"
     {printf("Regla - Lista CTE INT\n");insertarEntero(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 131 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 143 "Sintactico.y"
     {printf("Regla - Lista CTE REAL");insertarReal(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 134 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 146 "Sintactico.y"
     {printf("Regla - Sentencia de Write: VARIABLE\n");}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 135 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 147 "Sintactico.y"
     {printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 136 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 148 "Sintactico.y"
     {printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
     break;
 
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 139 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 151 "Sintactico.y"
     {printf("Regla - Sentencia de Read: VARIABLE\n");}
     break;
 
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 142 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 154 "Sintactico.y"
     {printf("Regla - Sentencia de While\n");}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 145 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 157 "Sintactico.y"
     {printf("Regla - Sentencia de if sin else\n");}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 146 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 158 "Sintactico.y"
     {printf("Regla - Sentencia de if con else\n");}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 147 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 159 "Sintactico.y"
     {printf("Regla - Sentencia de if con else (mas condicion)\n");}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 150 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 162 "Sintactico.y"
     {printf("Regla - Sentencia de suma\n");}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 151 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 163 "Sintactico.y"
     {printf("Regla - Sentencia de resta\n");}
     break;
 
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 152 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 164 "Sintactico.y"
     {printf("Regla - Expresion <- Termino\n");}
     break;
 
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 155 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 167 "Sintactico.y"
     {printf("Regla - Sentencia de multiplicacion\n");}
     break;
 
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 156 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 168 "Sintactico.y"
     {printf("Regla - Sentencia de division\n");}
     break;
 
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 157 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 169 "Sintactico.y"
     {printf("Regla - Termino <- Factor\n");}
     break;
 
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 161 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 173 "Sintactico.y"
     {printf("Regla - Factor\n");}
     break;
 
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 162 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 174 "Sintactico.y"
     {printf("Regla - Constante Entera\n");insertarEntero(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 163 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 175 "Sintactico.y"
     {printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 164 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 176 "Sintactico.y"
     {printf("Regla - Variable\n");}
     break;
 
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 167 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 179 "Sintactico.y"
     {printf("Comparacion Igual\n");}
     break;
 
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 168 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 180 "Sintactico.y"
     {printf("Comparacion Mayor-Igual\n");}
     break;
 
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 169 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 181 "Sintactico.y"
     {printf("Comparacion Menor-Igual\n");}
     break;
 
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 170 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 182 "Sintactico.y"
     {printf("Comparacion Mayor\n");}
     break;
 
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 171 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 183 "Sintactico.y"
     {printf("Comparacion Menor\n");}
     break;
 
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 172 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 184 "Sintactico.y"
     {printf("Comparacion Distinto\n");}
     break;
 
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 175 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 187 "Sintactico.y"
     {printf("Regla - Condicion");}
     break;
 
   case 56:
 
 /* Line 1455 of yacc.c  */
-#line 176 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 188 "Sintactico.y"
     {printf("Regla - Comparacion AND\n");}
     break;
 
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 177 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 189 "Sintactico.y"
     {printf("Regla Comparacion OR\n");}
     break;
 
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 180 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 192 "Sintactico.y"
     {printf("Operador Suma\n");}
     break;
 
   case 59:
 
 /* Line 1455 of yacc.c  */
-#line 181 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 193 "Sintactico.y"
     {printf("Operador Resta\n");}
     break;
 
   case 60:
 
 /* Line 1455 of yacc.c  */
-#line 182 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 194 "Sintactico.y"
     {printf("Operador Division\n");}
     break;
 
   case 61:
 
 /* Line 1455 of yacc.c  */
-#line 183 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 195 "Sintactico.y"
     {printf("Operador Multiplicacion\n");}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1986 "y.tab.c"
+#line 1998 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2194,7 +2206,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 186 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+#line 198 "Sintactico.y"
 
 
 
@@ -2217,7 +2229,12 @@ int main(int argc, char* argv[])
     crearPila(&pilaTiposDatos);
     printf("La Pila de Tipos de Datos se creo correctamente\n\n");
 
+    iniciar_gci(&lista_tercetos, &pila_condicion, &pila_cantidad_desapilar, &pila_termino, &pila_expresion, &contador_t, &contador_e, &es_nuevo_token, &recuperar_puntero, &numeracion_terceto);
+
+
     yyparse();
+
+    finalizar_gci(&lista_tercetos, &pila_condicion, &pila_cantidad_desapilar, &pila_termino, &pila_expresion, "intermedio.txt");
 
     printf("\n\nSe procede a eliminar la Tabla de Simbolos\n");
     eliminarTabla(&tablaSimbolos);
