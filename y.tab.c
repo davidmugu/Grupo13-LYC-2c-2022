@@ -71,7 +71,7 @@
 #line 1 "Sintactico.y"
 
 #include "lista.h"
-#include "pila.h"
+#include "pila2.h"
 #include "tercetos.h"
 #include "y.tab.h"
 
@@ -95,7 +95,7 @@ lista_cte_ind, write_ind, read_ind, while_ind, if_ind, expresion_ind, termino_in
 t_pila pila_termino, pila_expresion;
 int contador_t, contador_e, recuperar_puntero, es_nuevo_token;
 t_lista_tercetos lista_tercetos;
-t_pila pila_condicion, pila_cantidad_desapilar2;
+t_pila pila_condicion, pila_cantidad_desapilar;
 char *operador_comparacion;
 
 /*-------------------*/
@@ -1676,14 +1676,14 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 117 "Sintactico.y"
-    {apilar2(&pilaVariables,(yyvsp[(3) - (3)].strVal));}
+    {apilar(&pilaVariables,(yyvsp[(3) - (3)].strVal));}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
 #line 118 "Sintactico.y"
-    {apilar2(&pilaVariables, &(yyvsp[(1) - (1)].strVal));}
+    {apilar(&pilaVariables, &(yyvsp[(1) - (1)].strVal));}
     break;
 
   case 19:
@@ -1692,7 +1692,7 @@ yyreduce:
 #line 120 "Sintactico.y"
     {while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
-                                                             desapilar2(&pilaVariables, variable);
+                                                             desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "INT");
                                                              }}
     break;
@@ -1703,7 +1703,7 @@ yyreduce:
 #line 125 "Sintactico.y"
     {while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
-                                                             desapilar2(&pilaVariables, variable);
+                                                             desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "REAL");
                                                              }}
     break;
@@ -1714,7 +1714,7 @@ yyreduce:
 #line 130 "Sintactico.y"
     {while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
-                                                             desapilar2(&pilaVariables, variable);
+                                                             desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "STRING");
                                                              }}
     break;
@@ -2237,12 +2237,12 @@ int main(int argc, char* argv[])
     crearPila(&pilaTiposDatos);
     printf("La Pila de Tipos de Datos se creo correctamente\n\n");
 
-    iniciar_gci(&lista_tercetos, &pila_condicion, &pila_cantidad_desapilar2, &pila_termino, &pila_expresion, &contador_t, &contador_e, &es_nuevo_token, &recuperar_puntero, &numeracion_terceto);
+    iniciar_gci(&lista_tercetos, &pila_condicion, &pila_cantidad_desapilar, &pila_termino, &pila_expresion, &contador_t, &contador_e, &es_nuevo_token, &recuperar_puntero, &numeracion_terceto);
 
 
     yyparse();
 
-    finalizar_gci(&lista_tercetos, &pila_condicion, &pila_cantidad_desapilar2, &pila_termino, &pila_expresion, "intermedio.txt");
+    finalizar_gci(&lista_tercetos, &pila_condicion, &pila_cantidad_desapilar, &pila_termino, &pila_expresion, "intermedio.txt");
 
     printf("\n\nSe procede a eliminar la Tabla de Simbolos\n");
     eliminarTabla(&tablaSimbolos);
