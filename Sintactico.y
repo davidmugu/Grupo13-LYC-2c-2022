@@ -1,14 +1,15 @@
 %{
 #include "lista.h"
-#include "pila2.h"
+#include "pila.h"
 #include "tercetos.h"
 #include "y.tab.h"
+#include "gci.h"
 
 FILE *yyin;
 
 Lista tablaSimbolos;
-t_pila pilaVariables;//Pila pilaVariables;
-t_pila pilaTiposDatos;//Pila pilaTiposDatos;
+Pila pilaVariables;//Pila pilaVariables;
+Pila pilaTiposDatos;//Pila pilaTiposDatos;
 
 /* VARIABLES PARA GCI */
 
@@ -21,10 +22,10 @@ lista_cte_ind, write_ind, read_ind, while_ind, if_ind, expresion_ind, termino_in
 
 
 /**/
-t_pila pila_termino, pila_expresion;
+Pila pila_termino, pila_expresion;
 int contador_t, contador_e, recuperar_puntero, es_nuevo_token;
 t_lista_tercetos lista_tercetos;
-t_pila pila_condicion, pila_cantidad_desapilar;
+Pila pila_condicion, pila_cantidad_desapilar;
 char *operador_comparacion;
 
 /*-------------------*/
@@ -115,7 +116,7 @@ declaraciones:        lista_var DOS_PUNTOS tipo_dato                      {;}
              ;
 
 lista_var:           lista_var COMA VARIABLE                {apilar(&pilaVariables,$3);}   
-         |           VARIABLE                               {apilar(&pilaVariables, &$1);}                                                  
+         |           VARIABLE                               {apilar(&pilaVariables, $1);}                                                  
          ;
 tipo_dato:            INT                                   {while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
@@ -135,7 +136,7 @@ tipo_dato:            INT                                   {while(!pilaVacia(&p
          ;
 
 asig:                 VARIABLE OP_ASIG expresion            {printf("Regla - Sentencia de Asignacion por Expresion\n");} 
-    |                 VARIABLE OP_ASIG CONST_STRING         {asig_ind = crear_terceto(OP_IGUAL, $1, $3, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
+    |                 VARIABLE OP_ASIG CONST_STRING         {asig_ind = crear_terceto(NULL, $1, $3, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
     ;
 
 between:              BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C        {printf("Regla - Sentencia de Between\n");}  

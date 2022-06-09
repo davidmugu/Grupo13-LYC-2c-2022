@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "pila2.h"
+
 
 typedef struct
 {
@@ -34,8 +34,8 @@ void guardar_lista_en_archivo_terceto(t_lista_tercetos*, const char*);
 char* buscar_elemento(const t_lista_tercetos*, int, int);
 void cambiar_elemento(const t_lista_tercetos*, int, const char*, int);
 
-void iniciar_gci(t_lista_tercetos*, t_pila*, t_pila*, t_pila*, t_pila*, int*, int*, int*, int*, int*);
-void finalizar_gci(t_lista_tercetos*, t_pila*, t_pila*, t_pila*, t_pila*, const char*);
+void iniciar_gci(t_lista_tercetos*, Pila*, Pila*, Pila*, Pila*, int*, int*, int*, int*, int*);
+void finalizar_gci(t_lista_tercetos*, Pila*, Pila*, Pila*, Pila*, const char*);
 char* transformar_indice(int);
 char* obtener_branch(const char*);
 void invertir_branch(t_lista_tercetos*, int);
