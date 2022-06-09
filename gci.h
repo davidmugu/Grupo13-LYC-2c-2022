@@ -26,6 +26,9 @@ void iniciar_gci(t_lista_tercetos *pl, Pila *pcondiciones, Pila *pcantidad_salto
 	*pes_nuevo_token = 0;
 	*precuperar_puntero = 0;
 	*pnumeracion = -1;
+
+    printf("Termino iniciar GCI\n");
+
 }
 
 void finalizar_gci(t_lista_tercetos *pl, Pila *pcondiciones, Pila *pcantidad_salto, Pila *pterminos, Pila *pexpresiones, const char *path)

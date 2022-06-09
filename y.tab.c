@@ -571,7 +571,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    92,    92,    95,    98,    99,   102,   103,   104,   105,
+       0,    93,    93,    95,    98,    99,   102,   103,   104,   105,
      106,   107,   108,   109,   112,   115,   116,   119,   120,   122,
      127,   132,   139,   140,   143,   146,   147,   150,   151,   152,
      153,   156,   157,   158,   161,   164,   167,   168,   169,   172,
@@ -1572,43 +1572,43 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 92 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {prog_ind = programa_ind; printf("Regla - Programa \n");}
+#line 93 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
+    {printf("92\n");prog_ind = programa_ind; printf("Regla - Programa \n");}
     break;
 
   case 3:
 
 /* Line 1455 of yacc.c  */
 #line 95 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {sentencia_ind = prog_ind; printf("Regla - Prog\n");}
+    {printf("95\n");sentencia_ind = prog_ind; printf("Regla - Prog\n");}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
 #line 98 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {sentencia_ind = crear_terceto(transformar_indice(sentencia_ind),transformar_indice(grammar_ind),NULL,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
+    {printf("98\n");sentencia_ind = crear_terceto(transformar_indice(sentencia_ind),transformar_indice(grammar_ind),NULL,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
 #line 99 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {grammar_ind = sentencia_ind; printf("Regla - Sentencia Corte\n");}
+    {printf("99\n");grammar_ind = sentencia_ind; printf("Regla - Sentencia Corte\n");}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
 #line 102 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {dec_var_ind = grammar_ind; printf("Regla - Sentencia de DEC_VAR\n");}
+    {printf("102\n");dec_var_ind = grammar_ind; printf("Regla - Sentencia de DEC_VAR\n");}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
 #line 103 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {asig_ind = grammar_ind; printf("Regla - Sentencia de ASIG\n");}
+    {printf("103\n");asig_ind = grammar_ind; printf("Regla - Sentencia de ASIG\n");}
     break;
 
   case 8:
@@ -1678,21 +1678,21 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 119 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {apilar(&pilaVariables,(yyvsp[(3) - (3)].strVal));}
+    {printf("119\n");apilar(&pilaVariables,(yyvsp[(3) - (3)].strVal));}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
 #line 120 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {apilar(&pilaVariables, (yyvsp[(1) - (1)].strVal));}
+    {printf("120\n");apilar(&pilaVariables, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
 #line 122 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {while(!pilaVacia(&pilaVariables)) {
+    {printf("122\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "INT");
@@ -1703,7 +1703,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 127 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {while(!pilaVacia(&pilaVariables)) {
+    {printf("127\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "REAL");
@@ -1714,7 +1714,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 132 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {while(!pilaVacia(&pilaVariables)) {
+    {printf("132\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "STRING");
@@ -1725,14 +1725,14 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 139 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {printf("Regla - Sentencia de Asignacion por Expresion\n");}
+    {printf("139\n");printf("Regla - Sentencia de Asignacion por Expresion\n");}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
 #line 140 "C:\\Users\\santi\\Documents\\Proyectos\\TP-LyC\\Grupo13-LYC-2c-2022\\Sintactico.y"
-    {asig_ind = crear_terceto(NULL, (yyvsp[(1) - (3)].strVal), (yyvsp[(3) - (3)].strVal), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
+    {printf("140\n");asig_ind = crear_terceto((yyvsp[(1) - (3)].strVal), (yyvsp[(1) - (3)].strVal), (yyvsp[(3) - (3)].strVal), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
     break;
 
   case 24:
@@ -2243,6 +2243,8 @@ int main(int argc, char* argv[])
 
 
     yyparse();
+
+    printf("paso yyparse\n");
 
     finalizar_gci(&lista_tercetos, &pila_condicion, &pila_cantidad_desapilar, &pila_termino, &pila_expresion, "intermedio.txt");
 

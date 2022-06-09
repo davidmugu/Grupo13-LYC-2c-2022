@@ -89,18 +89,18 @@ extern int yylineno;
 
 %%
 
-programa:             prog                                  {prog_ind = programa_ind; printf("Regla - Programa \n");}   //          
+        
+programa:             prog                                  {printf("92\n");prog_ind = programa_ind; printf("Regla - Programa \n");}   //          
         ;
-
-prog:                 sentencia                             {sentencia_ind = prog_ind; printf("Regla - Prog\n");} //
+prog:                 sentencia                             {printf("95\n");sentencia_ind = prog_ind; printf("Regla - Prog\n");} //
     ;
 
-sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = crear_terceto(transformar_indice(sentencia_ind),transformar_indice(grammar_ind),NULL,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
-         |            grammar PUNTO_COMA                    {grammar_ind = sentencia_ind; printf("Regla - Sentencia Corte\n");}
+sentencia:            sentencia grammar PUNTO_COMA          {printf("98\n");sentencia_ind = crear_terceto(transformar_indice(sentencia_ind),transformar_indice(grammar_ind),NULL,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
+         |            grammar PUNTO_COMA                    {printf("99\n");grammar_ind = sentencia_ind; printf("Regla - Sentencia Corte\n");}
          ;
 
-grammar:              dec_var                               {dec_var_ind = grammar_ind; printf("Regla - Sentencia de DEC_VAR\n");}  //
-       |              asig                                  {asig_ind = grammar_ind; printf("Regla - Sentencia de ASIG\n");}    //
+grammar:              dec_var                               {printf("102\n");dec_var_ind = grammar_ind; printf("Regla - Sentencia de DEC_VAR\n");}  //
+       |              asig                                  {printf("103\n");asig_ind = grammar_ind; printf("Regla - Sentencia de ASIG\n");}    //
        |              if                                    {if_ind = grammar_ind; printf("Regla - Sentencia de IF\n");}        //
        |              while                                 {while_ind = grammar_ind; printf("Regla - Sentencia de WHILE\n");}  //
        |              between                               {between_ind = grammar_ind; printf("Regla - Sentencia de BETWEEN\n");}  //
@@ -116,28 +116,28 @@ declaraciones:        lista_var DOS_PUNTOS tipo_dato                      {;}
              |        lista_var DOS_PUNTOS tipo_dato declaraciones        {;}
              ;
 
-lista_var:           lista_var COMA VARIABLE                {apilar(&pilaVariables,$3);}   
-         |           VARIABLE                               {apilar(&pilaVariables, $1);}                                                  
+lista_var:           lista_var COMA VARIABLE                {printf("119\n");apilar(&pilaVariables,$3);}   
+         |           VARIABLE                               {printf("120\n");apilar(&pilaVariables, $1);}                                                  
          ;
-tipo_dato:            INT                                   {while(!pilaVacia(&pilaVariables)) {
+tipo_dato:            INT                                   {printf("122\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "INT");
                                                              }}
-         |            REAL                                  {while(!pilaVacia(&pilaVariables)) {
+         |            REAL                                  {printf("127\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "REAL");
                                                              }}
-         |            STRING                                {while(!pilaVacia(&pilaVariables)) {
+         |            STRING                                {printf("132\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "STRING");
                                                              }}                                                      
          ;
 
-asig:                 VARIABLE OP_ASIG expresion            {printf("Regla - Sentencia de Asignacion por Expresion\n");} 
-    |                 VARIABLE OP_ASIG CONST_STRING         {asig_ind = crear_terceto(NULL, $1, $3, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
+asig:                 VARIABLE OP_ASIG expresion            {printf("139\n");printf("Regla - Sentencia de Asignacion por Expresion\n");} 
+    |                 VARIABLE OP_ASIG CONST_STRING         {printf("140\n");asig_ind = crear_terceto($1, $1, $3, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
     ;
 
 between:              BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C        {printf("Regla - Sentencia de Between\n");}  
@@ -231,6 +231,8 @@ int main(int argc, char* argv[])
 
 
     yyparse();
+
+    printf("paso yyparse\n");
 
     finalizar_gci(&lista_tercetos, &pila_condicion, &pila_cantidad_desapilar, &pila_termino, &pila_expresion, "intermedio.txt");
 
