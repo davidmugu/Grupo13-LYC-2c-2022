@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define OK 0
-#define ERROR -1
+#define ERROR_3 -1
 #define DUPLICADO 1
 
 typedef struct sNodoLista
@@ -35,7 +35,7 @@ int insertarEnOrden(Lista *l, char* nombre, char* tipoDato, char* valor, int lon
     nodoLista* nuevoNodo = (nodoLista*)malloc(sizeof(nodoLista));
     
     if(!nuevoNodo)
-        return ERROR;
+        return ERROR_3;
 
     while(*l && ((res = (strcmp((*l)->nombre, nombre))) < 0))
         l = &(*l)->sig;
@@ -134,7 +134,7 @@ int eliminarTabla(Lista *l) {
     
     if(!Tabla) {
         printf("No se pudo abrir el archivo ts.txt \n");
-        return ERROR;
+        return ERROR_3;
     }
 
     printf("\n                           TABLA DE SIMBOLOS                              \n");

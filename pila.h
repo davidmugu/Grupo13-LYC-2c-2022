@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #define OK 0
-#define ERROR -1
-#define PILA_LLENA 1
-#define PILA_VACIA 2
+#define ERROR_2_ -1
+#define PILA_LLENA_2 1
+#define PILA_VACIA_2 2
 
 typedef struct sNodoPila
 {
@@ -28,7 +28,7 @@ void crearPila(Pila* p) {
 int apilar(Pila* p,char* d) {
     nodoPila* nuevoNodo=(nodoPila*)malloc(sizeof(nodoPila));
     if(!nuevoNodo)
-        return PILA_LLENA;
+        return PILA_LLENA_2;
 
     strcpy(nuevoNodo->datos,d);
     nuevoNodo->sig = *p;
@@ -40,7 +40,7 @@ int apilar(Pila* p,char* d) {
 int desapilar(Pila* p,char* d) {
     nodoPila* nodoAEliminar;
     if(!*p)
-        return PILA_VACIA;
+        return PILA_VACIA_2;
 
     nodoAEliminar = (nodoPila*)malloc(sizeof(nodoPila));
     nodoAEliminar = *p;

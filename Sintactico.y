@@ -4,6 +4,7 @@
 #include "tercetos.h"
 #include "y.tab.h"
 #include "gci.h"
+#include "constantes.h"
 
 FILE *yyin;
 
