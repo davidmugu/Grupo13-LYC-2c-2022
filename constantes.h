@@ -91,6 +91,8 @@
 #define BEQ "BEQ"
 #define BNE "BNE"
 
+#define FUNCION_READ "READ"
+
 #define CANTIDAD_DIGITOS_NUMERO 5
 
 /* CONSTANTES DE ASSEMBLER */
