@@ -153,9 +153,9 @@ lista_cte:            CONST_INT                                   {printf("Regla
          |            lista_cte PUNTO_COMA CONST_REAL             {printf("Regla - Lista CTE REAL");insertarReal(&tablaSimbolos, $3);}
          ;            
 
-write:                WRITE VARIABLE                        {write_ind = crear_terceto(FUNCION_WRITE, $1, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: VARIABLE\n");}   
-     |                WRITE CONST_STRING                    {write_ind = crear_terceto(FUNCION_WRITE, $1, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, $2);}
-     |                WRITE CONST_INT                      {write_ind = crear_terceto(FUNCION_WRITE, $1, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, $2);}
+write:                WRITE VARIABLE                        {write_ind = crear_terceto(FUNCION_WRITE, $2, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: VARIABLE\n");}   
+     |                WRITE CONST_STRING                    {write_ind = crear_terceto(FUNCION_WRITE, $2, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, $2);}
+     |                WRITE CONST_INT                      {write_ind = crear_terceto(FUNCION_WRITE, $2, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, $2);}
      ; 
 
 read:                 READ VARIABLE                         {read_ind = crear_terceto(FUNCION_READ,$2,SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Read: VARIABLE\n");}              
@@ -174,7 +174,7 @@ expresion:            expresion OP_SUMA termino           {expresion_ind = crear
 	       |            termino                             {expresion_ind = termino_ind;printf("Regla - Expresion <- Termino\n");}
          ;
 
-termino:              termino OP_MULT factor              {termino_ind = crear_terceto(SIGNO_MULT, transformar_indice(termino_ind), transformar_indice(factor_ind), &numeracion_terceto, &lista_tercetos)printf("Regla - Sentencia de multiplicacion\n");}
+termino:              termino OP_MULT factor              {termino_ind = crear_terceto(SIGNO_MULT, transformar_indice(termino_ind), transformar_indice(factor_ind), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de multiplicacion\n");}
 	     |              termino OP_DIV factor               {termino_ind = crear_terceto(SIGNO_DIVISION, transformar_indice(termino_ind), transformar_indice(factor_ind), &numeracion_terceto, &lista_tercetos) ;printf("Regla - Sentencia de division\n");}
 	     |              factor                              {termino_ind = factor_ind;printf("Regla - Termino <- Factor\n");}
        ;

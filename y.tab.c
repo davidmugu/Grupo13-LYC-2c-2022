@@ -1788,21 +1788,21 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 156 "Sintactico.y"
-    {printf("Regla - Sentencia de Write: VARIABLE\n");}
+    {write_ind = crear_terceto(FUNCION_WRITE, (yyvsp[(2) - (2)].strVal), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: VARIABLE\n");}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
 #line 157 "Sintactico.y"
-    {printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
+    {write_ind = crear_terceto(FUNCION_WRITE, (yyvsp[(2) - (2)].strVal), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
 #line 158 "Sintactico.y"
-    {printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
+    {write_ind = crear_terceto(FUNCION_WRITE, (yyvsp[(2) - (2)].strVal), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
     break;
 
   case 34:
@@ -1844,14 +1844,14 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 172 "Sintactico.y"
-    {printf("Regla - Sentencia de suma\n");}
+    {expresion_ind = crear_terceto(SIGNO_SUMAR, transformar_indice(expresion_ind), transformar_indice(termino_ind), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de suma\n");}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
 #line 173 "Sintactico.y"
-    {printf("Regla - Sentencia de resta\n");}
+    {expresion_ind = crear_terceto(SIGNO_RESTAR, transformar_indice(expresion_ind), transformar_indice(termino_ind), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de resta\n");}
     break;
 
   case 41:
@@ -1865,14 +1865,14 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 177 "Sintactico.y"
-    {printf("Regla - Sentencia de multiplicacion\n");}
+    {termino_ind = crear_terceto(SIGNO_MULT, transformar_indice(termino_ind), transformar_indice(factor_ind), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de multiplicacion\n");}
     break;
 
   case 43:
 
 /* Line 1455 of yacc.c  */
 #line 178 "Sintactico.y"
-    {printf("Regla - Sentencia de division\n");}
+    {termino_ind = crear_terceto(SIGNO_DIVISION, transformar_indice(termino_ind), transformar_indice(factor_ind), &numeracion_terceto, &lista_tercetos) ;printf("Regla - Sentencia de division\n");}
     break;
 
   case 44:
@@ -1886,7 +1886,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 183 "Sintactico.y"
-    {printf("Regla - Factor\n");}
+    {factor_ind = expresion_ind; printf("Regla - Factor\n");}
     break;
 
   case 46:
@@ -1900,14 +1900,14 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 185 "Sintactico.y"
-    {printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
+    {factor_ind = crear_terceto((yyvsp[(1) - (1)].strVal),SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 48:
 
 /* Line 1455 of yacc.c  */
 #line 186 "Sintactico.y"
-    {printf("Regla - Variable\n");}
+    {factor_ind = crear_terceto((yyvsp[(1) - (1)].strVal),SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Variable\n");}
     break;
 
   case 49:

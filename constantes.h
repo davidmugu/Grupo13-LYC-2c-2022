@@ -92,6 +92,7 @@
 #define BNE "BNE"
 
 #define FUNCION_READ "READ"
+#define FUNCION_WRITE "WRITE"
 
 #define CANTIDAD_DIGITOS_NUMERO 5
 
