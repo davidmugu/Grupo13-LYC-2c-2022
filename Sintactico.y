@@ -100,13 +100,13 @@ sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = cre
          ;
 
 grammar:              dec_var                               {grammar_ind = dec_var_ind; printf("Regla - Sentencia de DEC_VAR\n");}  //
-       |              asig                                  {grammar_ind = asig_ind; printf("Regla - Sentencia de ASIG\n");}    //
+       |              asig                                  {grammar_ind = asig_ind; printf("Regla - Sentencia de ASIG\n");}    // LISTO
        |              if                                    {grammar_ind = if_ind; printf("Regla - Sentencia de IF\n");}        //
        |              while                                 {grammar_ind = while_ind; printf("Regla - Sentencia de WHILE\n");}  //
        |              between                               {grammar_ind = between_ind; printf("Regla - Sentencia de BETWEEN\n");}  //
        |              take                                  {grammar_ind = take_ind; printf("Regla - Sentencia de TAKE\n");}   //
-       |              write                                 {grammar_ind = write_ind; printf("Regla - Sentencia de WRITE\n");}  //
-       |              read                                  {grammar_ind = read_ind; printf("Regla - Sentencia de READ\n");}    //
+       |              write                                 {grammar_ind = write_ind; printf("Regla - Sentencia de WRITE\n");}  // LISTO
+       |              read                                  {grammar_ind = read_ind; printf("Regla - Sentencia de READ\n");}    // LISTO
        ;
 
 dec_var:              DECVAR declaraciones ENDDEC           {printf("Regla - Sentencia de Declaracion de Variables\n");} 
@@ -153,9 +153,9 @@ lista_cte:            CONST_INT                                   {printf("Regla
          |            lista_cte PUNTO_COMA CONST_REAL             {printf("Regla - Lista CTE REAL");insertarReal(&tablaSimbolos, $3);}
          ;            
 
-write:                WRITE VARIABLE                        {printf("Regla - Sentencia de Write: VARIABLE\n");}   
-     |                WRITE CONST_STRING                    {printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, $2);}
-     |                WRITE CONST_INT                      {printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, $2);}
+write:                WRITE VARIABLE                        {write_ind = crear_terceto(FUNCION_WRITE, $1, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: VARIABLE\n");}   
+     |                WRITE CONST_STRING                    {write_ind = crear_terceto(FUNCION_WRITE, $1, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, $2);}
+     |                WRITE CONST_INT                      {write_ind = crear_terceto(FUNCION_WRITE, $1, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, $2);}
      ; 
 
 read:                 READ VARIABLE                         {read_ind = crear_terceto(FUNCION_READ,$2,SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Read: VARIABLE\n");}              
@@ -169,21 +169,21 @@ if:                   IF condicion LLAVE_A sentencia LLAVE_C ENDIF              
   |                   IF condicion LLAVE_A sentencia LLAVE_C ELSE condicion LLAVE_A sentencia LLAVE_C ENDIF             {printf("Regla - Sentencia de if con else (mas condicion)\n");}
   ;            
 
-expresion:            expresion OP_SUMA termino           {printf("Regla - Sentencia de suma\n");}
-	       |            expresion OP_RESTA termino          {printf("Regla - Sentencia de resta\n");} 
+expresion:            expresion OP_SUMA termino           {expresion_ind = crear_terceto(SIGNO_SUMAR, transformar_indice(expresion_ind), transformar_indice(termino_ind), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de suma\n");}
+	       |            expresion OP_RESTA termino          {expresion_ind = crear_terceto(SIGNO_RESTAR, transformar_indice(expresion_ind), transformar_indice(termino_ind), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de resta\n");} 
 	       |            termino                             {expresion_ind = termino_ind;printf("Regla - Expresion <- Termino\n");}
          ;
 
-termino:              termino OP_MULT factor              {printf("Regla - Sentencia de multiplicacion\n");}
-	     |              termino OP_DIV factor               {printf("Regla - Sentencia de division\n");}
+termino:              termino OP_MULT factor              {termino_ind = crear_terceto(SIGNO_MULT, transformar_indice(termino_ind), transformar_indice(factor_ind), &numeracion_terceto, &lista_tercetos)printf("Regla - Sentencia de multiplicacion\n");}
+	     |              termino OP_DIV factor               {termino_ind = crear_terceto(SIGNO_DIVISION, transformar_indice(termino_ind), transformar_indice(factor_ind), &numeracion_terceto, &lista_tercetos) ;printf("Regla - Sentencia de division\n");}
 	     |              factor                              {termino_ind = factor_ind;printf("Regla - Termino <- Factor\n");}
        ;
 
                     
-factor:               PARENTESIS_A expresion PARENTESIS_C   {printf("Regla - Factor\n");}
+factor:               PARENTESIS_A expresion PARENTESIS_C   {factor_ind = expresion_ind; printf("Regla - Factor\n");}
       |               CONST_INT                             {factor_ind = crear_terceto($1,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Entera\n");insertarEntero(&tablaSimbolos, $1);}
-      |               CONST_REAL                            {printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, $1);}
-	  |               VARIABLE                              {printf("Regla - Variable\n");}
+      |               CONST_REAL                            {factor_ind = crear_terceto($1,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, $1);}
+	  |               VARIABLE                              {factor_ind = crear_terceto($1,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Variable\n");}
       ;
 
 cond_simple:          expresion OP_COMP expresion           {printf("Comparacion Igual\n");}

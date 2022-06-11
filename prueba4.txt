@@ -1,3 +1,1 @@
-b := 5;
-c := "hola";
-READ b;
+b := "hola";
