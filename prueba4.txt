@@ -1,4 +1,2 @@
-b := "hola";
-write "chau";
-write 8;
-write 8+5;
+BETWEEN ( var , [ 2+5/a ; 4*(w+654) ] ) ;
+

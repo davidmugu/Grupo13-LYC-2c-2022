@@ -1664,35 +1664,35 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 115 "Sintactico.y"
-    {;}
+    {printf("Regla - Declaraciones corte\n");}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
 #line 116 "Sintactico.y"
-    {;}
+    {printf("Regla - Declaraciones iteracion\n");}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
 #line 119 "Sintactico.y"
-    {apilar(&pilaVariables,(yyvsp[(3) - (3)].strVal));}
+    {printf("Regla - lista variables iteracion\n");apilar(&pilaVariables,(yyvsp[(3) - (3)].strVal));}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
 #line 120 "Sintactico.y"
-    {apilar(&pilaVariables, (yyvsp[(1) - (1)].strVal));}
+    {printf("Regla - lista de variables corte\n");apilar(&pilaVariables, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
 #line 122 "Sintactico.y"
-    {while(!pilaVacia(&pilaVariables)) {
+    {printf("Regla - tipo de dato INT\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "INT");
@@ -1703,7 +1703,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 127 "Sintactico.y"
-    {while(!pilaVacia(&pilaVariables)) {
+    {printf("Regla - tipo de dato REAL\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "REAL");
@@ -1714,7 +1714,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 132 "Sintactico.y"
-    {while(!pilaVacia(&pilaVariables)) {
+    {printf("Regla - tipo de dato STRING\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "STRING");
@@ -1809,7 +1809,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 161 "Sintactico.y"
-    {read_ind = crear_terceto(FUNCION_READ,(yyvsp[(2) - (2)].strVal),SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Read: VARIABLE\n");}
+    { read_ind = crear_terceto(FUNCION_READ,(yyvsp[(2) - (2)].strVal),SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Read: VARIABLE\n");}
     break;
 
   case 35:

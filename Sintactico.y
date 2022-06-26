@@ -99,7 +99,7 @@ sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = cre
          |            grammar PUNTO_COMA                    {sentencia_ind = grammar_ind; printf("Regla - Sentencia Corte\n");}
          ;
 
-grammar:              dec_var                               {grammar_ind = dec_var_ind; printf("Regla - Sentencia de DEC_VAR\n");}  //
+grammar:              dec_var                               {grammar_ind = dec_var_ind; printf("Regla - Sentencia de DEC_VAR\n");}  // LISTO
        |              asig                                  {grammar_ind = asig_ind; printf("Regla - Sentencia de ASIG\n");}    // LISTO
        |              if                                    {grammar_ind = if_ind; printf("Regla - Sentencia de IF\n");}        //
        |              while                                 {grammar_ind = while_ind; printf("Regla - Sentencia de WHILE\n");}  //
@@ -112,24 +112,24 @@ grammar:              dec_var                               {grammar_ind = dec_v
 dec_var:              DECVAR declaraciones ENDDEC           {printf("Regla - Sentencia de Declaracion de Variables\n");} 
        ;
 
-declaraciones:        lista_var DOS_PUNTOS tipo_dato                      {;}
-             |        lista_var DOS_PUNTOS tipo_dato declaraciones        {;}
+declaraciones:        lista_var DOS_PUNTOS tipo_dato                      {printf("Regla - Declaraciones corte\n");}
+             |        lista_var DOS_PUNTOS tipo_dato declaraciones        {printf("Regla - Declaraciones iteracion\n");}
              ;
 
-lista_var:           lista_var COMA VARIABLE                {apilar(&pilaVariables,$3);}   
-         |           VARIABLE                               {apilar(&pilaVariables, $1);}                                                  
+lista_var:           lista_var COMA VARIABLE                {printf("Regla - lista variables iteracion\n");apilar(&pilaVariables,$3);}   
+         |           VARIABLE                               {printf("Regla - lista de variables corte\n");apilar(&pilaVariables, $1);}                                                  
          ;
-tipo_dato:            INT                                   {while(!pilaVacia(&pilaVariables)) {
+tipo_dato:            INT                                   {printf("Regla - tipo de dato INT\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "INT");
                                                              }}
-         |            REAL                                  {while(!pilaVacia(&pilaVariables)) {
+         |            REAL                                  {printf("Regla - tipo de dato REAL\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "REAL");
                                                              }}
-         |            STRING                                {while(!pilaVacia(&pilaVariables)) {
+         |            STRING                                {printf("Regla - tipo de dato STRING\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
                                                              insertarVariable(&tablaSimbolos, variable, "STRING");
@@ -158,10 +158,31 @@ write:                WRITE VARIABLE                        {write_ind = crear_t
      |                WRITE CONST_INT                      {write_ind = crear_terceto(FUNCION_WRITE, $2, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, $2);}
      ; 
 
-read:                 READ VARIABLE                         {read_ind = crear_terceto(FUNCION_READ,$2,SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Read: VARIABLE\n");}              
+read:                 READ VARIABLE                         { read_ind = crear_terceto(FUNCION_READ,$2,SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Read: VARIABLE\n");}              
     ;
 
-while:                WHILE condicion LLAVE_A sentencia LLAVE_C ENDWHILE          {printf("Regla - Sentencia de While\n");}
+while:                WHILE {
+
+crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); 
+apilar(&pila_condicion, &numeracion_terceto);
+
+}
+condicion LLAVE_A sentencia LLAVE_C ENDWHILE          {
+    
+    int aux, cant_desapilar, i;
+    desapilar(&pila_condicion, &cant_desapilar);
+    for(i = 0; i < cant_desapilar; i++)
+    {
+        desapilar(&pila_condicion, &aux);
+        cambiar_elemento(&lista_tercetos, auxiliar, transformar_indice(numeracion_terceto + 2), SEGUNDO_ELEMENTO);
+    }
+    
+    desapilar(&pila_condicion, &auxiliar);
+	crear_terceto(BI, transformar_indice(auxiliar), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
+	crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
+	while_indice = numeracion_terceto;
+
+    printf("Regla - Sentencia de While\n");}
      ;
 
 if:                   IF condicion LLAVE_A sentencia LLAVE_C ENDIF                                                      {printf("Regla - Sentencia de if sin else\n");}
