@@ -174,13 +174,13 @@ condicion LLAVE_A sentencia LLAVE_C ENDWHILE          {
     for(i = 0; i < cant_desapilar; i++)
     {
         desapilar(&pila_condicion, &aux);
-        cambiar_elemento(&lista_tercetos, auxiliar, transformar_indice(numeracion_terceto + 2), SEGUNDO_ELEMENTO);
+        cambiar_elemento(&lista_tercetos, aux, transformar_indice(numeracion_terceto + 2), SEGUNDO_ELEMENTO);
     }
     
-    desapilar(&pila_condicion, &auxiliar);
-	crear_terceto(BI, transformar_indice(auxiliar), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
+    desapilar(&pila_condicion, &aux);
+	crear_terceto(BI, transformar_indice(aux), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
 	crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
-	while_indice = numeracion_terceto;
+	while_ind = numeracion_terceto;
 
     printf("Regla - Sentencia de While\n");}
      ;
