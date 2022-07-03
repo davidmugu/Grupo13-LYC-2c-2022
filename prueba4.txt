@@ -1,0 +1,7 @@
+while (contador <= 92) { 
+         contador: contador + 1; 
+         actual: (contador/0.342) + (contador*contador); 
+         suma: suma + actual; 
+         } 
+ 
+write "La suma es: "; write suma; 
