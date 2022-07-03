@@ -163,13 +163,15 @@ read:                 READ VARIABLE                         { read_ind = crear_t
 
 while:                WHILE {
 
-crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); 
-apilar(&pila_condicion, &numeracion_terceto);
+char num_terceto_pun;
+crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
+num_terceto_pun = numeracion_terceto+0;
+apilar(&pila_condicion, &num_terceto_pun);
 
 }
 condicion LLAVE_A sentencia LLAVE_C ENDWHILE          {
     
-    int aux, cant_desapilar, i;
+    char aux, cant_desapilar, i;
     desapilar(&pila_condicion, &cant_desapilar);
     for(i = 0; i < cant_desapilar; i++)
     {
