@@ -50,6 +50,7 @@ int desapilar(Pila* p,char* d) {
     return OK;
 }
 
+
 int pilaLlena(Pila* p) {
     void* nodoPila = malloc(sizeof(nodoPila));
     free(nodoPila);

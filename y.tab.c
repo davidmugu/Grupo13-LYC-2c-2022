@@ -574,10 +574,10 @@ static const yytype_uint8 yyrline[] =
        0,    93,    93,    95,    98,    99,   102,   103,   104,   105,
      106,   107,   108,   109,   112,   115,   116,   119,   120,   122,
      127,   132,   139,   140,   143,   146,   147,   150,   151,   152,
-     153,   156,   157,   158,   161,   164,   164,   188,   189,   190,
-     193,   194,   195,   198,   199,   200,   204,   205,   206,   207,
-     210,   211,   212,   213,   214,   215,   218,   219,   220,   223,
-     224,   225,   226
+     153,   156,   157,   158,   161,   164,   164,   191,   192,   193,
+     196,   197,   198,   201,   202,   203,   207,   208,   209,   210,
+     213,   214,   215,   216,   217,   218,   221,   222,   223,   226,
+     227,   228,   229
 };
 #endif
 
@@ -1818,8 +1818,11 @@ yyreduce:
 #line 164 "Sintactico.y"
     {
 
-crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); 
-apilar(&pila_condicion, &numeracion_terceto);
+char num_terceto_pun;
+crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
+num_terceto_pun = numeracion_terceto+0;
+
+apilar(&pila_condicion, &num_terceto_pun);
 
 }
     break;
@@ -1827,10 +1830,10 @@ apilar(&pila_condicion, &numeracion_terceto);
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 170 "Sintactico.y"
+#line 173 "Sintactico.y"
     {
     
-    int aux, cant_desapilar, i;
+    char aux, cant_desapilar, i;
     desapilar(&pila_condicion, &cant_desapilar);
     for(i = 0; i < cant_desapilar; i++)
     {
@@ -1849,189 +1852,189 @@ apilar(&pila_condicion, &numeracion_terceto);
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 188 "Sintactico.y"
+#line 191 "Sintactico.y"
     {printf("Regla - Sentencia de if sin else\n");}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 189 "Sintactico.y"
+#line 192 "Sintactico.y"
     {printf("Regla - Sentencia de if con else\n");}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 190 "Sintactico.y"
+#line 193 "Sintactico.y"
     {printf("Regla - Sentencia de if con else (mas condicion)\n");}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 193 "Sintactico.y"
+#line 196 "Sintactico.y"
     {expresion_ind = crear_terceto(SIGNO_SUMAR, transformar_indice(expresion_ind), transformar_indice(termino_ind), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de suma\n");}
     break;
 
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 194 "Sintactico.y"
+#line 197 "Sintactico.y"
     {expresion_ind = crear_terceto(SIGNO_RESTAR, transformar_indice(expresion_ind), transformar_indice(termino_ind), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de resta\n");}
     break;
 
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 195 "Sintactico.y"
+#line 198 "Sintactico.y"
     {expresion_ind = termino_ind;printf("Regla - Expresion <- Termino\n");}
     break;
 
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 198 "Sintactico.y"
+#line 201 "Sintactico.y"
     {termino_ind = crear_terceto(SIGNO_MULT, transformar_indice(termino_ind), transformar_indice(factor_ind), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de multiplicacion\n");}
     break;
 
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 199 "Sintactico.y"
+#line 202 "Sintactico.y"
     {termino_ind = crear_terceto(SIGNO_DIVISION, transformar_indice(termino_ind), transformar_indice(factor_ind), &numeracion_terceto, &lista_tercetos) ;printf("Regla - Sentencia de division\n");}
     break;
 
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 200 "Sintactico.y"
+#line 203 "Sintactico.y"
     {termino_ind = factor_ind;printf("Regla - Termino <- Factor\n");}
     break;
 
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 204 "Sintactico.y"
+#line 207 "Sintactico.y"
     {factor_ind = expresion_ind; printf("Regla - Factor\n");}
     break;
 
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 205 "Sintactico.y"
+#line 208 "Sintactico.y"
     {factor_ind = crear_terceto((yyvsp[(1) - (1)].strVal),SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Entera\n");insertarEntero(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 206 "Sintactico.y"
+#line 209 "Sintactico.y"
     {factor_ind = crear_terceto((yyvsp[(1) - (1)].strVal),SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 207 "Sintactico.y"
+#line 210 "Sintactico.y"
     {factor_ind = crear_terceto((yyvsp[(1) - (1)].strVal),SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Variable\n");}
     break;
 
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 210 "Sintactico.y"
+#line 213 "Sintactico.y"
     {printf("Comparacion Igual\n");}
     break;
 
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 211 "Sintactico.y"
+#line 214 "Sintactico.y"
     {printf("Comparacion Mayor-Igual\n");}
     break;
 
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 212 "Sintactico.y"
+#line 215 "Sintactico.y"
     {printf("Comparacion Menor-Igual\n");}
     break;
 
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 213 "Sintactico.y"
+#line 216 "Sintactico.y"
     {printf("Comparacion Mayor\n");}
     break;
 
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 214 "Sintactico.y"
+#line 217 "Sintactico.y"
     {printf("Comparacion Menor\n");}
     break;
 
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 215 "Sintactico.y"
+#line 218 "Sintactico.y"
     {printf("Comparacion Distinto\n");}
     break;
 
   case 56:
 
 /* Line 1455 of yacc.c  */
-#line 218 "Sintactico.y"
+#line 221 "Sintactico.y"
     {printf("Regla - Condicion");}
     break;
 
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 219 "Sintactico.y"
+#line 222 "Sintactico.y"
     {printf("Regla - Comparacion AND\n");}
     break;
 
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 220 "Sintactico.y"
+#line 223 "Sintactico.y"
     {printf("Regla Comparacion OR\n");}
     break;
 
   case 59:
 
 /* Line 1455 of yacc.c  */
-#line 223 "Sintactico.y"
+#line 226 "Sintactico.y"
     {printf("Operador Suma\n");}
     break;
 
   case 60:
 
 /* Line 1455 of yacc.c  */
-#line 224 "Sintactico.y"
+#line 227 "Sintactico.y"
     {printf("Operador Resta\n");}
     break;
 
   case 61:
 
 /* Line 1455 of yacc.c  */
-#line 225 "Sintactico.y"
+#line 228 "Sintactico.y"
     {printf("Operador Division\n");}
     break;
 
   case 62:
 
 /* Line 1455 of yacc.c  */
-#line 226 "Sintactico.y"
+#line 229 "Sintactico.y"
     {printf("Operador Multiplicacion\n");}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 2035 "y.tab.c"
+#line 2038 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2243,7 +2246,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 229 "Sintactico.y"
+#line 232 "Sintactico.y"
 
 
 
