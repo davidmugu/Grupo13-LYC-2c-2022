@@ -1,7 +1,6 @@
-while (contador <= 92) { 
-         contador: contador + 1; 
-         actual: (contador/0.342) + (contador*contador); 
-         suma: suma + actual; 
-         } 
- 
-write "La suma es: "; write suma; 
+WHILE ( a > 6) {
+    a := 5; 
+    WHILE ( c > 90) {
+        c:= c+1
+        } ENDWHILE 
+} ENDWHILE 
