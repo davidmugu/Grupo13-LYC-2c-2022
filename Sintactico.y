@@ -91,7 +91,7 @@ extern int yylineno;
 %%
 
         
-programa:             prog                                  {generar_assembler("final.asm", &lista_tercetos, &tablaSimbolos);programa_ind = prog_ind; printf("Regla - Programa \n");}   //          
+programa:             prog                                  {generar_assembler("Final.asm", &lista_tercetos, &tablaSimbolos);programa_ind = prog_ind; printf("Regla - Programa \n");}   //          
         ;
 prog:                 sentencia                             {prog_ind = sentencia_ind; printf("Regla - Prog\n");} //
     ;
@@ -103,7 +103,7 @@ sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = cre
 grammar:              dec_var                               {grammar_ind = dec_var_ind; printf("Regla - Sentencia de DEC_VAR\n");}  // LISTO
        |              asig                                  {grammar_ind = asig_ind; printf("Regla - Sentencia de ASIG\n");}    // LISTO
        |              if                                    {grammar_ind = if_ind; printf("Regla - Sentencia de IF\n");}        //
-       |              while                                 {grammar_ind = while_ind; printf("Regla - Sentencia de WHILE\n");}  //
+       |              while                                 {grammar_ind = while_ind; printf("Regla - Sentencia de WHILE\n");}  // LISTO
        |              between                               {grammar_ind = between_ind; printf("Regla - Sentencia de BETWEEN\n");}  //
        |              take                                  {grammar_ind = take_ind; printf("Regla - Sentencia de TAKE\n");}   //
        |              write                                 {grammar_ind = write_ind; printf("Regla - Sentencia de WRITE\n");}  // LISTO

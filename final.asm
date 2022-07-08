@@ -7,9 +7,16 @@ include macros2.asm
 
 .DATA
 _1                                 	dd	1
-_5                                 	dd	5
-_6                                 	dd	6
-_90                                	dd	90
+_2                                 	dd	2
+a                                  	dd	?
+b                                  	dd	?
+c                                  	dd	?
+d                                  	dd	?
+e                                  	dd	?
+f                                  	dd	?
+g                                  	dd	?
+h                                  	dd	?
+i                                  	dd	?
 
 .CODE
 START:
@@ -17,22 +24,17 @@ MOV EAX, @DATA
 MOV DS, EAX
 MOV ES, EAX
 
-_ET_0:
-FLD a
-FLD 6
-FLD 5
-FSTP a
-_ET_5:
-FLD c
-FLD 90
-FLD c
 FLD 1
+FSTP a
+FLD 2
+FSTP b
+FLD 1
+FLD 2
 FADD
 FSTP c
-JMP _ET_0
-_ET_13:
-JMP _ET_0
-_ET_16:
+DisplayFloat c, 2
+newline 1
+GetFloat g
 
 MOV EAX, 4C00H
 INT 21h

@@ -238,6 +238,7 @@ int es_asignacion(const char *s)
 
 int es_salida(const char *s)
 {
+	printf("HOLAAAAA %s \n",s);
 	return strcmp(s, SALIDA) == 0;
 }
 

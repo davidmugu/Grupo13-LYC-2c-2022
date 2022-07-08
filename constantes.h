@@ -70,8 +70,8 @@
 #define AUMENTO_VARIABLE_CANT "1"
 #define VARIABLE_AUX "@aux"
 
-#define ENTRADA "GET"
-#define SALIDA "PUT"
+#define ENTRADA "READ"
+#define SALIDA "WRITE"
 #define ETIQUETA "_ET_"
 
 #define OPERADOR_LE "<"

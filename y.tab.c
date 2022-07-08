@@ -1574,7 +1574,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 94 "Sintactico.y"
-    {generar_assembler("final.asm", &lista_tercetos, &tablaSimbolos);programa_ind = prog_ind; printf("Regla - Programa \n");}
+    {generar_assembler("Final.asm", &lista_tercetos, &tablaSimbolos);programa_ind = prog_ind; printf("Regla - Programa \n");}
     break;
 
   case 3:
