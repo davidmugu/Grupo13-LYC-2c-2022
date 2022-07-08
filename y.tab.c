@@ -75,6 +75,7 @@
 #include "tercetos.h"
 #include "y.tab.h"
 #include "gci.h"
+#include "assem.h"
 #include "constantes.h"
 
 FILE *yyin;
@@ -110,7 +111,7 @@ extern int yylineno;
 
 
 /* Line 189 of yacc.c  */
-#line 114 "y.tab.c"
+#line 115 "y.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -237,14 +238,14 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 41 "Sintactico.y"
+#line 42 "Sintactico.y"
 
     char* strVal;
 
 
 
 /* Line 214 of yacc.c  */
-#line 248 "y.tab.c"
+#line 249 "y.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -256,7 +257,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 260 "y.tab.c"
+#line 261 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -571,10 +572,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    93,    93,    95,    98,    99,   102,   103,   104,   105,
-     106,   107,   108,   109,   112,   115,   116,   119,   120,   122,
-     127,   132,   139,   140,   143,   146,   147,   150,   151,   152,
-     153,   156,   157,   158,   161,   164,   164,   191,   192,   193,
+       0,    94,    94,    96,    99,   100,   103,   104,   105,   106,
+     107,   108,   109,   110,   113,   116,   117,   120,   121,   123,
+     128,   133,   140,   141,   144,   147,   148,   151,   152,   153,
+     154,   157,   158,   159,   162,   165,   165,   191,   192,   193,
      196,   197,   198,   201,   202,   203,   207,   208,   209,   210,
      213,   214,   215,   216,   217,   218,   221,   222,   223,   226,
      227,   228,   229
@@ -1572,126 +1573,126 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 93 "Sintactico.y"
-    {programa_ind = prog_ind; printf("Regla - Programa \n");}
+#line 94 "Sintactico.y"
+    {generar_assembler("final.asm", &lista_tercetos, &tablaSimbolos);programa_ind = prog_ind; printf("Regla - Programa \n");}
     break;
 
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 95 "Sintactico.y"
+#line 96 "Sintactico.y"
     {prog_ind = sentencia_ind; printf("Regla - Prog\n");}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 98 "Sintactico.y"
+#line 99 "Sintactico.y"
     {sentencia_ind = crear_terceto(transformar_indice(sentencia_ind),transformar_indice(grammar_ind),SIGNO_VACIO,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 99 "Sintactico.y"
+#line 100 "Sintactico.y"
     {sentencia_ind = grammar_ind; printf("Regla - Sentencia Corte\n");}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 102 "Sintactico.y"
+#line 103 "Sintactico.y"
     {grammar_ind = dec_var_ind; printf("Regla - Sentencia de DEC_VAR\n");}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 103 "Sintactico.y"
+#line 104 "Sintactico.y"
     {grammar_ind = asig_ind; printf("Regla - Sentencia de ASIG\n");}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 104 "Sintactico.y"
+#line 105 "Sintactico.y"
     {grammar_ind = if_ind; printf("Regla - Sentencia de IF\n");}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 105 "Sintactico.y"
+#line 106 "Sintactico.y"
     {grammar_ind = while_ind; printf("Regla - Sentencia de WHILE\n");}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 106 "Sintactico.y"
+#line 107 "Sintactico.y"
     {grammar_ind = between_ind; printf("Regla - Sentencia de BETWEEN\n");}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 107 "Sintactico.y"
+#line 108 "Sintactico.y"
     {grammar_ind = take_ind; printf("Regla - Sentencia de TAKE\n");}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 108 "Sintactico.y"
+#line 109 "Sintactico.y"
     {grammar_ind = write_ind; printf("Regla - Sentencia de WRITE\n");}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 109 "Sintactico.y"
+#line 110 "Sintactico.y"
     {grammar_ind = read_ind; printf("Regla - Sentencia de READ\n");}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 112 "Sintactico.y"
+#line 113 "Sintactico.y"
     {printf("Regla - Sentencia de Declaracion de Variables\n");}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 115 "Sintactico.y"
+#line 116 "Sintactico.y"
     {printf("Regla - Declaraciones corte\n");}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 116 "Sintactico.y"
+#line 117 "Sintactico.y"
     {printf("Regla - Declaraciones iteracion\n");}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 119 "Sintactico.y"
+#line 120 "Sintactico.y"
     {printf("Regla - lista variables iteracion\n");apilar(&pilaVariables,(yyvsp[(3) - (3)].strVal));}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 120 "Sintactico.y"
+#line 121 "Sintactico.y"
     {printf("Regla - lista de variables corte\n");apilar(&pilaVariables, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 122 "Sintactico.y"
+#line 123 "Sintactico.y"
     {printf("Regla - tipo de dato INT\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
@@ -1702,7 +1703,7 @@ yyreduce:
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 127 "Sintactico.y"
+#line 128 "Sintactico.y"
     {printf("Regla - tipo de dato REAL\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
@@ -1713,7 +1714,7 @@ yyreduce:
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 132 "Sintactico.y"
+#line 133 "Sintactico.y"
     {printf("Regla - tipo de dato STRING\n");while(!pilaVacia(&pilaVariables)) {
                                                              char variable[100];
                                                              desapilar(&pilaVariables, variable);
@@ -1724,104 +1725,103 @@ yyreduce:
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 139 "Sintactico.y"
+#line 140 "Sintactico.y"
     {asig_ind = crear_terceto(SIGNO_IGUAL,(yyvsp[(1) - (3)].strVal),transformar_indice(expresion_ind),&numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Asignacion por Expresion\n");}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 140 "Sintactico.y"
+#line 141 "Sintactico.y"
     {asig_ind = crear_terceto(SIGNO_IGUAL, (yyvsp[(1) - (3)].strVal), (yyvsp[(3) - (3)].strVal), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 143 "Sintactico.y"
+#line 144 "Sintactico.y"
     {printf("Regla - Sentencia de Between\n");}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 146 "Sintactico.y"
+#line 147 "Sintactico.y"
     {printf("Regla - Sentencia de Take con Lista de Constantes\n");insertarEntero(&tablaSimbolos, (yyvsp[(5) - (10)].strVal));}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 147 "Sintactico.y"
+#line 148 "Sintactico.y"
     {printf("Regla - Sentencia de Take sin Lista de Constantes\n");insertarEntero(&tablaSimbolos, (yyvsp[(5) - (9)].strVal));}
     break;
 
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 150 "Sintactico.y"
+#line 151 "Sintactico.y"
     {printf("Regla - CTE INT\n");insertarEntero(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 151 "Sintactico.y"
+#line 152 "Sintactico.y"
     {printf("Regla - CTE REAL\n");insertarReal(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 152 "Sintactico.y"
+#line 153 "Sintactico.y"
     {printf("Regla - Lista CTE INT\n");insertarEntero(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 153 "Sintactico.y"
+#line 154 "Sintactico.y"
     {printf("Regla - Lista CTE REAL");insertarReal(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 156 "Sintactico.y"
+#line 157 "Sintactico.y"
     {write_ind = crear_terceto(FUNCION_WRITE, (yyvsp[(2) - (2)].strVal), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: VARIABLE\n");}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 157 "Sintactico.y"
+#line 158 "Sintactico.y"
     {write_ind = crear_terceto(FUNCION_WRITE, (yyvsp[(2) - (2)].strVal), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 158 "Sintactico.y"
+#line 159 "Sintactico.y"
     {write_ind = crear_terceto(FUNCION_WRITE, (yyvsp[(2) - (2)].strVal), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
     break;
 
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 161 "Sintactico.y"
+#line 162 "Sintactico.y"
     { read_ind = crear_terceto(FUNCION_READ,(yyvsp[(2) - (2)].strVal),SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Read: VARIABLE\n");}
     break;
 
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 164 "Sintactico.y"
+#line 165 "Sintactico.y"
     {
 
 char num_terceto_pun;
 crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
 num_terceto_pun = numeracion_terceto+0;
-
 apilar(&pila_condicion, &num_terceto_pun);
 
 }
