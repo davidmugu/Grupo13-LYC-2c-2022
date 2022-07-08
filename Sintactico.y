@@ -4,6 +4,7 @@
 #include "tercetos.h"
 #include "y.tab.h"
 #include "gci.h"
+#include "assem.h"
 #include "constantes.h"
 
 FILE *yyin;
@@ -90,7 +91,7 @@ extern int yylineno;
 %%
 
         
-programa:             prog                                  {programa_ind = prog_ind; printf("Regla - Programa \n");}   //          
+programa:             prog                                  {generar_assembler("final.asm", &lista_tercetos, &tablaSimbolos);programa_ind = prog_ind; printf("Regla - Programa \n");}   //          
         ;
 prog:                 sentencia                             {prog_ind = sentencia_ind; printf("Regla - Prog\n");} //
     ;

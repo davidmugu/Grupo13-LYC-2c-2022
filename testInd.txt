@@ -1,7 +1,0 @@
--/Prueba de Declaraciones de Variables/-
--/A CORREGIR/-
-DECVAR 
-a, b : INT
-c : REAL
-d, e, f : STRING
-ENDDEC ;
