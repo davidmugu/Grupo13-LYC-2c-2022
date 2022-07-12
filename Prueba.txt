@@ -10,3 +10,14 @@ c:= 1+2;
 
 write c;
 read g;
+
+WHILE ( a < 6) {
+    a := a+1;
+    write Hola;
+    c := 0; 
+    WHILE ( c < 3) {
+        write c;
+        c:= c+1;
+        } ENDWHILE ;
+} ENDWHILE;
+

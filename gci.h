@@ -60,32 +60,32 @@ char* transformar_indice(int indice)
 // Para un operador de comparación devuelve la instrucción de assembler necesaria
 char* obtener_branch(const char *op)
 {
-	if(strcmp(op, OPERADOR_LE) == 0)
+	if(strcmp(op, OP_MENOR_) == 0)
 	{
 		return BGE;
 	}
 
-	if(strcmp(op, OPERADOR_LEQ) == 0)
+	if(strcmp(op, OP_MEN_IGU_) == 0)
 	{
 		return BGT;
 	}
 
-	if(strcmp(op, OPERADOR_GE) == 0)
+	if(strcmp(op, OP_MAYOR_) == 0)
 	{
 		return BLE;
 	}
 
-	if(strcmp(op, OPERADOR_GEQ) == 0)
+	if(strcmp(op, OP_MAY_IGU_) == 0)
 	{
 		return BLT;
 	}
 
-	if(strcmp(op, OPERADOR_NE) == 0)
+	if(strcmp(op, OP_NOT_) == 0)
 	{
 		return BEQ;
 	}
 
-	if(strcmp(op, OPERADOR_IGUAL) == 0)
+	if(strcmp(op, OP_COMP_) == 0)
 	{
 		return BNE;
 	}
