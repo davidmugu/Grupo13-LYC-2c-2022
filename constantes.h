@@ -74,12 +74,12 @@
 #define SALIDA "WRITE"
 #define ETIQUETA "_ET_"
 
-#define OPERADOR_LE "<"
-#define OPERADOR_LEQ "<="
-#define OPERADOR_GE	">"
-#define OPERADOR_GEQ ">="
-#define OPERADOR_NE	"<>"
-#define OPERADOR_IGUAL "=="
+#define OP_MENOR_ "<"
+#define OP_MEN_IGU_ "<="
+#define OP_MAYOR_	">"
+#define OP_MAY_IGU_ ">="
+#define OP_NOT_	"<>"
+#define OP_COMP_ "=="
 
 #define CMP "CMP"
 
