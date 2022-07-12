@@ -100,14 +100,14 @@ sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = cre
          |            grammar PUNTO_COMA                    {sentencia_ind = grammar_ind; printf("Regla - Sentencia Corte\n");}
          ;
 
-grammar:              dec_var                               {grammar_ind = dec_var_ind; printf("Regla - Sentencia de DEC_VAR\n");}  // LISTO
-       |              asig                                  {grammar_ind = asig_ind; printf("Regla - Sentencia de ASIG\n");}    // LISTO
-       |              if                                    {grammar_ind = if_ind; printf("Regla - Sentencia de IF\n");}        //
-       |              while                                 {grammar_ind = while_ind; printf("Regla - Sentencia de WHILE\n");}  // LISTO
-       |              between                               {grammar_ind = between_ind; printf("Regla - Sentencia de BETWEEN\n");}  //
-       |              take                                  {grammar_ind = take_ind; printf("Regla - Sentencia de TAKE\n");}   //
-       |              write                                 {grammar_ind = write_ind; printf("Regla - Sentencia de WRITE\n");}  // LISTO
-       |              read                                  {grammar_ind = read_ind; printf("Regla - Sentencia de READ\n");}    // LISTO
+grammar:              dec_var                               {grammar_ind = dec_var_ind; printf("Regla - Sentencia de DEC_VAR\n");}
+       |              asig                                  {grammar_ind = asig_ind; printf("Regla - Sentencia de ASIG\n");}
+       |              if                                    {grammar_ind = if_ind; printf("Regla - Sentencia de IF\n");}
+       |              while                                 {grammar_ind = while_ind; printf("Regla - Sentencia de WHILE\n");}
+       |              between                               {grammar_ind = between_ind; printf("Regla - Sentencia de BETWEEN\n");}
+       |              take                                  {grammar_ind = take_ind; printf("Regla - Sentencia de TAKE\n");}
+       |              write                                 {grammar_ind = write_ind; printf("Regla - Sentencia de WRITE\n");}
+       |              read                                  {grammar_ind = read_ind; printf("Regla - Sentencia de READ\n");}
        ;
 
 dec_var:              DECVAR declaraciones ENDDEC           {printf("Regla - Sentencia de Declaracion de Variables\n");} 
