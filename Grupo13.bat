@@ -1,5 +1,11 @@
 @echo off
 
+flex Lexico.l
+bison -dyv Sintactico.y
+gcc lex.yy.c y.tab.c -o Grupo13.exe
+
+.\Grupo13.exe Prueba.txt
+
 cls
 echo Generando el numbers.obj
 tasm numbers.asm

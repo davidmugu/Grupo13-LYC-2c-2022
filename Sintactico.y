@@ -138,7 +138,7 @@ tipo_dato:            INT                                   {printf("Regla - tip
          ;
 
 asig:                 VARIABLE OP_ASIG expresion            {asig_ind = crear_terceto(SIGNO_IGUAL,$1,transformar_indice(expresion_ind),&numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Asignacion por Expresion\n");} 
-    |                 VARIABLE OP_ASIG CONST_STRING         {asig_ind = crear_terceto(SIGNO_IGUAL, $1, $3, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
+    |                 VARIABLE OP_ASIG CONST_STRING         {char aux [] = "_";strcat(aux,$3); asig_ind = crear_terceto(SIGNO_IGUAL, $1, aux, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
     ;
 
 between:              BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C        {printf("Regla - Sentencia de Between\n");}  
@@ -155,8 +155,8 @@ lista_cte:            CONST_INT                                   {printf("Regla
          ;            
 
 write:                WRITE VARIABLE                        {write_ind = crear_terceto(FUNCION_WRITE, $2, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: VARIABLE\n");}   
-     |                WRITE CONST_STRING                    {write_ind = crear_terceto(FUNCION_WRITE, $2, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, $2);}
-     |                WRITE CONST_INT                      {write_ind = crear_terceto(FUNCION_WRITE, $2, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, $2);}
+     |                WRITE CONST_STRING                    {char aux [] = "_";strcat(aux,$2);write_ind = crear_terceto(FUNCION_WRITE, aux, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, $2);}
+     |                WRITE CONST_INT                      {char aux [] = "_";strcat(aux,$2);write_ind = crear_terceto(FUNCION_WRITE, aux, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, $2);}
      ; 
 
 read:                 READ VARIABLE                         { read_ind = crear_terceto(FUNCION_READ,$2,SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Read: VARIABLE\n");}              
@@ -218,8 +218,8 @@ termino:              termino OP_MULT factor              {termino_ind = crear_t
 
                     
 factor:               PARENTESIS_A expresion PARENTESIS_C   {factor_ind = expresion_ind; printf("Regla - Factor\n");}
-      |               CONST_INT                             {factor_ind = crear_terceto($1,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Entera\n");insertarEntero(&tablaSimbolos, $1);}
-      |               CONST_REAL                            {factor_ind = crear_terceto($1,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, $1);}
+      |               CONST_INT                             {char aux [] = "_";strcat(aux,$1);factor_ind = crear_terceto(aux,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Entera\n");insertarEntero(&tablaSimbolos, $1);}
+      |               CONST_REAL                            {char aux [] = "_";strcat(aux,$1);factor_ind = crear_terceto(aux,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, $1);}
 	  |               VARIABLE                              {factor_ind = crear_terceto($1,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Variable\n");}
       ;
 

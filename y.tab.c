@@ -1737,7 +1737,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 141 "Sintactico.y"
-    {asig_ind = crear_terceto(SIGNO_IGUAL, (yyvsp[(1) - (3)].strVal), (yyvsp[(3) - (3)].strVal), &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
+    {char aux [] = "_";strcat(aux,(yyvsp[(3) - (3)].strVal)); asig_ind = crear_terceto(SIGNO_IGUAL, (yyvsp[(1) - (3)].strVal), aux, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, (yyvsp[(3) - (3)].strVal));}
     break;
 
   case 24:
@@ -1800,14 +1800,14 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 158 "Sintactico.y"
-    {write_ind = crear_terceto(FUNCION_WRITE, (yyvsp[(2) - (2)].strVal), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
+    {char aux [] = "_";strcat(aux,(yyvsp[(2) - (2)].strVal));write_ind = crear_terceto(FUNCION_WRITE, aux, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
 #line 159 "Sintactico.y"
-    {write_ind = crear_terceto(FUNCION_WRITE, (yyvsp[(2) - (2)].strVal), SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
+    {char aux [] = "_";strcat(aux,(yyvsp[(2) - (2)].strVal));write_ind = crear_terceto(FUNCION_WRITE, aux, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, (yyvsp[(2) - (2)].strVal));}
     break;
 
   case 34:
@@ -1940,14 +1940,14 @@ apilar(&pila_condicion, &num_terceto_pun);
 
 /* Line 1455 of yacc.c  */
 #line 221 "Sintactico.y"
-    {factor_ind = crear_terceto((yyvsp[(1) - (1)].strVal),SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Entera\n");insertarEntero(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
+    {char aux [] = "_";strcat(aux,(yyvsp[(1) - (1)].strVal));factor_ind = crear_terceto(aux,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Entera\n");insertarEntero(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 48:
 
 /* Line 1455 of yacc.c  */
 #line 222 "Sintactico.y"
-    {factor_ind = crear_terceto((yyvsp[(1) - (1)].strVal),SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
+    {char aux [] = "_";strcat(aux,(yyvsp[(1) - (1)].strVal));factor_ind = crear_terceto(aux,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Constante Real\n");insertarReal(&tablaSimbolos, (yyvsp[(1) - (1)].strVal));}
     break;
 
   case 49:

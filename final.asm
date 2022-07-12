@@ -11,7 +11,6 @@ _1                                 	dd	1
 _2                                 	dd	2
 _3                                 	dd	3
 _6                                 	dd	6
-_Hola                              	dd	Hola
 a                                  	dd	?
 b                                  	dd	?
 c                                  	dd	?
@@ -28,12 +27,12 @@ MOV EAX, @DATA
 MOV DS, EAX
 MOV ES, EAX
 
-FLD 1
+FLD _1
 FSTP a
-FLD 2
+FLD _2
 FSTP b
-FLD 1
-FLD 2
+FLD _1
+FLD _2
 FADD
 FSTP c
 DisplayFloat c, 2
@@ -41,7 +40,7 @@ newline 1
 GetFloat g
 _ET_15:
 FLD a
-FLD 6
+FLD _6
 FXCH
 FCOM
 FSTSW AX
@@ -49,16 +48,16 @@ SAHF
 FFREE
 FLD BGE
 FLD a
-FLD 1
+FLD _1
 FADD
 FSTP a
-DisplayFloat "Hola", 2
+DisplayFloat Hola, 2
 newline 1
-FLD 0
+FLD _0
 FSTP c
 _ET_29:
 FLD c
-FLD 3
+FLD _3
 FXCH
 FCOM
 FSTSW AX
@@ -68,7 +67,7 @@ FLD BGE
 DisplayFloat c, 2
 newline 1
 FLD c
-FLD 1
+FLD _1
 FADD
 FSTP c
 JMP _ET_15

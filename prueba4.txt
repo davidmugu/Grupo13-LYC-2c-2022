@@ -1,7 +1,0 @@
-WHILE ( a > 6) {
-    a := 5; 
-    WHILE ( c > 90) {
-        c:= c+1;
-        } ENDWHILE ;
-} ENDWHILE;
-

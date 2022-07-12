@@ -13,7 +13,7 @@ read g;
 
 WHILE ( a < 6) {
     a := a+1;
-    write "Hola";
+    write Hola;
     c := 0; 
     WHILE ( c < 3) {
         write c;
