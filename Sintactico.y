@@ -10,8 +10,8 @@
 FILE *yyin;
 
 Lista tablaSimbolos;
-Pila pilaVariables;//Pila pilaVariables;
-Pila pilaTiposDatos;//Pila pilaTiposDatos;
+Pila pilaVariables;
+Pila pilaTiposDatos;
 
 /* VARIABLES PARA GCI */
 
@@ -96,7 +96,7 @@ programa:             prog                                  {generar_assembler("
 prog:                 sentencia                             {prog_ind = sentencia_ind; printf("Regla - Prog\n");} //
     ;
 
-sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = crear_terceto(transformar_indice(sentencia_ind),transformar_indice(grammar_ind),SIGNO_VACIO,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
+sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = grammar_ind; /*crear_terceto(transformar_indice(sentencia_ind),transformar_indice(grammar_ind),SIGNO_VACIO,&numeracion_terceto, &lista_tercetos); */printf("Regla - Sentencia Recursiva\n");}
          |            grammar PUNTO_COMA                    {sentencia_ind = grammar_ind; printf("Regla - Sentencia Corte\n");}
          ;
 
@@ -138,7 +138,7 @@ tipo_dato:            INT                                   {printf("Regla - tip
          ;
 
 asig:                 VARIABLE OP_ASIG expresion            {asig_ind = crear_terceto(SIGNO_IGUAL,$1,transformar_indice(expresion_ind),&numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Asignacion por Expresion\n");} 
-    |                 VARIABLE OP_ASIG CONST_STRING         {char aux [] = "_";strcat(aux,$3); asig_ind = crear_terceto(SIGNO_IGUAL, $1, aux, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
+    |                 VARIABLE OP_ASIG CONST_STRING         {char aux [] = "_";strcat(aux,eliminarCaracter($3)); asig_ind = crear_terceto(SIGNO_IGUAL, $1, aux, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
     ;
 
 between:              BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C        {printf("Regla - Sentencia de Between\n");}  
@@ -155,7 +155,7 @@ lista_cte:            CONST_INT                                   {printf("Regla
          ;            
 
 write:                WRITE VARIABLE                        {write_ind = crear_terceto(FUNCION_WRITE, $2, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: VARIABLE\n");}   
-     |                WRITE CONST_STRING                    {char aux [] = "_";strcat(aux,$2);write_ind = crear_terceto(FUNCION_WRITE, aux, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, $2);}
+     |                WRITE CONST_STRING                    {char aux [] = "_";char* aux2 = eliminarCaracter($2);strcat(aux,aux2);write_ind = crear_terceto(FUNCION_WRITE, aux, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING\n"); insertarString(&tablaSimbolos, $2);}
      |                WRITE CONST_INT                      {char aux [] = "_";strcat(aux,$2);write_ind = crear_terceto(FUNCION_WRITE, aux, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, $2);}
      ; 
 
@@ -166,15 +166,14 @@ while:                WHILE {
 
 char num_terceto_pun;
 crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
-num_terceto_pun = numeracion_terceto+0;
+num_terceto_pun = numeracion_terceto;
 apilar(&pila_condicion, &num_terceto_pun);
 
 }
-condicion LLAVE_A sentencia LLAVE_C ENDWHILE          {
+condicion LLAVE_A sentencia LLAVE_C ENDWHILE   {
     
-    char aux, cant_desapilar, i;
-    desapilar(&pila_condicion, &cant_desapilar);
-    for(i = 0; i < cant_desapilar; i++)
+    char aux;
+    while(!pilaVacia(&pila_condicion))
     {
         desapilar(&pila_condicion, &aux);
         cambiar_elemento(&lista_tercetos, aux, transformar_indice(numeracion_terceto + 2), SEGUNDO_ELEMENTO);
@@ -190,12 +189,11 @@ condicion LLAVE_A sentencia LLAVE_C ENDWHILE          {
 
 if:  IF condicion LLAVE_A sentencia LLAVE_C ENDIF {
     
-	int i;
-    char cantidad_desapilar, auxiliar;
-	desapilar(&pila_cantidad_desapilar, &cantidad_desapilar);
-	for(i = 0; i < cantidad_desapilar; i++)
+    char auxiliar;
+	
+	while(!pilaVacia(&pila_condicion))
 	{
-		desapilar(&pila_condicion, &auxiliar);
+        desapilar(&pila_condicion, &auxiliar);
 		cambiar_elemento(&lista_tercetos, auxiliar, transformar_indice(numeracion_terceto + 1), SEGUNDO_ELEMENTO);	
 	}
 	crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
@@ -223,17 +221,17 @@ factor:               PARENTESIS_A expresion PARENTESIS_C   {factor_ind = expres
 	  |               VARIABLE                              {factor_ind = crear_terceto($1,SIGNO_VACIO,SIGNO_VACIO,&numeracion_terceto,&lista_tercetos);printf("Regla - Variable\n");}
       ;
 
-condicion:            PARENTESIS_A cond_simple PARENTESIS_C                           {condicion_ind = cond_simple_ind; printf("Regla - Condicion");}
+condicion:            PARENTESIS_A cond_simple PARENTESIS_C                           {condicion_ind = cond_simple_ind; printf("Regla - Condicion\n");}
          |            PARENTESIS_A cond_simple OP_AND cond_simple PARENTESIS_C        {printf("Regla - Comparacion AND\n");}
          |            PARENTESIS_A cond_simple OP_OR cond_simple PARENTESIS_C         {printf("Regla Comparacion OR\n");}
          ;
 
-cond_simple:          expresion {auxiliar_ind = expresion_ind;} OP_COMP expresion           {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_COMP_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");}
-           |          expresion {auxiliar_ind = expresion_ind;} OP_MAY_IGU expresion        {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_MAY_IGU_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");printf("Comparacion Mayor-Igual\n");}
-           |          expresion {auxiliar_ind = expresion_ind;} OP_MEN_IGU expresion        {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_MEN_IGU_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");printf("Comparacion Menor-Igual\n");}
-           |          expresion {auxiliar_ind = expresion_ind;} OP_MAYOR expresion          {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_MAYOR_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");printf("Comparacion Mayor\n");}
-           |          expresion {auxiliar_ind = expresion_ind;} OP_MENOR expresion          {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_MENOR_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");printf("Comparacion Menor\n");}
-           |          expresion {auxiliar_ind = expresion_ind;} OP_NOT expresion            {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_NOT_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");printf("Comparacion Distinto\n");}
+cond_simple:          expresion {auxiliar_ind = expresion_ind;} OP_COMP expresion           {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_COMP_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");}{char num_terceto_pun;num_terceto_pun = numeracion_terceto;apilar(&pila_condicion, &num_terceto_pun);}
+           |          expresion {auxiliar_ind = expresion_ind;} OP_MAY_IGU expresion        {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_MAY_IGU_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");printf("Comparacion Mayor-Igual\n");}{char num_terceto_pun;num_terceto_pun = numeracion_terceto;apilar(&pila_condicion, &num_terceto_pun);}
+           |          expresion {auxiliar_ind = expresion_ind;} OP_MEN_IGU expresion        {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_MEN_IGU_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");printf("Comparacion Menor-Igual\n");}{char num_terceto_pun;num_terceto_pun = numeracion_terceto;apilar(&pila_condicion, &num_terceto_pun);}
+           |          expresion {auxiliar_ind = expresion_ind;} OP_MAYOR expresion          {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_MAYOR_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");printf("Comparacion Mayor\n");}{char num_terceto_pun;num_terceto_pun = numeracion_terceto;apilar(&pila_condicion, &num_terceto_pun);}
+           |          expresion {auxiliar_ind = expresion_ind;} OP_MENOR expresion          {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_MENOR_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);printf("Comparacion Igual\n");printf("Comparacion Menor\n");}{char num_terceto_pun;num_terceto_pun = numeracion_terceto;apilar(&pila_condicion, &num_terceto_pun);}
+           |          expresion {auxiliar_ind = expresion_ind;} OP_NOT expresion            {crear_terceto(CMP, transformar_indice(auxiliar_ind), transformar_indice(expresion_ind), &numeracion_terceto, &lista_tercetos);expresion_ind=crear_terceto(obtener_branch(OP_NOT_), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Comparacion Igual\n");printf("Comparacion Distinto\n");}{char num_terceto_pun;num_terceto_pun = numeracion_terceto;apilar(&pila_condicion, &num_terceto_pun);}
            ;
 
 operador_algebraico:  OP_SUMA                               {printf("Operador Suma\n");}

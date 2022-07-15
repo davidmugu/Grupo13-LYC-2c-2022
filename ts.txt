@@ -7,7 +7,10 @@
 |_1                       |CONST_INT       |1                             |0         |
 |_2                       |CONST_INT       |2                             |0         |
 |_3                       |CONST_INT       |3                             |0         |
+|_52                      |CONST_INT       |52                            |0         |
 |_6                       |CONST_INT       |6                             |0         |
+|_Hola                    |CONST_STRING    |Hola                          |4         |
+|_condicion               |CONST_STRING    |condicion                     |9         |
 |a                        |INT             |                              |0         |
 |b                        |INT             |                              |0         |
 |c                        |INT             |                              |0         |

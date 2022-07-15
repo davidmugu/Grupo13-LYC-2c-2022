@@ -5,6 +5,7 @@ g, h, i : STRING
 ENDDEC;
 
 a:=1;
+
 b:=2;
 c:= 1+2;
 
@@ -13,7 +14,7 @@ read g;
 
 WHILE ( a < 6) {
     a := a+1;
-    write Hola;
+    write "Hola";
     c := 0; 
     WHILE ( c < 3) {
         write c;
@@ -21,3 +22,7 @@ WHILE ( a < 6) {
         } ENDWHILE ;
 } ENDWHILE;
 
+IF ( a < 52 )
+{
+	write "condicion";
+}ENDIF;
