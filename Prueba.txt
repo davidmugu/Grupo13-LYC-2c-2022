@@ -5,5 +5,5 @@ ENDDEC;
 a:=1;
 
 WHILE ( a < 6) {
-    write Hola; 
+    write "Hola"; 
 } ENDWHILE;

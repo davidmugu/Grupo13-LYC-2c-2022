@@ -6,8 +6,9 @@ include macros2.asm
 .STACK 200h
 
 .DATA
-_1                                 	dd	1
-_6                                 	dd	6
+_1                                 	dd	1.00
+_6                                 	dd	6.00
+_Hola                              	db	Hola                               , '$', 4 dup (?)
 a                                  	dd	?
 
 .CODE
@@ -27,9 +28,9 @@ FSTSW AX
 SAHF
 FFREE
 JNB _ET_9
-DisplayFloat Hola, 2
+DisplayString _Hola
 newline 1
-JMP _ET_6
+JMP _ET_2
 _ET_9:
 
 MOV EAX, 4C00H

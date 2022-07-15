@@ -64,7 +64,7 @@ void generar_declaraciones(FILE *pf, const Lista *pl)
 	while(*pl)
     {
 		if(es_constante((*pl)->nombre))
-		{
+		{	
 			if(strcmp((*pl)->tipoDato, LEXICO_TIPO_STRING) == 0)
 			{
 				fprintf(pf, "%-35s\t%-2s\t%-35s, \'$\', %d dup (?)\n",(*pl)->nombre, PRECISION_STRING, (*pl)->valor, (*pl)->longitud);

@@ -138,7 +138,7 @@ tipo_dato:            INT                                   {printf("Regla - tip
          ;
 
 asig:                 VARIABLE OP_ASIG expresion            {asig_ind = crear_terceto(SIGNO_IGUAL,$1,transformar_indice(expresion_ind),&numeracion_terceto, &lista_tercetos);printf("Regla - Sentencia de Asignacion por Expresion\n");} 
-    |                 VARIABLE OP_ASIG CONST_STRING         {char aux [] = "_";strcat(aux,$3); asig_ind = crear_terceto(SIGNO_IGUAL, $1, aux, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
+    |                 VARIABLE OP_ASIG CONST_STRING         {char aux [] = "_";strcat(aux,eliminarCaracter($3)); asig_ind = crear_terceto(SIGNO_IGUAL, $1, aux, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Asignacion por String\n");insertarString(&tablaSimbolos, $3);} 
     ;
 
 between:              BETWEEN PARENTESIS_A VARIABLE COMA CORCHETE_A expresion PUNTO_COMA expresion CORCHETE_C PARENTESIS_C        {printf("Regla - Sentencia de Between\n");}  
@@ -155,7 +155,7 @@ lista_cte:            CONST_INT                                   {printf("Regla
          ;            
 
 write:                WRITE VARIABLE                        {write_ind = crear_terceto(FUNCION_WRITE, $2, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: VARIABLE\n");}   
-     |                WRITE CONST_STRING                    {char aux [] = "_";strcat(aux,$2);write_ind = crear_terceto(FUNCION_WRITE, aux, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, $2);}
+     |                WRITE CONST_STRING                    {char aux [] = "_";strcat(aux,eliminarCaracter($2));write_ind = crear_terceto(FUNCION_WRITE, aux, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_STRING"); insertarString(&tablaSimbolos, $2);}
      |                WRITE CONST_INT                      {char aux [] = "_";strcat(aux,$2);write_ind = crear_terceto(FUNCION_WRITE, aux, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia de Write: CONST_INT\n"); insertarEntero(&tablaSimbolos, $2);}
      ; 
 
@@ -169,7 +169,7 @@ crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &num
 num_terceto_pun = numeracion_terceto;
 
 printf("NUM: %d \n",num_terceto_pun);
-//apilar(&pila_condicion, &num_terceto_pun);
+apilar(&pila_condicion, &num_terceto_pun);
 
 }
 condicion {char num_terceto_pun;num_terceto_pun = numeracion_terceto;apilar(&pila_condicion, &num_terceto_pun);}LLAVE_A sentencia LLAVE_C ENDWHILE          {
@@ -179,7 +179,6 @@ condicion {char num_terceto_pun;num_terceto_pun = numeracion_terceto;apilar(&pil
     while(!pilaVacia(&pila_condicion))
     {
         desapilar(&pila_condicion, &aux);
-        printf("AUX: %d \n",aux);
         cambiar_elemento(&lista_tercetos, aux, transformar_indice(numeracion_terceto + 2), SEGUNDO_ELEMENTO);
     }
     
