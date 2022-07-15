@@ -96,7 +96,7 @@ programa:             prog                                  {generar_assembler("
 prog:                 sentencia                             {prog_ind = sentencia_ind; printf("Regla - Prog\n");} //
     ;
 
-sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = crear_terceto(transformar_indice(sentencia_ind),transformar_indice(grammar_ind),SIGNO_VACIO,&numeracion_terceto, &lista_tercetos); printf("Regla - Sentencia Recursiva\n");}
+sentencia:            sentencia grammar PUNTO_COMA          {sentencia_ind = grammar_ind; /*crear_terceto(transformar_indice(sentencia_ind),transformar_indice(grammar_ind),SIGNO_VACIO,&numeracion_terceto, &lista_tercetos); */printf("Regla - Sentencia Recursiva\n");}
          |            grammar PUNTO_COMA                    {sentencia_ind = grammar_ind; printf("Regla - Sentencia Corte\n");}
          ;
 
@@ -166,17 +166,20 @@ while:                WHILE {
 
 char num_terceto_pun;
 crear_terceto(crear_etiqueta(numeracion_terceto), SIGNO_VACIO, SIGNO_VACIO, &numeracion_terceto, &lista_tercetos);
-num_terceto_pun = numeracion_terceto+0;
-apilar(&pila_condicion, &num_terceto_pun);
+num_terceto_pun = numeracion_terceto;
+
+printf("NUM: %d \n",num_terceto_pun);
+//apilar(&pila_condicion, &num_terceto_pun);
 
 }
-condicion LLAVE_A sentencia LLAVE_C ENDWHILE          {
+condicion {char num_terceto_pun;num_terceto_pun = numeracion_terceto;apilar(&pila_condicion, &num_terceto_pun);}LLAVE_A sentencia LLAVE_C ENDWHILE          {
     
-    char aux, cant_desapilar, i;
-    desapilar(&pila_condicion, &cant_desapilar);
-    for(i = 0; i < cant_desapilar; i++)
+    int i;
+    char aux, cant_desapilar;
+    while(!pilaVacia(&pila_condicion))
     {
         desapilar(&pila_condicion, &aux);
+        printf("AUX: %d \n",aux);
         cambiar_elemento(&lista_tercetos, aux, transformar_indice(numeracion_terceto + 2), SEGUNDO_ELEMENTO);
     }
     
